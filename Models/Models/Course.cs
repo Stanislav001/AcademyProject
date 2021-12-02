@@ -13,7 +13,5 @@ namespace Models.Models
         public double Price { get; set; }
         public List<Manager> Managers { get; set; }
         public List<User> Users { get; set; }
-
-
     }
 }
