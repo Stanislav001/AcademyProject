@@ -33,7 +33,7 @@ namespace Services.Implementation
             return await courses;
         }
 
-        // Add course
+        // Create course
         public async Task AddCourse(CourseViewModel course)
         {
             var courseDb = new Course();
@@ -51,8 +51,65 @@ namespace Services.Implementation
             }
             else
             {
-                Console.WriteLine("Eror!");
+                Console.WriteLine("Eror. You can create course with null title");
             }
+        }
+
+        // Add Post
+        public async Task AddPost (PostViewModel post)
+        {
+            var postDb = new Post();
+
+            postDb.Id = Guid.NewGuid().ToString();
+            postDb.Title = post.Title;
+            postDb.Context = post.Context;
+
+            if (post.Title!=null && post.Context!=null)
+            {
+                dbContext.Add(postDb);
+                await dbContext.SaveChangesAsync();
+            }
+            else
+            {
+                Console.WriteLine("Eror. You can create post with null title or null context");
+            }
+        }
+
+        // Update course by id
+        public CourseViewModel UpdateCourseById(string id)
+        {
+            CourseViewModel course = this.dbContext.Courses
+                .Select(course => new CourseViewModel
+                {
+                    Title = course.Title,
+                    Context = course.Context,
+                    Duration = course.Duration,
+                    Price = course.Price,
+                    Id = course.Id
+                })
+                .SingleOrDefault(m => m.Id == id);
+
+            return course;
+        }
+
+        public async Task UpdateCourse(CourseViewModel model)
+        {
+            Course course = this.dbContext.Courses
+                .Find(model.Id);
+
+            bool isCourseNull = course == null;
+            if (isCourseNull)
+            {
+                return;
+            }
+
+            course.Title = model.Title;
+            course.Duration = model.Duration;
+            course.Price = model.Price;
+            course.Context = model.Context;
+
+            this.dbContext.Courses.Update(course);
+            await this.dbContext.SaveChangesAsync();
         }
     }
 }
