@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Models.Interfaces;
+using System;
 
 namespace Models.Base
 {
-    public class BaseModel
+    public class BaseModel : IAuditInfo
     {
         public BaseModel()
         {

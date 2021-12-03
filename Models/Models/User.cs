@@ -12,6 +12,5 @@ namespace Models.Models
         public List<Post> Posts { get; set; }
         public List<Comment> Coments { get; set; }
 
-
     }
 }

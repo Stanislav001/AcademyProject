@@ -1,22 +1,29 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Services.ViewModels
+namespace AcademyProject.Models.Courses.BindingModels
 {
-    public class CourseViewModel
+    public class UpdateCoursesBindingModel
     {
+        [Key]
         public string Id { get; set; }
+
+        [Required]
         public string CourseName { get; set; }
+
+        [Required]
+        [DisplayName("course")]
+        public string CourseId { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
         public string Duration { get; set; }
+
         public string ImageName { get; set; }
 
+        [DisplayName("Upload image")]
         [NotMapped]
         public IFormFile ImageFile { get; set; }
-        public List<TeacherViewModel> Teachers { get; set; }
-        public List<StudentViewModel> Students { get; set; }
-        public ManagerViewModel Manager { get; set; }
     }
 }

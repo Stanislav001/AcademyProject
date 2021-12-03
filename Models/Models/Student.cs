@@ -1,26 +1,29 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿
+using Microsoft.AspNetCore.Http;
 using Models.Base;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Models.Models
 {
-    public class Manager: BaseModel
+    public class Student : BaseModel
     {
+        public string StudentNumber { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string LastName { get; set; }
-        public string Email { get; set; }
+        public int Year { get; set; }
+        public string City { get; set; }
         public string PhoneNumber { get; set; }
-        public decimal Salary { get; set; }
+        public string Email { get; set; }
+        public int CoursesNumber { get; set; }
         public string ImageName { get; set; }
+        public List<double> Grades;
 
         [NotMapped]
         public IFormFile ImageFile { get; set; }
         public List<Teacher> Teachers { get; set; }
-        public List<Student> Students { get; set; }
         public List<Course> Courses { get; set; }
+        public Manager Manager { get; set; }
     }
 }

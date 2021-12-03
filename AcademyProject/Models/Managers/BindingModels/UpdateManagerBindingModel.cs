@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Models.Base;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Models.Models
+namespace AcademyProject.Models.Managers.BindingModels
 {
-    public class Manager: BaseModel
+    public class UpdateManagerBindingModel
     {
+        public string Id { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string LastName { get; set; }
@@ -19,8 +20,5 @@ namespace Models.Models
 
         [NotMapped]
         public IFormFile ImageFile { get; set; }
-        public List<Teacher> Teachers { get; set; }
-        public List<Student> Students { get; set; }
-        public List<Course> Courses { get; set; }
     }
 }
