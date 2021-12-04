@@ -4,6 +4,6 @@ namespace AcademyProject.Controllers
 {
     public class CourseController : Controller
     {
-
+       
     }
 }
