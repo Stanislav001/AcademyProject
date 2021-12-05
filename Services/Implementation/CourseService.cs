@@ -13,6 +13,7 @@ namespace Services.Implementation
     public class CourseService
     {
         private const string IMAGE_FOLDET_NAME = "/ImageFromCourses";
+        
         private readonly ApplicationDbContext dbContext;
         private readonly IWebHostEnvironment hostEnvironment;
 
@@ -23,22 +24,22 @@ namespace Services.Implementation
             this.hostEnvironment = hostEnvironment;
         }
 
-        public IEnumerable<CourseViewModel> GetAll(string id)
+        public IEnumerable<CourseViewModel> GetAll()
         {
-            IEnumerable<CourseViewModel> course = this.dbContext.Courses
-               .Select(course => new CourseViewModel
-               {
-                   Id = course.Id,
-                   CourseName = course.CourseName,
-                   Duration = course.Duration,
-                   Description = course.Description,
-                   ImageName = course.ImageName,
-                   ImageFile = course.ImageFile,
-                   Price = course.Price
-               })
-               .ToList();
-            return course;
-        }
+            IEnumerable<CourseViewModel> courses = this.dbContext.Courses
+                .Select(courses => new CourseViewModel
+                {
+                    Id = courses.Id,
+                    CourseName = courses.CourseName,
+                    Description = courses.Description,
+                    ImageName = courses.ImageName,
+                    Duration = courses.Duration,
+                    ImageFile = courses.ImageFile,
+                    Price = courses.Price
+                }).ToList();
+
+            return courses;
+        }                                          
 
         public CourseViewModel GetDetailsById(string id)
         {
@@ -47,40 +48,59 @@ namespace Services.Implementation
                 {
                     Id = course.Id,
                     CourseName = course.CourseName,
-                    Duration = course.Duration,
                     Description = course.Description,
-                    ImageName = course.ImageName,
+                    Price = course.Price,
+                    Duration = course.Duration,
                     ImageFile = course.ImageFile,
-                    Price = course.Price
-                }).SingleOrDefault(x => x.Id == id);
+                    ImageName = course.ImageName
+                }).SingleOrDefault(course => course.Id == id);
+
+            return course;
+        }
+
+        public IEnumerable<CourseViewModel> GetByName()
+        {
+            IEnumerable<CourseViewModel> course = this.dbContext.Courses
+                .Select(course => new CourseViewModel
+                {
+                    Id = course.Id,
+                    CourseName = course.CourseName,
+                    Description = course.Description,
+                    Duration = course.Duration,
+                    Price = course.Price,
+                    ImageFile = course.ImageFile,
+                    ImageName = course.ImageName
+                }).OrderBy(course => course.CourseName).ToList();
+
             return course;
         }
 
         public Course GetByModelName(string modelName)
         {
             Course courseDb = this.dbContext.Courses
-                .SingleOrDefault(x => x.CourseName == modelName);
+                .SingleOrDefault(course => course.ImageName == modelName);
+
             return courseDb;
         }
 
         public async Task CreateAsync(CourseViewModel model)
         {
             Course course = new Course();
-
+            course.Id = model.Id;
             course.CourseName = model.CourseName;
+            course.Price = model.Price;
             course.Description = model.Description;
             course.Duration = model.Duration;
-            course.Price = model.Price;
-            course.ImageFile = model.ImageFile;
             course.ImageName = model.ImageName;
+            course.ImageFile = model.ImageFile;
 
-            if (model.ImageFile != null)
+            if (model.ImageFile !=null)
             {
                 await SetImage(course);
             }
 
-            await dbContext.Courses.AddAsync(course);
-            await dbContext.SaveChangesAsync();
+            await this.dbContext.Courses.AddAsync(course);
+            await this.dbContext.SaveChangesAsync();
         }
 
         public CourseViewModel UpdateById(string id)
@@ -88,23 +108,21 @@ namespace Services.Implementation
             CourseViewModel course = this.dbContext.Courses
                 .Select(course => new CourseViewModel
                 {
+                    Id = course.Id,
                     CourseName = course.CourseName,
                     Description = course.Description,
                     Duration = course.Duration,
-                    ImageFile = course.ImageFile,
-                    ImageName = course.ImageName,
                     Price = course.Price,
-                    Id = course.Id
-                })
-                .SingleOrDefault(m => m.Id == id);
-
+                    ImageName = course.ImageName,
+                    ImageFile = course.ImageFile
+                }).SingleOrDefault(course => course.Id == id);
+            
             return course;
         }
 
         public async Task UpdateAsync(CourseViewModel model)
         {
-            Course course = this.dbContext.Courses
-                .Find(model.Id);
+            Course course = this.dbContext.Courses.Find(model.Id);
 
             bool isCourseNull = course == null;
             if (isCourseNull)
@@ -113,17 +131,16 @@ namespace Services.Implementation
             }
 
             course.CourseName = model.CourseName;
+            course.Description = model.Description;
             course.Duration = model.Duration;
             course.Price = model.Price;
-            course.Description = model.Description;
-            course.ImageFile = model.ImageFile;
             course.ImageName = model.ImageName;
+            course.ImageFile = model.ImageFile;
 
-            if (course.ImageName != null && model.ImageName == null)
+            if (course.ImageName != null && course.ImageName == null)
             {
                 model.ImageName = course.ImageName;
             }
-
             if (model.ImageFile != null)
             {
                 await SetImage(course);
@@ -133,21 +150,7 @@ namespace Services.Implementation
             await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(string id)
-        {
-            Course course = new Course();
-            course = this.dbContext.Courses
-                   .Find(id);
 
-            bool isCoursesNull = course == null;
-            if (isCoursesNull)
-            {
-                return;
-            }
-
-            this.dbContext.Courses.Remove(course);
-            await this.dbContext.SaveChangesAsync();
-        }
 
         public bool CheckIfCourseExist(string id)
         {
