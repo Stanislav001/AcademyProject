@@ -1,36 +1,58 @@
-﻿@model List<CourseViewModel>
+﻿@model IEnumerable<CourseViewModel>
 
-<table id="context" class="table table-bordered table-striped" style="width:100%">
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Price
-            </th>
-            <th>
-                Duration
-            </th>
-    </thead>
+@{ ViewData["Title"] = "All courses"; }
+
+    <div class="d-flex justify-content-between align-items-center" style="border-bottom: 1px solid white">
+        <h1>
+            All Courses
+        </h1>
+        <div>
+            <a class="btn btn-outline-danger" asp-action="Create">Create Course</a>
+        </div>
+    </div>
+<table class="table text-white mt-5">
     <tbody>
-        @foreach (var item in Model)
+        @if (Model.Count() == 0)
         {
-            <tr>
-                <td width="20%">@item.CourseName</td>
-                <td width="20%">@item.Description</td>
-                <td width="20%">@item.Price</td>
-                <td width="20%">@item.Duration</td>
-                <td>
-                    <a asp-controller="Course" asp-action="DeleteWorker" asp-route-id="@item.Id" class="btn btn-primary mx-1">Del</a>
-                </td>
-            </tr>
+            <div class="pt-5 text-center">
+                <h3 style="color: red">No courses available for display!</h3>
+            </div>
         }
+@foreach (CourseViewModel course in Model)
+{
+<tr>
+    <td>
+        <div class="chapter-form">
+            <div class="chapter-image-form">
+                @if (course.ImageName == null)
+                {
+                    <a asp-controller="Course" asp-action="Details" asp-route-id="@course.Id">
+                     <img src="~/Img/default-image.png" style="width: 180px; height: 105px" />
+                    </a>
+                 }
+                 else
+                 {
+                        <a asp-controller="Course" asp-action="Details" asp-route-id="@course.Id">
+                        <img alt="Image not found" src="@("~/ImageForCourse/"+course.ImageName)" asp-append-version="true" style="width: 180px; height: 105px" />
+                        </a>
+                 }
+            </div>
+            <div class="chapter-info">
+                <div class="chapter-title">
+                    Course name: <span>@course.CourseName</span>
+                </div>
+                <div class="pt-5">
+                    <a class="options-bar" asp-controller="Course" asp-action="Details" asp-route-id="@course.Id">
+                        <span>Details</span>
+                    </a>
+                        <span>|</span>
+                        <a class="options-bar" asp-controller="Course" asp-action="Update" asp-route-id="@course.Id">
+                            Update
+                        </a>
+                </div>
+            </div>
+        </div>
+    </td>
+</tr>}
     </tbody>
 </table>
-<div>
-    <a asp-controller="Course" asp-action="AddWorker" class="btn btn-primary mx-1">Добавете нов потребител</a>
-</div>

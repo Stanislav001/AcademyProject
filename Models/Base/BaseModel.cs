@@ -1,9 +1,8 @@
-﻿using Models.Interfaces;
-using System;
+﻿using System;
 
 namespace Models.Base
 {
-    public class BaseModel : IAuditInfo
+    public class BaseModel 
     {
         public BaseModel()
         {

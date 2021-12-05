@@ -1,6 +1,7 @@
 ﻿using Date;
 using Microsoft.AspNetCore.Hosting;
 using Models.Models;
+using Services.Interfaces;
 using Services.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,9 @@ using System.Threading.Tasks;
 
 namespace Services.Implementation
 {
-    public class CourseService
+    public class CourseService : ICourseService
     {
-        private const string IMAGE_FOLDET_NAME = "/ImageFromCourses";
-        
+        private const string IMAGE_FOLDER_NAME = "/ImageForCourse";
         private readonly ApplicationDbContext dbContext;
         private readonly IWebHostEnvironment hostEnvironment;
 
@@ -31,11 +31,7 @@ namespace Services.Implementation
                 {
                     Id = courses.Id,
                     CourseName = courses.CourseName,
-                    Description = courses.Description,
                     ImageName = courses.ImageName,
-                    Duration = courses.Duration,
-                    ImageFile = courses.ImageFile,
-                    Price = courses.Price
                 }).ToList();
 
             return courses;
@@ -86,7 +82,8 @@ namespace Services.Implementation
         public async Task CreateAsync(CourseViewModel model)
         {
             Course course = new Course();
-            course.Id = model.Id;
+
+            course.Id = Guid.NewGuid().ToString();
             course.CourseName = model.CourseName;
             course.Price = model.Price;
             course.Description = model.Description;
@@ -108,13 +105,11 @@ namespace Services.Implementation
             CourseViewModel course = this.dbContext.Courses
                 .Select(course => new CourseViewModel
                 {
-                    Id = course.Id,
-                    CourseName = course.CourseName,
-                    Description = course.Description,
-                    Duration = course.Duration,
-                    Price = course.Price,
-                    ImageName = course.ImageName,
-                    ImageFile = course.ImageFile
+                   Id = course.Id,
+                   CourseName = course.CourseName,
+                   Description = course.Description,
+                   Price = course.Price,
+                   Duration = course.Duration
                 }).SingleOrDefault(course => course.Id == id);
             
             return course;
@@ -150,7 +145,20 @@ namespace Services.Implementation
             await this.dbContext.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(string id)
+        {
+            Course course = new Course();
+            course = this.dbContext.Courses.Find(id);
 
+            bool isCourseNull = course == null;
+            if (isCourseNull)
+            {
+                return;
+            }
+
+            this.dbContext.Courses.Remove(course);
+            await this.dbContext.SaveChangesAsync();
+        }
 
         public bool CheckIfCourseExist(string id)
         {
@@ -169,7 +177,7 @@ namespace Services.Implementation
             string fileName = Path.GetFileNameWithoutExtension(course.ImageFile.FileName);
             string exension = Path.GetExtension(course.ImageFile.FileName);
             course.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + exension;
-            string path = Path.Combine(wwwRootPath + IMAGE_FOLDET_NAME, fileName);
+            string path = Path.Combine(wwwRootPath + IMAGE_FOLDER_NAME, fileName);
 
             using (var fileStream = new FileStream(path, FileMode.Create))
             {

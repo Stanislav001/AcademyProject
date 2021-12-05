@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Models.Models;
-using Services.Implementation;
+using Services.Interfaces;
 using Services.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +10,9 @@ namespace AcademyProject.Controllers
 {
     public class CourseController : Controller
     {
-       public CourseService courseService { get; set; }
+       public ICourseService courseService { get; set; }
 
-        public CourseController(CourseService service)
+        public CourseController(ICourseService service)
         {
             courseService = service;
         }
@@ -49,6 +49,8 @@ namespace AcademyProject.Controllers
             {
                 return this.RedirectToAction("index");
             }
+
+            ViewBag.courses = courses;
 
             return this.View();
         }
@@ -93,6 +95,14 @@ namespace AcademyProject.Controllers
             }
 
             await this.courseService.UpdateAsync(model);
+
+            return this.RedirectToAction("index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            await this.courseService.DeleteAsync(id);
 
             return this.RedirectToAction("index");
         }

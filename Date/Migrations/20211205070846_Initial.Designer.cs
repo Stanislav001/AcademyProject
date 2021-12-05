@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Date.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211201165422_initial")]
-    partial class initial
+    [Migration("20211205070846_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,34 +51,34 @@ namespace Date.Migrations
                     b.ToTable("CommentUser");
                 });
 
-            modelBuilder.Entity("CourseManager", b =>
+            modelBuilder.Entity("CourseStudent", b =>
                 {
                     b.Property<string>("CoursesId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ManagersId")
+                    b.Property<string>("StudentsId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("CoursesId", "ManagersId");
+                    b.HasKey("CoursesId", "StudentsId");
 
-                    b.HasIndex("ManagersId");
+                    b.HasIndex("StudentsId");
 
-                    b.ToTable("CourseManager");
+                    b.ToTable("CourseStudent");
                 });
 
-            modelBuilder.Entity("CourseUser", b =>
+            modelBuilder.Entity("CourseTeacher", b =>
                 {
                     b.Property<string>("CoursesId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("UsersId")
+                    b.Property<string>("TeachersId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("CoursesId", "UsersId");
+                    b.HasKey("CoursesId", "TeachersId");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("TeachersId");
 
-                    b.ToTable("CourseUser");
+                    b.ToTable("CourseTeacher");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -106,6 +106,20 @@ namespace Date.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "f593f880-9bcf-4b40-8a0e-c02648f580ff",
+                            ConcurrencyStamp = "9a3f49fc-6d6d-4b22-8456-aa77cef11e79",
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = "03532a7f-c33f-4a9e-a286-d8d79aa07953",
+                            ConcurrencyStamp = "8a92ee5a-b4e2-4a22-95ef-4061af0b5ad9",
+                            Name = "User"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -230,19 +244,32 @@ namespace Date.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Context")
+                    b.Property<string>("CourseName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Duration")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Title")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Duration")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ManagerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ManagerId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Courses");
                 });
@@ -252,29 +279,26 @@ namespace Date.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Experience")
-                        .HasColumnType("int");
-
                     b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Male")
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("Salary")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<double>("Salary")
-                        .HasColumnType("float");
+                    b.Property<string>("SecondName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -295,6 +319,105 @@ namespace Date.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("Models.Models.Student", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CoursesNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ManagerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecondName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ManagerId");
+
+                    b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("Models.Models.Teacher", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CoursesNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Education")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Experience")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ManagerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Position")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Salary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("SecondName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TeacherNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ManagerId");
+
+                    b.ToTable("Teachers");
                 });
 
             modelBuilder.Entity("Models.Models.User", b =>
@@ -380,6 +503,21 @@ namespace Date.Migrations
                     b.ToTable("PostUser");
                 });
 
+            modelBuilder.Entity("StudentTeacher", b =>
+                {
+                    b.Property<string>("StudentsId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("TeachersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("StudentsId", "TeachersId");
+
+                    b.HasIndex("TeachersId");
+
+                    b.ToTable("StudentTeacher");
+                });
+
             modelBuilder.Entity("CommentPost", b =>
                 {
                     b.HasOne("Models.Models.Comment", null)
@@ -410,7 +548,7 @@ namespace Date.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CourseManager", b =>
+            modelBuilder.Entity("CourseStudent", b =>
                 {
                     b.HasOne("Models.Models.Course", null)
                         .WithMany()
@@ -418,14 +556,14 @@ namespace Date.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.Models.Manager", null)
+                    b.HasOne("Models.Models.Student", null)
                         .WithMany()
-                        .HasForeignKey("ManagersId")
+                        .HasForeignKey("StudentsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CourseUser", b =>
+            modelBuilder.Entity("CourseTeacher", b =>
                 {
                     b.HasOne("Models.Models.Course", null)
                         .WithMany()
@@ -433,9 +571,9 @@ namespace Date.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.Models.User", null)
+                    b.HasOne("Models.Models.Teacher", null)
                         .WithMany()
-                        .HasForeignKey("UsersId")
+                        .HasForeignKey("TeachersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -491,6 +629,37 @@ namespace Date.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Models.Models.Course", b =>
+                {
+                    b.HasOne("Models.Models.Manager", "Manager")
+                        .WithMany("Courses")
+                        .HasForeignKey("ManagerId");
+
+                    b.HasOne("Models.Models.User", null)
+                        .WithMany("Courses")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Manager");
+                });
+
+            modelBuilder.Entity("Models.Models.Student", b =>
+                {
+                    b.HasOne("Models.Models.Manager", "Manager")
+                        .WithMany("Students")
+                        .HasForeignKey("ManagerId");
+
+                    b.Navigation("Manager");
+                });
+
+            modelBuilder.Entity("Models.Models.Teacher", b =>
+                {
+                    b.HasOne("Models.Models.Manager", "Manager")
+                        .WithMany("Teachers")
+                        .HasForeignKey("ManagerId");
+
+                    b.Navigation("Manager");
+                });
+
             modelBuilder.Entity("PostUser", b =>
                 {
                     b.HasOne("Models.Models.Post", null)
@@ -504,6 +673,35 @@ namespace Date.Migrations
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("StudentTeacher", b =>
+                {
+                    b.HasOne("Models.Models.Student", null)
+                        .WithMany()
+                        .HasForeignKey("StudentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.Models.Teacher", null)
+                        .WithMany()
+                        .HasForeignKey("TeachersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Models.Models.Manager", b =>
+                {
+                    b.Navigation("Courses");
+
+                    b.Navigation("Students");
+
+                    b.Navigation("Teachers");
+                });
+
+            modelBuilder.Entity("Models.Models.User", b =>
+                {
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

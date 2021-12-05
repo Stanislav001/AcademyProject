@@ -1,9 +1,13 @@
+using Date;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Services.Implementation;
+using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +28,11 @@ namespace AcademyProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddTransient<ApplicationDbContext>();
+
+
+            RegisterDatabaseServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +61,10 @@ namespace AcademyProject
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+        private static void RegisterDatabaseServices(IServiceCollection services)
+        {
+            services.AddScoped<ICourseService, CourseService>();
         }
     }
 }
