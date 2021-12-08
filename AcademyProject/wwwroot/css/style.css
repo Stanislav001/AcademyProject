@@ -1,5 +1,4 @@
 
-
 /*--------------------------------------------------------------------- File Name: style.css ---------------------------------------------------------------------*/
 
 
@@ -229,16 +228,6 @@ button {
 
 /* header section start */
 
-.header_section {
-    width: 100%;
-    float: left;
-    height: auto;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    padding-top: 20px;
-}
-
-
 .navbar {
     padding: 1rem 1rem;
 }
@@ -307,25 +296,18 @@ button {
 .banner_section {
     width: 100%;
     float: left;
+    background-color:blue;
 }
 
 .banner_taital_main {
     width: 100%;
     float: left;
-    color: black;
-}
-
-.banner_taital {
-    width: 100%;
-    float: left;
-    font-size: 50px;
-    font-weight: bold;
-    color: black;
 }
 .banner_text {
     width: 100%;
     float: left;
     font-size: 16px;
+    color: black;
     margin: 0px;
 }
 
@@ -387,7 +369,7 @@ button {
     left: 20px;
     top: 20%;
     background-color: #fff;
-    color: black;
+    color: #000;
 }
 
 #my_slider a.carousel-control-next {
@@ -402,7 +384,7 @@ button {
     background: #fff;
     opacity: 1;
     font-size: 30px;
-    color: black;
+    color: #000;
     border-radius: 100%;
 }
 
@@ -411,7 +393,7 @@ button {
 #my_slider .carousel-control-prev:focus,
 #my_slider .carousel-control-next:focus {
     background: #fff;
-    color: black;
+    color: #000;
 }
 
 
@@ -481,17 +463,6 @@ button {
     -ms-transform: translate(-50%, -50%);
     text-align: center;
     z-index: 5;
-}
-
-.image_main:hover .image_8 {
-    opacity: ;
-}
-
-.image_main:hover .text_main {
-    opacity: 5;
-}
-.image_main:hover .seemore_text {
-    color: #ffffff;
 }
 
 .seemore_text {
@@ -746,15 +717,6 @@ button {
 }
 
 
-
-
-
-
-
-
-
-
-
 #main_slider a.carousel-control-prev {
     position: absolute;
     left: 0px;
@@ -771,10 +733,9 @@ button {
 #main_slider .carousel-control-next {
     width: 65px;
     height: 65px;
-    background: #ffffff;
     opacity: 1;
     font-size: 30px;
-    color: black;
+    color: #000;
     border-radius: 100%;
 }
 
@@ -783,7 +744,7 @@ button {
 #main_slider .carousel-control-prev:focus,
 #main_slider .carousel-control-next:focus {
     background: #fcce2d;
-    color: black;
+    color: #fff;
 }
 
 /* client section end */
