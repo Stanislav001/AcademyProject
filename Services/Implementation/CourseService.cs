@@ -32,6 +32,10 @@ namespace Services.Implementation
                     Id = courses.Id,
                     CourseName = courses.CourseName,
                     ImageName = courses.ImageName,
+                    Description = courses.Description,
+                    Duration = courses.Duration,
+                    ImageFile = courses.ImageFile,
+                    Price = courses.Price
                 }).ToList();
 
             return courses;

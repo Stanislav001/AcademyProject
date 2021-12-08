@@ -38,7 +38,12 @@ namespace AcademyProject.Controllers
             }
             return this.View(course);
         }
-
+        [HttpGet]
+        public async Task<IActionResult> GetCourseById(string id)
+        {
+            CourseViewModel result =  courseService.GetDetailsById(id);
+            return View("_CoursePartial", result);
+        }
         [HttpGet]
         public IActionResult Create()
         {

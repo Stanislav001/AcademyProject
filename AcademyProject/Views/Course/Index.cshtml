@@ -1,58 +1,54 @@
 ﻿@model IEnumerable<CourseViewModel>
+<html>
+<head>
+    @{ ViewData["Title"] = "Courses"; }
+</head>
 
-@{ ViewData["Title"] = "All courses"; }
+<style>
+    .container{
+        display:inline-block;
+    }
+    .movieCard {
+        display: inline-block;
+        text-align: center;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 600px;
+        max-height: 800px;
+        margin-left: 2%;
+        margin-top: 3%;
+        font-family: arial;
+    }
 
-    <div class="d-flex justify-content-between align-items-center" style="border-bottom: 1px solid white">
-        <h1>
-            All Courses
-        </h1>
-        <div>
-            <a class="btn btn-outline-danger" asp-action="Create">Create Course</a>
-        </div>
+    .movieCard:hover {
+        transform: translateY(-30px);
+    }
+
+    .cardPhoto {
+        width: 300px;
+        height: 300px;
+    }
+
+    .movieCard h1, p {
+        color: black;
+    }
+
+</style>
+<body>
+    <a class="btn btn-outline-danger" asp-action="Create">Create Course</a>
+
+
+<div class="container">
+    @foreach (var item in Model)
+    {
+    <div class="movieCard">
+        <img class="cardPhoto" src="@("~/ImageForCourse/" + item.ImageName)" asp-append-version="true" />
+        <h1>@item.CourseName</h1>
+        <p>Price: @item.Price</p>
+        <p>Duration: @item.Duration months</p>
+        <a asp-controller="Course" asp-action="GetCourseById" asp-route-id="@item.Id" class="btn btn-primary mx-1">Read More</a>
     </div>
-<table class="table text-white mt-5">
-    <tbody>
-        @if (Model.Count() == 0)
-        {
-            <div class="pt-5 text-center">
-                <h3 style="color: red">No courses available for display!</h3>
-            </div>
-        }
-@foreach (CourseViewModel course in Model)
-{
-<tr>
-    <td>
-        <div class="chapter-form">
-            <div class="chapter-image-form">
-                @if (course.ImageName == null)
-                {
-                    <a asp-controller="Course" asp-action="Details" asp-route-id="@course.Id">
-                     <img src="~/Img/default-image.png" style="width: 180px; height: 105px" />
-                    </a>
-                 }
-                 else
-                 {
-                        <a asp-controller="Course" asp-action="Details" asp-route-id="@course.Id">
-                        <img alt="Image not found" src="@("~/ImageForCourse/"+course.ImageName)" asp-append-version="true" style="width: 180px; height: 105px" />
-                        </a>
-                 }
-            </div>
-            <div class="chapter-info">
-                <div class="chapter-title">
-                    Course name: <span>@course.CourseName</span>
-                </div>
-                <div class="pt-5">
-                    <a class="options-bar" asp-controller="Course" asp-action="Details" asp-route-id="@course.Id">
-                        <span>Details</span>
-                    </a>
-                        <span>|</span>
-                        <a class="options-bar" asp-controller="Course" asp-action="Update" asp-route-id="@course.Id">
-                            Update
-                        </a>
-                </div>
-            </div>
-        </div>
-    </td>
-</tr>}
-    </tbody>
-</table>
+    }
+</div>
+
+</body>
+</html>
