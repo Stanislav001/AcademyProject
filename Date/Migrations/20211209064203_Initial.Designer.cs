@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Date.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211209055514_Initial")]
+    [Migration("20211209064203_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,14 +110,14 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0a66a7ea-6bcc-4e44-9b50-f9d3904deeee",
-                            ConcurrencyStamp = "acc85061-7bf3-4d6a-813e-38b510fcb43e",
+                            Id = "32670cf8-4c2c-4d45-ae6e-e9cda1ff160e",
+                            ConcurrencyStamp = "70f7d218-c5ba-4e62-a25e-de31639b9038",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "c343a64c-115c-4dd4-ae05-4455b756a8b3",
-                            ConcurrencyStamp = "e78725ec-fcf5-405a-aca8-cbce6e44a1e7",
+                            Id = "7abac888-6b19-4fc4-a219-98db17ba2178",
+                            ConcurrencyStamp = "b154a960-9672-4fd3-a6cd-800ab6dfe45e",
                             Name = "User"
                         });
                 });
@@ -467,6 +467,9 @@ namespace Date.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Profession")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");

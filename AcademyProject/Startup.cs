@@ -75,6 +75,7 @@ namespace AcademyProject
         private static void RegisterDatabaseServices(IServiceCollection services)
         {
             services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<IUserService, UserService>();
         }
     }
 }

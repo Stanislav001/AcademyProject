@@ -1,6 +1,10 @@
 ﻿using AcademyProject.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Models.Models;
+using Services.Interfaces;
+using Services.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,7 +16,6 @@ namespace AcademyProject.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;

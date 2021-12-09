@@ -1,4 +1,6 @@
-﻿<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+﻿@model UserViewModel
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -49,14 +51,14 @@
         <div class="profile-info row ">
             <div class="profile-image ">
                 <a href="ui-profile.html">
-                    <img alt="" src="https://lh3.googleusercontent.com/-uwagl9sPHag/WM7WQa00ynI/AAAAAAAADso/ZGTVC0LVk1cFReheTbZzpGa2aawWyV8QACL0B/w140-d-h148-p-rw/profile-pic.jpg" class="img-circle img-inline class="img-responsive img-circle">
+                   
                 </a>
             </div>
             <div class="profile-details">
                 <h3>
-                    <a href="ui-profile.html">Shane Taylor</a>
+                    <a href="ui-profile.html">@Model.UserName</a>
                 </h3>
-                <p class="profile-title">Web Developer</p>
+                <p class="profile-title">@Model.Profession</p>
 
             </div>
         </div>

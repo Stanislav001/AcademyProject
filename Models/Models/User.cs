@@ -7,6 +7,7 @@ namespace Models.Models
 {
     public class User : IdentityUser
     {
+        public string Profession { get; set; }
         public string ImageName { get; set; }
 
         [NotMapped]
