@@ -1,7 +1,6 @@
 ﻿
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <p>Online Library</p>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
@@ -22,6 +21,10 @@
                         <li class="nav-item">
                             <a class="my-nav-link nav-link" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
                         </li>
+                        <li class="nav-item">
+                            <partial name="_LoginPartial" />
+                        </li>
+                       
                     </ul>
                 </div>
             </nav>

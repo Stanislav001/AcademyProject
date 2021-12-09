@@ -26,6 +26,7 @@ namespace Date.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -432,12 +433,12 @@ namespace Date.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "f593f880-9bcf-4b40-8a0e-c02648f580ff", "9a3f49fc-6d6d-4b22-8456-aa77cef11e79", "Admin", null });
+                values: new object[] { "0a66a7ea-6bcc-4e44-9b50-f9d3904deeee", "acc85061-7bf3-4d6a-813e-38b510fcb43e", "Admin", null });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "03532a7f-c33f-4a9e-a286-d8d79aa07953", "8a92ee5a-b4e2-4a22-95ef-4061af0b5ad9", "User", null });
+                values: new object[] { "c343a64c-115c-4dd4-ae05-4455b756a8b3", "e78725ec-fcf5-405a-aca8-cbce6e44a1e7", "User", null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

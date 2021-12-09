@@ -108,14 +108,14 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f593f880-9bcf-4b40-8a0e-c02648f580ff",
-                            ConcurrencyStamp = "9a3f49fc-6d6d-4b22-8456-aa77cef11e79",
+                            Id = "0a66a7ea-6bcc-4e44-9b50-f9d3904deeee",
+                            ConcurrencyStamp = "acc85061-7bf3-4d6a-813e-38b510fcb43e",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "03532a7f-c33f-4a9e-a286-d8d79aa07953",
-                            ConcurrencyStamp = "8a92ee5a-b4e2-4a22-95ef-4061af0b5ad9",
+                            Id = "c343a64c-115c-4dd4-ae05-4455b756a8b3",
+                            ConcurrencyStamp = "e78725ec-fcf5-405a-aca8-cbce6e44a1e7",
                             Name = "User"
                         });
                 });
@@ -439,6 +439,9 @@ namespace Date.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
