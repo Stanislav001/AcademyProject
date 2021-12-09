@@ -8,34 +8,22 @@
 <script src="https://use.fontawesome.com/07b0ce5d10.js"></script>
 
 <div class="page-topbar">
-    <div class="logo-area"> </div>
     <div class="quick-area">
-
         <ul class="pull-right info-menu user-info">
             <li class="profile">
                 <a href="#" data-toggle="dropdown" class="toggle" aria-expanded="false">
-                    <img src="https://lh3.googleusercontent.com/-uwagl9sPHag/WM7WQa00ynI/AAAAAAAADso/ZGTVC0LVk1cFReheTbZzpGa2aawWyV8QACL0B/w140-d-h148-p-rw/profile-pic.jpg" class="img-circle img-inline">
-                    <span>Taylor <i class="fa fa-angle-down"></i></span>
+                    <img class="cardPhoto" src="@("~/ImageForUser/" + Model.ImageName)" asp-append-version="true" />
+                    <span>@Model.UserName </span>
                 </a>
                 <ul class="dropdown-menu profile fadeIn ">
                     <li>
-                        <a href="#settings">
-                            <i class="fa fa-wrench"></i>
-                            Settings
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#profile">
-                            <i class="fa fa-user"></i>
+                        <a class="options-bar" asp-controller="User" asp-action="Details" asp-route-id="@Model.Id">
                             Profile
                         </a>
                     </li>
 
                     <li class="last">
-                        <a href="ui-login.html">
-                            <i class="fa fa-lock"></i>
-                            Sign Out
-                        </a>
+                        <a class="my-nav-link nav-link" asp-controller="Home" asp-action="Index">Sign Out</a>
                     </li>
                 </ul>
 

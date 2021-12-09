@@ -15,6 +15,13 @@ namespace AcademyProject.Controllers
         }
 
         [HttpGet]
+        public IActionResult Index(string id)
+        {
+            UserViewModel user = userService.GetDetailsById(id);
+            return View(user);
+        }
+
+        [HttpGet]
         public IActionResult Details(string id)
         {
             UserViewModel user = userService.GetDetailsById(id);
@@ -24,7 +31,7 @@ namespace AcademyProject.Controllers
             {
                 return this.RedirectToAction("index");
             }
-            return this.View(user);
+            return this.View("index" , user);
         }
 
         [HttpGet]
@@ -39,11 +46,10 @@ namespace AcademyProject.Controllers
         {
             UserViewModel user = this.userService.UpdateById(id);
 
-            return this.View(user);
+            return PartialView("UserPartials/_UpdateUserPartial", user);
         }
 
         [HttpPost]
-        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Update(UserViewModel model)
         {
             if (this.ModelState.IsValid == false)
@@ -53,7 +59,7 @@ namespace AcademyProject.Controllers
 
             await this.userService.UpdateAsync(model);
 
-            return this.RedirectToAction("index");
+            return RedirectToAction("index");
         }
     }
 }

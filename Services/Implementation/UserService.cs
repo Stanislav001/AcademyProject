@@ -57,7 +57,6 @@ namespace Services.Implementation
             return user;
         }
 
-
         public async Task UpdateAsync(UserViewModel model)
         {
             User user = this.dbContext.Users.Find(model.Id);
