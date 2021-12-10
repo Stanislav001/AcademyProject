@@ -35,19 +35,21 @@
 </style>
 <body>
     <a class="btn btn-outline-danger" asp-action="Create">Create Course</a>
-
-<div class="container">
-    @foreach (var item in Model)
-    {
-    <div class="movieCard">
-        <img class="cardPhoto" src="@("~/ImageForCourse/" + item.ImageName)" asp-append-version="true" />
-        <h1>@item.CourseName</h1>
-        <p>Price: @item.Price</p>
-        <p>Duration: @item.Duration months</p>
-        <a asp-controller="Course" asp-action="GetCourseById" asp-route-id="@item.Id" class="btn btn-primary mx-1">Read More</a>
+    <div class="container">
+        @foreach (var item in Model)
+        {
+        <div class="movieCard">
+            <img class="cardPhoto" src="@("~/ImageForCourse/" + item.ImageName)" asp-append-version="true" />
+            <h1>@item.CourseName</h1>
+            <p>Price: @item.Price</p>
+            <p>Duration: @item.Duration months</p>
+            <a asp-controller="Course" asp-action="GetCourseById" asp-route-id="@item.Id" class="btn btn-primary mx-1">Read More</a>
+            <a class="btn btn-outline-dangerr" asp-controller="Course" asp-action="Details" asp-route-id="@item.Id">Details</a>
+            <a class="btn btn-primary" asp-controller="Course" asp-action="Update" asp-route-id="@item.Id">Update</a>
+        </div>
+         
+         }
     </div>
-    }
-</div>
 
 </body>
 </html>

@@ -113,7 +113,9 @@ namespace Services.Implementation
                    CourseName = course.CourseName,
                    Description = course.Description,
                    Price = course.Price,
-                   Duration = course.Duration
+                   Duration = course.Duration,
+                   ImageFile = course.ImageFile,
+                   ImageName = course.ImageName
                 }).SingleOrDefault(course => course.Id == id);
             
             return course;

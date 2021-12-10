@@ -76,6 +76,7 @@ namespace AcademyProject
         {
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITeacherService, TeacherService>();
         }
     }
 }
