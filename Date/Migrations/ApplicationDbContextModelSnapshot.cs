@@ -108,14 +108,14 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "32670cf8-4c2c-4d45-ae6e-e9cda1ff160e",
-                            ConcurrencyStamp = "70f7d218-c5ba-4e62-a25e-de31639b9038",
+                            Id = "8bab9375-75a0-420f-b30a-0cf2ebb979b6",
+                            ConcurrencyStamp = "219d5008-cde5-42b6-bc97-1f9cb03e1006",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "7abac888-6b19-4fc4-a219-98db17ba2178",
-                            ConcurrencyStamp = "b154a960-9672-4fd3-a6cd-800ab6dfe45e",
+                            Id = "d425ee7f-0a07-4482-9a38-7bfa0d21cb38",
+                            ConcurrencyStamp = "740efc05-0948-48aa-aa33-788aa3548e2b",
                             Name = "User"
                         });
                 });
@@ -369,9 +369,6 @@ namespace Date.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("CoursesNumber")
-                        .HasColumnType("int");
-
                     b.Property<string>("Education")
                         .HasColumnType("nvarchar(max)");
 
@@ -403,9 +400,6 @@ namespace Date.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("SecondName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TeacherNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Year")

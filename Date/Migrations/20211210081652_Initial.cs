@@ -285,14 +285,12 @@ namespace Date.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TeacherNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SecondName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Education = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Year = table.Column<int>(type: "int", nullable: false),
                     Experience = table.Column<int>(type: "int", nullable: false),
-                    CoursesNumber = table.Column<int>(type: "int", nullable: false),
                     Position = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -434,12 +432,12 @@ namespace Date.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "32670cf8-4c2c-4d45-ae6e-e9cda1ff160e", "70f7d218-c5ba-4e62-a25e-de31639b9038", "Admin", null });
+                values: new object[] { "8bab9375-75a0-420f-b30a-0cf2ebb979b6", "219d5008-cde5-42b6-bc97-1f9cb03e1006", "Admin", null });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "7abac888-6b19-4fc4-a219-98db17ba2178", "b154a960-9672-4fd3-a6cd-800ab6dfe45e", "User", null });
+                values: new object[] { "d425ee7f-0a07-4482-9a38-7bfa0d21cb38", "740efc05-0948-48aa-aa33-788aa3548e2b", "User", null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

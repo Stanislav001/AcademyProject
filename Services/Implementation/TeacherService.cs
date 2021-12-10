@@ -40,8 +40,7 @@ namespace Services.Implementation
                     PhoneNumber = teachers.PhoneNumber,
                     Position = teachers.Position,
                     Salary = teachers.Salary,
-                    Year = teachers.Year,
-                    TeacherNumber = teachers.TeacherNumber
+                    Year = teachers.Year
                 }).ToList();
 
             return teachers;
@@ -62,7 +61,6 @@ namespace Services.Implementation
                     PhoneNumber = teacher.PhoneNumber,
                     Position = teacher.Position,
                     Salary = teacher.Salary,
-                    TeacherNumber = teacher.TeacherNumber,
                     ImageFile = teacher.ImageFile,
                     ImageName = teacher.ImageName
                 }).SingleOrDefault(teacher => teacher.Id == id);
@@ -87,7 +85,6 @@ namespace Services.Implementation
                     Position = teacher.Position,
                     Salary = teacher.Salary,
                     Year = teacher.Year,
-                    TeacherNumber = teacher.TeacherNumber,
                     ImageFile = teacher.ImageFile,
                     ImageName = teacher.ImageName
                 }).OrderBy(teacher => teacher.FirstName).ToList();
@@ -112,7 +109,6 @@ namespace Services.Implementation
             teacher.FirstName = model.FirstName;
             teacher.SecondName = model.SecondName;
             teacher.LastName = model.LastName;
-            teacher.TeacherNumber = model.TeacherNumber;
             teacher.Salary = model.Salary;
             teacher.Email = model.Email;
             teacher.Education = model.Education;
@@ -146,8 +142,7 @@ namespace Services.Implementation
                     PhoneNumber = teacher.PhoneNumber,
                     Position = teacher.Position,
                     Salary = teacher.Salary,
-                    Year = teacher.Year,
-                    TeacherNumber = teacher.TeacherNumber
+                    Year = teacher.Year
 
                 }).SingleOrDefault(teacher => teacher.Id == id);
 
@@ -174,7 +169,6 @@ namespace Services.Implementation
             teacher.ImageFile = model.ImageFile;
             teacher.ImageName = model.ImageName;
             teacher.PhoneNumber = model.PhoneNumber;
-            teacher.TeacherNumber = model.TeacherNumber;
 
             if (teacher.ImageName != null && teacher.ImageName == null)
             {

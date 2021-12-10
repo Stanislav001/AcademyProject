@@ -1,0 +1,55 @@
+﻿@model IEnumerable<TeacherViewModel>
+<html>
+<head>
+    @{ ViewData["Title"] = "Teachers"; }
+    <style>
+        .container {
+            display: inline-block;
+        }
+
+        .movieCard {
+            display: inline-block;
+            text-align: center;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            max-height: 800px;
+            margin-left: 2%;
+            margin-top: 3%;
+            font-family: arial;
+        }
+
+            .movieCard:hover {
+                transform: translateY(-30px);
+            }
+
+        .cardPhoto {
+            width: 300px;
+            height: 300px;
+        }
+
+        .movieCard h1, p {
+            color: black;
+        }
+    </style>
+</head>
+
+
+<body>
+    <a class="btn btn-outline-danger" asp-action="Create">Create Course</a>
+    <div class="container">
+        @foreach (var item in Model)
+        {
+            <div class="movieCard">
+                <img class="cardPhoto" src="@("~/ImageForTeacher/" + item.ImageName)" asp-append-version="true" />
+                <h1>@item.FirstName @item.LastName</h1>
+                <p>Email: @item.Email</p>
+                <p>Experience: @item.Experience years</p>
+                <a asp-controller="Teacher" asp-action="GetteacherById" asp-route-id="@item.Id" class="btn btn-primary mx-1">Read More</a>
+                <a class="btn btn-outline-dangerr" asp-controller="Teacher" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                <a class="btn btn-primary" asp-controller="Teacher" asp-action="Update" asp-route-id="@item.Id">Update</a>
+            </div>
+         }
+    </div>
+
+</body>
+</html>

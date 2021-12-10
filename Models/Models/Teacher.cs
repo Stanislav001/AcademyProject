@@ -1,25 +1,33 @@
-﻿
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Models.Base;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Models.Models
 {
     public class Teacher : BaseModel
     {
-        public string TeacherNumber { get; set; }
         public string FirstName { get; set; }
+        [AllowNull]
         public string SecondName { get; set; }
+        [AllowNull]
         public string LastName { get; set; }
+        [AllowNull]
         public string Education { get; set; }
+        [AllowNull]
         public int Year { get; set; }
+        [AllowNull]
         public int Experience { get; set; }
-        public int CoursesNumber { get; set; }
+        [AllowNull]
         public string Position { get; set; }
+        [AllowNull]
         public decimal Salary { get; set; }
+        [AllowNull]
         public string PhoneNumber { get; set; }
+        [AllowNull]
         public string Email { get; set; }
+        [AllowNull]
         public string ImageName { get; set; }
 
         [NotMapped]

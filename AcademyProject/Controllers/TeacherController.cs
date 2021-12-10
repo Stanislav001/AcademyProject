@@ -43,7 +43,7 @@ namespace AcademyProject.Controllers
         public async Task<IActionResult> GetteacherById(string id)
         {
             TeacherViewModel result = teacherService.GetDetailsById(id);
-            return View("_CoursePartial", result);
+            return View("_TeacherPartial", result);
         }
 
         [HttpGet]
@@ -79,6 +79,37 @@ namespace AcademyProject.Controllers
                 return this.RedirectToAction("index");
             }
             await this.teacherService.CreateAsync(model);
+
+            return this.RedirectToAction("index");
+        }
+
+        [HttpGet]
+        public IActionResult Update(string id)
+        {
+            TeacherViewModel course = this.teacherService.UpdateById(id);
+
+            return this.View(course);
+        }
+
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Update(TeacherViewModel model)
+        {
+            if (this.ModelState.IsValid == false)
+            {
+                return this.View(model);
+            }
+
+            await this.teacherService.UpdateAsync(model);
+
+            return this.RedirectToAction("index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            await this.teacherService.DeleteAsync(id);
 
             return this.RedirectToAction("index");
         }
