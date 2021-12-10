@@ -70,6 +70,39 @@ namespace Services.Implementation
             return teacher;
         }
 
+
+        public IEnumerable<TeacherViewModel> GetByName()
+        {
+            IEnumerable<TeacherViewModel> teacher = this.dbContext.Teachers
+                .Select(teacher => new TeacherViewModel
+                {
+                    Id = teacher.Id,
+                    FirstName = teacher.FirstName,
+                    SecondName = teacher.SecondName,
+                    LastName = teacher.LastName,
+                    Education = teacher.Education,
+                    Email = teacher.Email,
+                    Experience = teacher.Experience,
+                    PhoneNumber = teacher.PhoneNumber,
+                    Position = teacher.Position,
+                    Salary = teacher.Salary,
+                    Year = teacher.Year,
+                    TeacherNumber = teacher.TeacherNumber,
+                    ImageFile = teacher.ImageFile,
+                    ImageName = teacher.ImageName
+                }).OrderBy(teacher => teacher.FirstName).ToList();
+
+            return teacher;
+        }
+
+        public Teacher GetByModelName(string modelName)
+        {
+            Teacher teacherDb = this.dbContext.Teachers
+                .SingleOrDefault(teacher => teacher.FirstName == modelName);
+
+            return teacherDb;
+        }
+
         public async Task CreateAsync(TeacherViewModel model)
         {
             Teacher teacher = new Teacher();

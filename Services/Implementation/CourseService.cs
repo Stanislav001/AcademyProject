@@ -78,7 +78,7 @@ namespace Services.Implementation
         public Course GetByModelName(string modelName)
         {
             Course courseDb = this.dbContext.Courses
-                .SingleOrDefault(course => course.ImageName == modelName);
+                .SingleOrDefault(course => course.CourseName == modelName);
 
             return courseDb;
         }

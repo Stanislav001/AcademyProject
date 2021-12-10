@@ -1,4 +1,5 @@
-﻿using Services.ViewModels;
+﻿using Models.Models;
+using Services.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,6 +9,8 @@ namespace Services.Interfaces
     {
         IEnumerable<TeacherViewModel> GetAll();
         TeacherViewModel GetDetailsById(string id);
+        IEnumerable<TeacherViewModel> GetByName();
+        Teacher GetByModelName(string modelName);
         Task CreateAsync(TeacherViewModel model);
         TeacherViewModel UpdateById(string id);
         Task UpdateAsync(TeacherViewModel model);
