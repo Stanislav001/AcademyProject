@@ -78,6 +78,7 @@ namespace AcademyProject.Controllers
             {
                 return this.RedirectToAction("index");
             }
+
             await this.teacherService.CreateAsync(model);
 
             return this.RedirectToAction("index");

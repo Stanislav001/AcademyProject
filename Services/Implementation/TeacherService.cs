@@ -170,7 +170,7 @@ namespace Services.Implementation
             teacher.ImageName = model.ImageName;
             teacher.PhoneNumber = model.PhoneNumber;
 
-            if (teacher.ImageName != null && teacher.ImageName == null)
+            if (teacher.ImageName != null)
             {
                 model.ImageName = teacher.ImageName;
             }
