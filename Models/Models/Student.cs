@@ -18,12 +18,12 @@ namespace Models.Models
         public string Email { get; set; }
         public int CoursesNumber { get; set; }
         public string ImageName { get; set; }
-        public List<double> Grades;
 
         [NotMapped]
         public IFormFile ImageFile { get; set; }
         public List<Teacher> Teachers { get; set; }
         public List<Course> Courses { get; set; }
         public Manager Manager { get; set; }
+        public List<Grade> Grades { get; set; }
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Date.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211210081652_Initial")]
+    [Migration("20211211115302_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,14 +110,14 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8bab9375-75a0-420f-b30a-0cf2ebb979b6",
-                            ConcurrencyStamp = "219d5008-cde5-42b6-bc97-1f9cb03e1006",
+                            Id = "fdb7f7d6-202f-4048-8f42-9bb26cf1d4a1",
+                            ConcurrencyStamp = "4d3e39f0-cf7a-4d4a-acdd-336eac086628",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "d425ee7f-0a07-4482-9a38-7bfa0d21cb38",
-                            ConcurrencyStamp = "740efc05-0948-48aa-aa33-788aa3548e2b",
+                            Id = "653b5c37-db40-466f-bb2c-a4729208aef8",
+                            ConcurrencyStamp = "e67855f4-884d-4f90-88ac-bbf9da55fcf4",
                             Name = "User"
                         });
                 });
@@ -272,6 +272,39 @@ namespace Date.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Courses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "39139e09-3ce1-4eca-89ac-46ed9dffaa98",
+                            CourseName = "JavaScript",
+                            Description = "",
+                            Duration = "6",
+                            Price = 800m
+                        });
+                });
+
+            modelBuilder.Entity("Models.Models.Grade", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CourseId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("StudentGrade")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StudentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Grades");
                 });
 
             modelBuilder.Entity("Models.Models.Manager", b =>
@@ -364,6 +397,20 @@ namespace Date.Migrations
                     b.HasIndex("ManagerId");
 
                     b.ToTable("Students");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "d610d074-8359-478e-9c69-8b096705a3b0",
+                            City = "Sofia",
+                            CoursesNumber = 0,
+                            Email = "petrov@gmail.com",
+                            FirstName = "Ivan",
+                            LastName = "Petrov",
+                            PhoneNumber = "302-444-1234",
+                            SecondName = "Hristov",
+                            Year = 19
+                        });
                 });
 
             modelBuilder.Entity("Models.Models.Teacher", b =>
@@ -412,6 +459,22 @@ namespace Date.Migrations
                     b.HasIndex("ManagerId");
 
                     b.ToTable("Teachers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "077a03b7-4f6e-4e5f-a221-b5f8eee68b94",
+                            Education = "Higher",
+                            Email = "georgiev@gmail.com",
+                            Experience = 6,
+                            FirstName = "Petar",
+                            LastName = "Georgiev",
+                            PhoneNumber = "202-555-0108",
+                            Position = "Teacher",
+                            Salary = 2000m,
+                            SecondName = "Petrov",
+                            Year = 21
+                        });
                 });
 
             modelBuilder.Entity("Models.Models.User", b =>
@@ -642,6 +705,21 @@ namespace Date.Migrations
                     b.Navigation("Manager");
                 });
 
+            modelBuilder.Entity("Models.Models.Grade", b =>
+                {
+                    b.HasOne("Models.Models.Course", "Course")
+                        .WithMany("Grades")
+                        .HasForeignKey("CourseId");
+
+                    b.HasOne("Models.Models.Student", "Student")
+                        .WithMany("Grades")
+                        .HasForeignKey("StudentId");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Student");
+                });
+
             modelBuilder.Entity("Models.Models.Student", b =>
                 {
                     b.HasOne("Models.Models.Manager", "Manager")
@@ -690,6 +768,11 @@ namespace Date.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Models.Models.Course", b =>
+                {
+                    b.Navigation("Grades");
+                });
+
             modelBuilder.Entity("Models.Models.Manager", b =>
                 {
                     b.Navigation("Courses");
@@ -697,6 +780,11 @@ namespace Date.Migrations
                     b.Navigation("Students");
 
                     b.Navigation("Teachers");
+                });
+
+            modelBuilder.Entity("Models.Models.Student", b =>
+                {
+                    b.Navigation("Grades");
                 });
 
             modelBuilder.Entity("Models.Models.User", b =>

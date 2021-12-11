@@ -17,5 +17,6 @@ namespace Models.Models
         public List<Teacher> Teachers { get; set; }
         public List<Student> Students { get; set; }
         public Manager Manager { get; set; }
+        public List<Grade> Grades { get; set; }
     }
 }
