@@ -213,28 +213,5 @@ namespace Services.Implementation
                 await teacher.ImageFile.CopyToAsync(fileStream);
             }
         }
-
-        // Add new grade
-        private async Task AddGrade(Grade grade)
-        {
-            var gradeDb = new Grade();
-
-            gradeDb.Id = Guid.NewGuid().ToString();
-            gradeDb.Course = grade.Course;
-            gradeDb.Student = grade.Student;
-
-            if (gradeDb.Id != null)
-            {
-                dbContext.Add(gradeDb);
-                await dbContext.SaveChangesAsync();
-            }
-            else
-            {
-                Console.WriteLine("Eror!");
-            }
-        }
-
-      
-
     }
 }
