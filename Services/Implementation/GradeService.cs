@@ -1,4 +1,5 @@
-﻿using Date;
+﻿using AutoMapper;
+using Date;
 using Microsoft.EntityFrameworkCore;
 using Models.Models;
 using Services.Interfaces;
@@ -10,12 +11,10 @@ using System.Threading.Tasks;
 
 namespace Services.Implementation
 {
-    public class GradeService : IGradeService
+    public class GradeService : BaseService, IGradeService
     {
-        public ApplicationDbContext dbContext { get; set; }
-        public GradeService(ApplicationDbContext dbContext)
+        public GradeService(ApplicationDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
-            this.dbContext = dbContext;
         }
 
         public async Task<bool> CreateGradeAsync(string courseId, string studentId, string senderId)
@@ -26,16 +25,16 @@ namespace Services.Implementation
                 StudentId = studentId
             };
 
-            await this.dbContext.Grades.AddAsync(garde);
+            await this.DbContext.Grades.AddAsync(garde);
 
-            await this.dbContext.SaveChangesAsync();
+            await this.DbContext.SaveChangesAsync();
 
             return true;
         }
 
         public async Task<bool> DeletGradeAsync(string gradeId)
         {
-            var grade = await this.dbContext.Grades
+            var grade = await this.DbContext.Grades
                 .FirstOrDefaultAsync(g => g.Id == gradeId);
 
             if (grade == null)
@@ -43,16 +42,16 @@ namespace Services.Implementation
                 return false;
             }
 
-            this.dbContext.Grades.Remove(grade);
+            this.DbContext.Grades.Remove(grade);
 
-            await this.dbContext.SaveChangesAsync();
+            await this.DbContext.SaveChangesAsync();
 
             return true;
         }
 
         public async Task<IEnumerable<GradeViewModel>> GetAllGradesAsync(string id)
         {
-            var grades = await this.dbContext.Grades
+            var grades = await this.DbContext.Grades
                 .Where(g => g.Id == id )
                 .Select(grade => new GradeViewModel
                 {
@@ -68,7 +67,7 @@ namespace Services.Implementation
 
         public Grade GetGradeById(string gradeId)
         {
-            var item = this.dbContext.Grades.FirstOrDefault(g => g.Id == gradeId);
+            var item = this.DbContext.Grades.FirstOrDefault(g => g.Id == gradeId);
 
             return item;
         }

@@ -1,3 +1,5 @@
+using AcademyProject.Models;
+using AutoMapper;
 using Date;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,10 +37,11 @@ namespace AcademyProject
 
             services.AddRazorPages();
 
-            RegisterDatabaseServices(services);
+            services.AddAutoMapper(typeof(ErrorViewModel));
 
+            RegisterDatabaseServices(services);
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false).AddRoles<IdentityRole>()
-              .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders(); ;
+              .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,9 +77,11 @@ namespace AcademyProject
 
         private static void RegisterDatabaseServices(IServiceCollection services)
         {
-            services.AddScoped<ICourseService, CourseService>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<ITeacherService, TeacherService>();
+            services.AddTransient<ICourseService, CourseService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ITeacherService, TeacherService>();
+            services.AddTransient<IStudentService, StudentService>();
+            services.AddTransient<IGradeService, GradeService>();
         }
     }
 }
