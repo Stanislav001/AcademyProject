@@ -1,9 +1,11 @@
-﻿using Date;
+﻿using AutoMapper;
+using Date;
 using Microsoft.AspNetCore.Hosting;
 using Models.Models;
 using Services.Interfaces;
 using Services.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,12 +17,13 @@ namespace Services.Implementation
         private const string IMAGE_FOLDER_NAME = "/ImageForUser";
         private readonly ApplicationDbContext dbContext;
         private readonly IWebHostEnvironment hostEnvironment;
-
+        private readonly IMapper Mapper;
         public UserService(ApplicationDbContext dbContext,
-            IWebHostEnvironment hostEnvironment)
+            IWebHostEnvironment hostEnvironment, IMapper mapper)
         {
             this.dbContext = dbContext;
             this.hostEnvironment = hostEnvironment;
+            this.Mapper = mapper;
         }
 
         public UserViewModel GetDetailsById(string id)
@@ -100,6 +103,17 @@ namespace Services.Implementation
             {
                 await user.ImageFile.CopyToAsync(fileStream);
             }
+        }
+
+
+
+        public IEnumerable<UserViewModel> GetAllUsernames(string userId)
+        {
+            var users = this.dbContext.Users.Where(u => u.Id != userId).ToList();
+
+            var mappedUsers = this.Mapper.Map<IEnumerable<UserViewModel>>(users);
+
+            return mappedUsers;
         }
     }
 }
