@@ -40,5 +40,26 @@ namespace Services.Implementation
             return students;
         }
 
+        public StudentViewModel GetDetailsById(string id)
+        {
+            StudentViewModel student = this.dbContext.Students
+                .Select(student => new StudentViewModel
+                {
+                    Id = student.Id,
+                    FirstName = student.FirstName,
+                    SecondName = student.SecondName,
+                    LastName = student.LastName,
+                    Email = student.Email,
+                    PhoneNumber = student.PhoneNumber,
+                    City = student.City,
+                    Year = student.Year,
+                    StudentNumber = student.StudentNumber,
+                    ImageFile = student.ImageFile,
+                    ImageName = student.ImageName
+                }).SingleOrDefault(student => student.Id == id);
+
+            return student;
+        }
+
     }
 }
