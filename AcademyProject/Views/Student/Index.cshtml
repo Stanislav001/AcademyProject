@@ -1,34 +1,36 @@
 ﻿@model List<StudentViewModel>
-
-<table id="context" class="table table-bordered table-striped" style="width:100%">
-    <thead>
-        <tr>
-            <th>
-                First Name
-            </th>
-            <th>
-                Last Name
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Phone Number
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    
+<a class="btn btn-outline-danger" asp-action="Create">Add Student</a>
+    <table id="context" class="table table-bordered table-striped" style="width:100%">
+        <thead>
             <tr>
-                <td width="20%">@item.FirstName</td>
-                <td width="20%">@item.LastName</td>
-                <td width="20%">@item.Email</td>
-                <td width="20%">@item.PhoneNumber</td>
-                <td>
-                    <a class="btn btn-outline-dangerr" asp-controller="Student" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                </td>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Phone Number
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td width="20%">@item.FirstName</td>
+                    <td width="20%">@item.LastName</td>
+                    <td width="20%">@item.Email</td>
+                    <td width="20%">@item.PhoneNumber</td>
+                    <td>
+                        <a class="btn btn-outline-dangerr" asp-controller="Student" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a class="btn btn-primary" asp-controller="Student" asp-action="Update" asp-route-id="@item.Id">Update</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

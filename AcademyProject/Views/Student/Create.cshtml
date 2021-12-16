@@ -1,0 +1,37 @@
+﻿@model StudentViewModel
+
+<a class="btn btn-outline-secondary" asp-action="Index">Back to List</a>
+
+<form asp-action="Create" enctype="multipart/form-data">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Second Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Year</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Avatar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input asp-for="@Model.FirstName" class="form-control" /></td>
+                    <td><input asp-for="@Model.SecondName" class="form-control" /></td>
+                    <td><input asp-for="@Model.LastName" class="form-control" /></td>
+                    <td><input asp-for="@Model.Email" class="form-control" /></td>
+                    <td><input asp-for="@Model.PhoneNumber" class="form-control" /></td>
+                    <td><input asp-for="@Model.Year" class="form-control" /></td>
+                    <td><input asp-for="@Model.City" class="form-control" /></td>
+                    <td> <input class="font-weight-bold" asp-for="@Model.ImageFile" accept="image/*" /></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="form-group text-center">
+            <input class="btn btn-danger w-50 mt-2" type="submit" value="Save" />
+        </div>
+    </div>
+</form>

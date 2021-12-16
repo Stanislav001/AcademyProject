@@ -20,9 +20,9 @@
             font-family: arial;
         }
 
-        .movieCard:hover {
-            transform: translateY(-30px);
-        }
+            .movieCard:hover {
+                transform: translateY(-30px);
+            }
 
         .cardPhoto {
             width: 300px;
@@ -33,7 +33,7 @@
 <body>
     <div class="container">
         <div class="movieCard">
-            <img class="cardPhoto" src="@("~/ImageForCourse/" + Model.ImageName)" asp-append-version="true" />
+            <img class="cardPhoto" src="@("~/ImageForStudent/" + Model.ImageName)" asp-append-version="true" />
             <h5>Name: @Model.FirstName @Model.SecondName @Model.LastName</h5>
             <h5>Email: @Model.Email</h5>
             <h5>Phone Number: @Model.PhoneNumber</h5>
