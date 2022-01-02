@@ -44,7 +44,8 @@ namespace AcademyProject.Controllers
         public async Task<IActionResult> GetCourseById(string id)
         {
             CourseViewModel result =  courseService.GetDetailsById(id);
-            return View("_CoursePartial", result);
+
+            return View(@"CoursePartials\_CoursePartial", result);
         }
 
         [HttpGet]
