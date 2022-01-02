@@ -35,7 +35,7 @@ namespace Services.Implementation
                     UserName = user.UserName,
                     ImageFile = user.ImageFile,
                     ImageName = user.ImageName,
-                    Profession = user.Profession
+                    Profession = user.Profession,
                 }).SingleOrDefault(user => user.Id == id);
 
             return user;
@@ -52,7 +52,7 @@ namespace Services.Implementation
                     ImageFile = user.ImageFile,
                     ImageName = user.ImageName,
                     UserName = user.UserName,
-                    Profession = user.Profession
+                    Profession = user.Profession,
                 }).SingleOrDefault(user => user.Id == id);
 
             return user;
@@ -76,7 +76,7 @@ namespace Services.Implementation
             user.ImageFile = model.ImageFile;
             user.Profession = model.Profession;
 
-            if (user.ImageName != null && user.ImageName == null)
+            if (user.ImageName != null)
             {
                 model.ImageName = user.ImageName;
             }
@@ -102,7 +102,6 @@ namespace Services.Implementation
                 await user.ImageFile.CopyToAsync(fileStream);
             }
         }
-
 
 
         public IEnumerable<UserViewModel> GetAllUsernames(string userId)

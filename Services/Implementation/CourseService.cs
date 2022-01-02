@@ -137,7 +137,7 @@ namespace Services.Implementation
             course.ImageName = model.ImageName;
             course.ImageFile = model.ImageFile;
 
-            if (course.ImageName != null && course.ImageName == null)
+            if (course.ImageName != null)
             {
                 model.ImageName = course.ImageName;
             }

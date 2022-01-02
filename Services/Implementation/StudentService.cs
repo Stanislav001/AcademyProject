@@ -160,7 +160,7 @@ namespace Services.Implementation
             student.ImageName = model.ImageName;
             student.ImageFile = model.ImageFile;
 
-            if (student.ImageName != null && student.ImageName == null)
+            if (student.ImageName != null)
             {
                 model.ImageName = student.ImageName;
             }
