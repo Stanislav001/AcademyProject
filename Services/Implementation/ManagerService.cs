@@ -24,174 +24,51 @@ namespace Services.Implementation
             this.hostEnvironment = hostEnvironment;
         }
 
-        public IEnumerable<ManagerViewModel> GetAll()
+        // Return all students
+        public IEnumerable<StudentViewModel> GetAllStudents()
         {
-            IEnumerable<ManagerViewModel> managers = this.DbContext.Managers
-                .Select(manager => new ManagerViewModel
+            IEnumerable<StudentViewModel> students = this.DbContext.Students
+                .Select(student => new StudentViewModel
                 {
-                    Id = manager.Id,
-                    FirstName = manager.FirstName,
-                    SecondName = manager.SecondName,
-                    LastName = manager.LastName,
-                    Email = manager.Email,
-                    ImageFile = manager.ImageFile,
-                    ImageName = manager.ImageName,
-                    PhoneNumber = manager.PhoneNumber,
-                    Salary = manager.Salary,
+                    Id = student.Id,
+                    FirstName = student.FirstName,
+                    SecondName = student.SecondName,
+                    LastName = student.LastName,
+                    City = student.City,
+                    Email = student.Email,
+                    ImageFile = student.ImageFile,
+                    ImageName = student.ImageName,
+                    Year = student.Year,
+                    StudentNumber = student.StudentNumber,
+                    CoursesNumber = student.CoursesNumber,
+                    PhoneNumber = student.PhoneNumber,
                 }).ToList();
 
-            return managers;
+            return students;
         }
 
-
-        public ManagerViewModel GetDetailsById(string id)
+        // Return all teachers
+        public IEnumerable<TeacherViewModel> GetAllTeachers()
         {
-            ManagerViewModel model = this.DbContext.Managers
-            .Select(manager => new ManagerViewModel
-            {
-                Id = manager.Id,
-                FirstName = manager.FirstName,
-                SecondName = manager.SecondName,
-                LastName = manager.LastName,
-                PhoneNumber = manager.PhoneNumber,
-                Email = manager.Email,
-                ImageFile = manager.ImageFile,
-                ImageName = manager.ImageName,
-                Salary = manager.Salary,
-            }).SingleOrDefault(m => m.Id == id);
-
-            return model;
-        }
-
-        public IEnumerable<ManagerViewModel> GetByFirstName()
-        {
-            IEnumerable<ManagerViewModel> managers = this.DbContext.Managers
-                .Select(manager => new ManagerViewModel
+            IEnumerable<TeacherViewModel> teachers = this.DbContext.Teachers
+                .Select(teacher => new TeacherViewModel
                 {
-                    Id = manager.Id,
-                    FirstName = manager.FirstName,
-                    SecondName = manager.SecondName,
-                    LastName = manager.LastName,
-                    Salary = manager.Salary,
-                    Email = manager.Email,
-                    ImageFile = manager.ImageFile,
-                    ImageName = manager.ImageName,
-                    PhoneNumber = manager.PhoneNumber,
+                    Id = teacher.Id,
+                    FirstName = teacher.FirstName,
+                    SecondName = teacher.SecondName, 
+                    LastName = teacher.LastName,
+                    Education = teacher.Education,
+                    Email = teacher.Email,
+                    Experience = teacher.Experience,
+                    ImageFile = teacher.ImageFile,
+                    ImageName = teacher.ImageName,
+                    Year = teacher.Year,
+                    PhoneNumber = teacher.PhoneNumber,
+                    Position = teacher.Position,
+                    Salary = teacher.Salary,
+                }).ToList();
 
-                }).OrderBy(manager => manager.FirstName).ToList();
-
-            return managers;
-        }
-
-        public Manager GetByModelFirstName(string firstName)
-        {
-            Manager managerDb = this.DbContext.Managers
-                .SingleOrDefault(manager => manager.FirstName == firstName);
-
-            return managerDb;
-        }
-
-        public async Task CreateAsync(ManagerViewModel model)
-        {
-            Manager manager = new Manager();
-
-            manager.Id = Guid.NewGuid().ToString();
-            manager.FirstName = model.FirstName;
-            manager.SecondName = model.SecondName;
-            manager.LastName = model.LastName;
-            manager.Salary = model.Salary;
-            manager.PhoneNumber = model.PhoneNumber;
-            manager.Email = model.Email;
-            manager.ImageName = model.ImageName;
-            manager.ImageFile = model.ImageFile;
-
-            if (model.ImageFile != null)
-            {
-                await SetImage(manager);
-            }
-
-            await this.DbContext.Managers.AddAsync(manager);
-            await this.DbContext.SaveChangesAsync();
-        }
-
-        public ManagerViewModel UpdateById(string id)
-        {
-            ManagerViewModel manager = this.DbContext.Managers
-                .Select(manager => new ManagerViewModel
-                {
-                    FirstName = manager.FirstName,
-                    SecondName = manager.SecondName,
-                    LastName = manager.LastName,
-                    Salary = manager.Salary,
-                    Email = manager.Email,
-                    PhoneNumber = manager.PhoneNumber,
-                    ImageFile = manager.ImageFile,
-                    ImageName = manager.ImageName,
-                }).SingleOrDefault(manager => manager.Id == id);
-
-            return manager;
-        }
-
-        public async Task UpdateAsync(ManagerViewModel model)
-        {
-            Manager manager = this.DbContext.Managers.Find(model.Id);
-
-            bool isManagerNull = manager == null;
-            if (isManagerNull)
-            {
-                return;
-            }
-
-            manager.FirstName = model.FirstName;
-            manager.SecondName = model.SecondName;
-            manager.LastName = model.LastName;
-            manager.Salary = model.Salary;
-            manager.PhoneNumber = model.PhoneNumber;
-            manager.Email = model.Email;
-            manager.ImageName = model.ImageName;
-            manager.ImageFile = model.ImageFile;
-
-
-            if (manager.ImageName != null)
-            {
-                model.ImageName = manager.ImageName;
-            }
-            if (model.ImageFile != null)
-            {
-                await SetImage(manager);
-            }
-
-            this.DbContext.Managers.Update(manager);
-            await this.DbContext.SaveChangesAsync();
-        }
-
-        public async Task DeleteAsync(string id)
-        {
-            Manager manager = new Manager();
-            manager = this.DbContext.Managers.Find(id);
-
-            bool isManagerNull = manager == null;
-            if (isManagerNull)
-            { 
-                return;
-            }
-
-            this.DbContext.Managers.Remove(manager);
-            await this.DbContext.SaveChangesAsync();
-        }
-
-        private async Task SetImage(Manager manager)
-        {
-            string wwwRootPath = hostEnvironment.WebRootPath;
-            string fileName = Path.GetFileNameWithoutExtension(manager.ImageFile.FileName);
-            string exension = Path.GetExtension(manager.ImageFile.FileName);
-            manager.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + exension;
-            string path = Path.Combine(wwwRootPath + IMAGE_FOLDER_NAME, fileName);
-
-            using (var fileStream = new FileStream(path, FileMode.Create))
-            {
-                await manager.ImageFile.CopyToAsync(fileStream);
-            }
+            return teachers;
         }
     }
 }

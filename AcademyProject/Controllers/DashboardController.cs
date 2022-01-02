@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 
 using Models.Models;
+using Services.Implementation;
 using Services.Interfaces;
 using Services.ViewModels;
+using System.Collections.Generic;
 
 namespace AcademyProject.Controllers
 {
@@ -20,6 +22,13 @@ namespace AcademyProject.Controllers
         {
             UserViewModel user = _userService.GetDetailsById(ViewBag.userId = _userManager.GetUserId(HttpContext.User));
             return View(user);
+        }
+
+        public IActionResult Students()
+        {
+            IEnumerable<UserViewModel> user = _userService.GetAllStudents();
+
+            return View("_StudentDashboardPartial", user);
         }
     }
 }

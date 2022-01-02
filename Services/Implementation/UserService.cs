@@ -103,7 +103,6 @@ namespace Services.Implementation
             }
         }
 
-
         public IEnumerable<UserViewModel> GetAllUsernames(string userId)
         {
             var users = this.DbContext.Users.Where(u => u.Id != userId).ToList();
@@ -111,6 +110,23 @@ namespace Services.Implementation
             var mappedUsers = this.Mapper.Map<IEnumerable<UserViewModel>>(users);
 
             return mappedUsers;
+        }
+
+        // Return all Students
+        public IEnumerable<UserViewModel> GetAllStudents()
+        {
+            IEnumerable<UserViewModel> students = this.DbContext.Students
+                .Select(student => new UserViewModel
+                {
+                    Id = student.Id,
+                    StudentFirstName = student.FirstName,
+                    StudentSecondName = student.SecondName,
+                    StudentLastName = student.LastName,
+                    StudentPhoneNumber = student.PhoneNumber,
+                    StudentEmail = student.Email,
+                }).ToList();
+
+            return students;
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 
 using Models.Models;
 using Services.ViewModels;
@@ -8,13 +7,7 @@ namespace Services.Interfaces
 {
     public interface IManagerService 
     {
-        IEnumerable<ManagerViewModel> GetAll();
-        ManagerViewModel GetDetailsById(string id);
-        IEnumerable<ManagerViewModel> GetByFirstName();
-        Manager GetByModelFirstName(string modelName);
-        Task CreateAsync(ManagerViewModel model);
-        ManagerViewModel UpdateById(string id);
-        Task UpdateAsync(ManagerViewModel model);
-        Task DeleteAsync(string id);
+        IEnumerable<StudentViewModel> GetAllStudents();
+        IEnumerable<TeacherViewModel> GetAllTeachers();
     }
 }
