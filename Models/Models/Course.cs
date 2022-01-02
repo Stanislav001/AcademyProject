@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Models.Base;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+
+using Models.Base;
+
 namespace Models.Models
 {
    public class Course: BaseModel

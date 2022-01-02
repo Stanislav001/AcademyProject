@@ -1,7 +1,8 @@
-﻿using Models.Models;
-using Services.ViewModels;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using Models.Models;
+using Services.ViewModels;
 
 namespace Services.Interfaces
 {

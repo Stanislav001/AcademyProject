@@ -1,6 +1,4 @@
-﻿
-
-namespace Services.ViewModels
+﻿namespace Services.ViewModels
 {
     public class GradeViewModel
     {

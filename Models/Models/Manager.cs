@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Models.Base;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+
+using Models.Base;
 
 namespace Models.Models
 {

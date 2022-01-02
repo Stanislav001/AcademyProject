@@ -1,5 +1,7 @@
-﻿using Models.Base;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
+using Models.Base;
+
 namespace Models.Models
 {
    public class Post: BaseModel

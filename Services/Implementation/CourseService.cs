@@ -1,32 +1,31 @@
-﻿using Date;
-using Microsoft.AspNetCore.Hosting;
-using Models.Models;
-using Services.Interfaces;
-using Services.ViewModels;
+﻿using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Date;
+using Models.Models;
+using Services.Interfaces;
+using Services.ViewModels;
+using AutoMapper;
+
 namespace Services.Implementation
 {
-    public class CourseService : ICourseService
+    public class CourseService : BaseService , ICourseService
     {
         private const string IMAGE_FOLDER_NAME = "/ImageForCourse";
-        private readonly ApplicationDbContext dbContext;
         private readonly IWebHostEnvironment hostEnvironment;
 
-        public CourseService(ApplicationDbContext dbContext,
-            IWebHostEnvironment hostEnvironment)
+        public CourseService(ApplicationDbContext dbContext, IMapper mapper, IWebHostEnvironment hostEnvironment) : base(dbContext, mapper)
         {
-            this.dbContext = dbContext;
             this.hostEnvironment = hostEnvironment;
         }
 
         public IEnumerable<CourseViewModel> GetAll()
         {
-            IEnumerable<CourseViewModel> courses = this.dbContext.Courses
+            IEnumerable<CourseViewModel> courses = this.DbContext.Courses
                 .Select(courses => new CourseViewModel
                 {
                     Id = courses.Id,
@@ -43,7 +42,7 @@ namespace Services.Implementation
 
         public CourseViewModel GetDetailsById(string id)
         {
-            CourseViewModel course = this.dbContext.Courses
+            CourseViewModel course = this.DbContext.Courses
                 .Select(course => new CourseViewModel
                 {
                     Id = course.Id,
@@ -60,7 +59,7 @@ namespace Services.Implementation
 
         public IEnumerable<CourseViewModel> GetByName()
         {
-            IEnumerable<CourseViewModel> course = this.dbContext.Courses
+            IEnumerable<CourseViewModel> course = this.DbContext.Courses
                 .Select(course => new CourseViewModel
                 {
                     Id = course.Id,
@@ -77,7 +76,7 @@ namespace Services.Implementation
 
         public Course GetByModelName(string modelName)
         {
-            Course courseDb = this.dbContext.Courses
+            Course courseDb = this.DbContext.Courses
                 .SingleOrDefault(course => course.CourseName == modelName);
 
             return courseDb;
@@ -100,13 +99,13 @@ namespace Services.Implementation
                 await SetImage(course);
             }
 
-            await this.dbContext.Courses.AddAsync(course);
-            await this.dbContext.SaveChangesAsync();
+            await this.DbContext.Courses.AddAsync(course);
+            await this.DbContext.SaveChangesAsync();
         }
 
         public CourseViewModel UpdateById(string id)
         {
-            CourseViewModel course = this.dbContext.Courses
+            CourseViewModel course = this.DbContext.Courses
                 .Select(course => new CourseViewModel
                 {
                    Id = course.Id,
@@ -123,7 +122,7 @@ namespace Services.Implementation
 
         public async Task UpdateAsync(CourseViewModel model)
         {
-            Course course = this.dbContext.Courses.Find(model.Id);
+            Course course = this.DbContext.Courses.Find(model.Id);
 
             bool isCourseNull = course == null;
             if (isCourseNull)
@@ -147,14 +146,14 @@ namespace Services.Implementation
                 await SetImage(course);
             }
 
-            this.dbContext.Courses.Update(course);
-            await this.dbContext.SaveChangesAsync();
+            this.DbContext.Courses.Update(course);
+            await this.DbContext.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(string id)
         {
             Course course = new Course();
-            course = this.dbContext.Courses.Find(id);
+            course = this.DbContext.Courses.Find(id);
 
             bool isCourseNull = course == null;
             if (isCourseNull)
@@ -162,13 +161,13 @@ namespace Services.Implementation
                 return;
             }
 
-            this.dbContext.Courses.Remove(course);
-            await this.dbContext.SaveChangesAsync();
+            this.DbContext.Courses.Remove(course);
+            await this.DbContext.SaveChangesAsync();
         }
 
         public bool CheckIfCourseExist(string id)
         {
-            Course course = this.dbContext.Courses
+            Course course = this.DbContext.Courses
                 .Where(m => m.Id == id)
                 .SingleOrDefault();
 

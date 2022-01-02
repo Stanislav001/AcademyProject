@@ -1,17 +1,19 @@
 ﻿using AutoMapper;
+
 using Date;
 
 namespace Services
 {
     public class BaseService
     {
+        public IMapper Mapper { get; set; }
+        public ApplicationDbContext DbContext { get; set; }
+
         public BaseService(ApplicationDbContext dbContext , IMapper mapper)
         {
-            this.DbContext = DbContext;
+            this.DbContext = dbContext;
             this.Mapper = mapper;
 
         }
-        public IMapper Mapper { get; set; }
-        public ApplicationDbContext DbContext { get; set; }
     }
 }
