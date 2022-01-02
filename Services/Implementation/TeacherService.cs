@@ -1,32 +1,31 @@
-﻿using Date;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Models.Models;
-using Services.Interfaces;
-using Services.ViewModels;
+﻿using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+
+using Date;
+using Models.Models;
+using Services.Interfaces;
+using Services.ViewModels;
 
 namespace Services.Implementation
 {
-    public class TeacherService : ITeacherService
+    public class TeacherService : BaseService, ITeacherService
     {
         private const string IMAGE_FOLDER_NAME = "/ImageForTeacher";
-        private readonly ApplicationDbContext dbContext;
         private readonly IWebHostEnvironment hostEnvironment;
 
-        public TeacherService(ApplicationDbContext dbContext , IWebHostEnvironment hostEnvironment)
+        public TeacherService(ApplicationDbContext dbContext , IWebHostEnvironment hostEnvironment, IMapper mapper) : base(dbContext, mapper)
         {
-            this.dbContext = dbContext;
             this.hostEnvironment = hostEnvironment;
         }
 
         public IEnumerable<TeacherViewModel> GetAll()
         {
-            IEnumerable<TeacherViewModel> teachers = this.dbContext.Teachers
+            IEnumerable<TeacherViewModel> teachers = this.DbContext.Teachers
                 .Select(teachers => new TeacherViewModel
                 {
                     Id = teachers.Id,
@@ -49,7 +48,7 @@ namespace Services.Implementation
 
         public TeacherViewModel GetDetailsById(string id)
         {
-            TeacherViewModel teacher = this.dbContext.Teachers
+            TeacherViewModel teacher = this.DbContext.Teachers
                 .Select(teacher => new TeacherViewModel
                 {
                     Id = teacher.Id,
@@ -72,7 +71,7 @@ namespace Services.Implementation
 
         public IEnumerable<TeacherViewModel> GetByName()
         {
-            IEnumerable<TeacherViewModel> teacher = this.dbContext.Teachers
+            IEnumerable<TeacherViewModel> teacher = this.DbContext.Teachers
                 .Select(teacher => new TeacherViewModel
                 {
                     Id = teacher.Id,
@@ -95,7 +94,7 @@ namespace Services.Implementation
 
         public Teacher GetByModelName(string modelName)
         {
-            Teacher teacherDb = this.dbContext.Teachers
+            Teacher teacherDb = this.DbContext.Teachers
                 .SingleOrDefault(teacher => teacher.FirstName == modelName);
 
             return teacherDb;
@@ -122,13 +121,13 @@ namespace Services.Implementation
                 await SetImage(teacher);
             }
 
-            await this.dbContext.Teachers.AddAsync(teacher);
-            await this.dbContext.SaveChangesAsync();
+            await this.DbContext.Teachers.AddAsync(teacher);
+            await this.DbContext.SaveChangesAsync();
         }
 
         public TeacherViewModel UpdateById(string id)
         {
-            TeacherViewModel teacher = this.dbContext.Teachers
+            TeacherViewModel teacher = this.DbContext.Teachers
                 .Select(teacher => new TeacherViewModel
                 {
                     Id = teacher.Id,
@@ -152,7 +151,7 @@ namespace Services.Implementation
 
         public async Task UpdateAsync(TeacherViewModel model)
         {
-            Teacher teacher = this.dbContext.Teachers.Find(model.Id);
+            Teacher teacher = this.DbContext.Teachers.Find(model.Id);
 
             bool isTeacherNull = teacher == null;
             if (isTeacherNull)
@@ -180,14 +179,14 @@ namespace Services.Implementation
                 await SetImage(teacher);
             }
 
-            this.dbContext.Teachers.Update(teacher);
-            await this.dbContext.SaveChangesAsync();
+            this.DbContext.Teachers.Update(teacher);
+            await this.DbContext.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(string id)
         {
             Teacher teacher = new Teacher();
-            teacher = this.dbContext.Teachers.Find(id);
+            teacher = this.DbContext.Teachers.Find(id);
 
             bool isTeacherNull = teacher == null;
             if (isTeacherNull)
@@ -195,8 +194,8 @@ namespace Services.Implementation
                 return;
             }
 
-            this.dbContext.Teachers.Remove(teacher);
-            await this.dbContext.SaveChangesAsync();
+            this.DbContext.Teachers.Remove(teacher);
+            await this.DbContext.SaveChangesAsync();
         }
 
 

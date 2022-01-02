@@ -1,31 +1,32 @@
-﻿using Date;
-using Microsoft.AspNetCore.Hosting;
-using Models.Models;
-using Services.Interfaces;
-using Services.ViewModels;
+﻿using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
+using AutoMapper;
+
+using Date;
+using Models.Models;
+using Services.Interfaces;
+using Services.ViewModels;
+
 namespace Services.Implementation
 {
-    public class ManagerService : IManagerService
+    public class ManagerService : BaseService , IManagerService
     {
         private const string IMAGE_FOLDER_NAME = "/ImageForManager";
-        private readonly ApplicationDbContext dbContext;
         private readonly IWebHostEnvironment hostEnvironment;
 
-        public ManagerService(ApplicationDbContext dbContext, IWebHostEnvironment hostEnvironment)
+        public ManagerService(ApplicationDbContext dbContext, IMapper mapper, IWebHostEnvironment hostEnvironment) : base(dbContext, mapper)
         {
-            this.dbContext = dbContext;
             this.hostEnvironment = hostEnvironment;
         }
 
         public IEnumerable<ManagerViewModel> GetAll()
         {
-            IEnumerable<ManagerViewModel> managers = this.dbContext.Managers
+            IEnumerable<ManagerViewModel> managers = this.DbContext.Managers
                 .Select(manager => new ManagerViewModel
                 {
                     Id = manager.Id,
@@ -45,7 +46,7 @@ namespace Services.Implementation
 
         public ManagerViewModel GetDetailsById(string id)
         {
-            ManagerViewModel model = this.dbContext.Managers
+            ManagerViewModel model = this.DbContext.Managers
             .Select(manager => new ManagerViewModel
             {
                 Id = manager.Id,
@@ -64,7 +65,7 @@ namespace Services.Implementation
 
         public IEnumerable<ManagerViewModel> GetByFirstName()
         {
-            IEnumerable<ManagerViewModel> managers = this.dbContext.Managers
+            IEnumerable<ManagerViewModel> managers = this.DbContext.Managers
                 .Select(manager => new ManagerViewModel
                 {
                     Id = manager.Id,
@@ -84,7 +85,7 @@ namespace Services.Implementation
 
         public Manager GetByModelFirstName(string firstName)
         {
-            Manager managerDb = this.dbContext.Managers
+            Manager managerDb = this.DbContext.Managers
                 .SingleOrDefault(manager => manager.FirstName == firstName);
 
             return managerDb;
@@ -109,13 +110,13 @@ namespace Services.Implementation
                 await SetImage(manager);
             }
 
-            await this.dbContext.Managers.AddAsync(manager);
-            await this.dbContext.SaveChangesAsync();
+            await this.DbContext.Managers.AddAsync(manager);
+            await this.DbContext.SaveChangesAsync();
         }
 
         public ManagerViewModel UpdateById(string id)
         {
-            ManagerViewModel manager = this.dbContext.Managers
+            ManagerViewModel manager = this.DbContext.Managers
                 .Select(manager => new ManagerViewModel
                 {
                     FirstName = manager.FirstName,
@@ -133,7 +134,7 @@ namespace Services.Implementation
 
         public async Task UpdateAsync(ManagerViewModel model)
         {
-            Manager manager = this.dbContext.Managers.Find(model.Id);
+            Manager manager = this.DbContext.Managers.Find(model.Id);
 
             bool isManagerNull = manager == null;
             if (isManagerNull)
@@ -160,14 +161,14 @@ namespace Services.Implementation
                 await SetImage(manager);
             }
 
-            this.dbContext.Managers.Update(manager);
-            await this.dbContext.SaveChangesAsync();
+            this.DbContext.Managers.Update(manager);
+            await this.DbContext.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(string id)
         {
             Manager manager = new Manager();
-            manager = this.dbContext.Managers.Find(id);
+            manager = this.DbContext.Managers.Find(id);
 
             bool isManagerNull = manager == null;
             if (isManagerNull)
@@ -175,8 +176,8 @@ namespace Services.Implementation
                 return;
             }
 
-            this.dbContext.Managers.Remove(manager);
-            await this.dbContext.SaveChangesAsync();
+            this.DbContext.Managers.Remove(manager);
+            await this.DbContext.SaveChangesAsync();
         }
 
         private async Task SetImage(Manager manager)

@@ -1,30 +1,31 @@
-﻿using Date;
-using Microsoft.AspNetCore.Hosting;
-using Models.Models;
-using Services.Interfaces;
-using Services.ViewModels;
+﻿using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+
+using Date;
+using Models.Models;
+using Services.Interfaces;
+using Services.ViewModels;
 
 namespace Services.Implementation
 {
-    public class StudentService : IStudentService
+    public class StudentService : BaseService, IStudentService
     {
-        public StudentService(ApplicationDbContext dbContext , IWebHostEnvironment hostEnvironment)
+        private const string IMAGE_FOLDER_NAME = "/ImageForStudent";
+        private readonly IWebHostEnvironment hostEnvironment;
+
+        public StudentService(ApplicationDbContext dbContext , IWebHostEnvironment hostEnvironment, IMapper mapper) : base(dbContext, mapper)
         {
-            this.dbContext = dbContext;
             this.hostEnvironment = hostEnvironment;
         }
-        private const string IMAGE_FOLDER_NAME = "/ImageForStudent";
-        private readonly ApplicationDbContext dbContext;
-        private readonly IWebHostEnvironment hostEnvironment;
 
         public IEnumerable<StudentViewModel> GetAll()
         {
-            IEnumerable<StudentViewModel> students = this.dbContext.Students
+            IEnumerable<StudentViewModel> students = this.DbContext.Students
                 .Select(student => new StudentViewModel
                 {
                     Id = student.Id,
@@ -46,7 +47,7 @@ namespace Services.Implementation
 
         public StudentViewModel GetDetailsById(string id)
         {
-            StudentViewModel student = this.dbContext.Students
+            StudentViewModel student = this.DbContext.Students
                 .Select(student => new StudentViewModel
                 {
                     Id = student.Id,
@@ -67,7 +68,7 @@ namespace Services.Implementation
 
         public IEnumerable<StudentViewModel> GetByName()
         {
-            IEnumerable<StudentViewModel> student = this.dbContext.Students
+            IEnumerable<StudentViewModel> student = this.DbContext.Students
                 .Select(student => new StudentViewModel
                 {
                     Id = student.Id,
@@ -86,7 +87,7 @@ namespace Services.Implementation
         }
         public Student GetByModelName(string modelName)
         {
-            Student studentDb = this.dbContext.Students
+            Student studentDb = this.DbContext.Students
                 .SingleOrDefault(student => student.FirstName == modelName);
 
             return studentDb;
@@ -113,13 +114,13 @@ namespace Services.Implementation
                 await SetImage(student);
             }
 
-            await this.dbContext.Students.AddAsync(student);
-            await this.dbContext.SaveChangesAsync();
+            await this.DbContext.Students.AddAsync(student);
+            await this.DbContext.SaveChangesAsync();
         }
 
         public StudentViewModel UpdateById(string id)
         {
-            StudentViewModel student = this.dbContext.Students
+            StudentViewModel student = this.DbContext.Students
                 .Select(student => new StudentViewModel
                 {
                     Id = student.Id,
@@ -141,7 +142,7 @@ namespace Services.Implementation
 
         public async Task UpdateAsync(StudentViewModel model)
         {
-            Student student = this.dbContext.Students.Find(model.Id);
+            Student student = this.DbContext.Students.Find(model.Id);
 
             bool isStudentNull = student == null;
             if (isStudentNull)
@@ -168,14 +169,14 @@ namespace Services.Implementation
                 await SetImage(student);
             }
 
-            this.dbContext.Students.Update(student);
-            await this.dbContext.SaveChangesAsync();
+            this.DbContext.Students.Update(student);
+            await this.DbContext.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(string id)
         {
             Student student = new Student();
-            student = this.dbContext.Students.Find(id);
+            student = this.DbContext.Students.Find(id);
 
             bool isStudentNull = student == null;
             if (isStudentNull)
@@ -183,8 +184,8 @@ namespace Services.Implementation
                 return;
             }
 
-            this.dbContext.Students.Remove(student);
-            await this.dbContext.SaveChangesAsync();
+            this.DbContext.Students.Remove(student);
+            await this.DbContext.SaveChangesAsync();
         }
 
         private async Task SetImage(Student course)

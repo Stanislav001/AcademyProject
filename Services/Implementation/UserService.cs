@@ -1,34 +1,32 @@
 ﻿using AutoMapper;
-using Date;
 using Microsoft.AspNetCore.Hosting;
-using Models.Models;
-using Services.Interfaces;
-using Services.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Models.Models;
+using Services.Interfaces;
+using Services.ViewModels;
+using Date;
+
 namespace Services.Implementation
 {
-    public class UserService : IUserService
+    public class UserService : BaseService, IUserService
     {
         private const string IMAGE_FOLDER_NAME = "/ImageForUser";
-        private readonly ApplicationDbContext dbContext;
         private readonly IWebHostEnvironment hostEnvironment;
-        private readonly IMapper Mapper;
-        public UserService(ApplicationDbContext dbContext,
-            IWebHostEnvironment hostEnvironment, IMapper mapper)
+
+        public UserService(ApplicationDbContext dbContext, IWebHostEnvironment hostEnvironment, IMapper mapper)
+                           : base(dbContext, mapper)
         {
-            this.dbContext = dbContext;
             this.hostEnvironment = hostEnvironment;
-            this.Mapper = mapper;
         }
 
         public UserViewModel GetDetailsById(string id)
         {
-            UserViewModel user = this.dbContext.Users
+            UserViewModel user = this.DbContext.Users
                 .Select(user => new UserViewModel
                 {
                     Id = user.Id,
@@ -45,7 +43,7 @@ namespace Services.Implementation
 
         public UserViewModel UpdateById(string id)
         {
-            UserViewModel user = this.dbContext.Users
+            UserViewModel user = this.DbContext.Users
                 .Select(user => new UserViewModel
                 {
                     Id = user.Id,
@@ -62,7 +60,7 @@ namespace Services.Implementation
 
         public async Task UpdateAsync(UserViewModel model)
         {
-            User user = this.dbContext.Users.Find(model.Id);
+            User user = this.DbContext.Users.Find(model.Id);
 
             bool isUserNull = user == null;
             if (isUserNull)
@@ -87,8 +85,8 @@ namespace Services.Implementation
                 await SetImage(user);
             }
 
-            this.dbContext.Users.Update(user);
-            await this.dbContext.SaveChangesAsync();
+            this.DbContext.Users.Update(user);
+            await this.DbContext.SaveChangesAsync();
         }
 
         private async Task SetImage(User user)
@@ -109,7 +107,7 @@ namespace Services.Implementation
 
         public IEnumerable<UserViewModel> GetAllUsernames(string userId)
         {
-            var users = this.dbContext.Users.Where(u => u.Id != userId).ToList();
+            var users = this.DbContext.Users.Where(u => u.Id != userId).ToList();
 
             var mappedUsers = this.Mapper.Map<IEnumerable<UserViewModel>>(users);
 
