@@ -1,0 +1,23 @@
+﻿@model List<StudentViewModel>
+
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Handle</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.PhoneNumber</td>
+            </tr>
+        </tbody>
+    }
+</table>

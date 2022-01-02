@@ -17,7 +17,6 @@ namespace AcademyProject.Controllers
         }
         public IActionResult Index()
         {
-
             UserViewModel user = _userService.GetDetailsById(ViewBag.userId = _userManager.GetUserId(HttpContext.User));
             return View(user);
         }
