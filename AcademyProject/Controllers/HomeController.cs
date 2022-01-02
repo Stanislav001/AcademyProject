@@ -1,15 +1,7 @@
 ﻿using AcademyProject.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Models.Models;
-using Services.Interfaces;
-using Services.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AcademyProject.Controllers
 {

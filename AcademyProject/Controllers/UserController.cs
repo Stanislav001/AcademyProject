@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+
 using Services.Interfaces;
 using Services.ViewModels;
-using System.Threading.Tasks;
 
 namespace AcademyProject.Controllers
 {

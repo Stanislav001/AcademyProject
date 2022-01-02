@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Models.Models;
-using Services.Interfaces;
-using Services.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Models.Models;
+using Services.Interfaces;
+using Services.ViewModels;
 
 namespace AcademyProject.Controllers
 {
