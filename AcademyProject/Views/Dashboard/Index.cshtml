@@ -68,7 +68,6 @@
         <div class="col-md-6">
             <section class="box">
                 <h5>Student List</h5>
-
                 <button id="students" class="btn btn-danger">Show me Students</button>
                 <div id="content">
 
@@ -78,6 +77,10 @@
         <div class="col-md-6">
             <section class="box">
                 <h5>Course List</h5>
+                <button id="courses" class="btn btn-danger">Show me courses</button>
+                <div id="courseContent">
+
+                </div>
             </section>
         </div>
 
@@ -85,7 +88,11 @@
 
         <div class="col-md-12">
             <section class="box">
-                <h5>Post List</h5>
+                <h5>Teacher List</h5>
+                <button id="teachers" class="btn btn-danger">Show me teachers</button>
+                <div id="teacherContent">
+
+                </div>
             </section>
         </div>
 
@@ -100,6 +107,36 @@
                 url: "Dashboard/Students",
                 success: function (data) {
                     $("#content").html(data);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        })
+    </script>
+    
+    <script>
+        $("#teachers").on("click", function () {
+            $.ajax({
+                method: "GET",
+                url: "Dashboard/Teachers",
+                success: function (data) {
+                    $("#teacherContent").html(data);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        })
+    </script>
+
+    <script>
+        $("#courses").on("click", function () {
+            $.ajax({
+                method: "GET",
+                url: "Dashboard/Courses",
+                success: function (data) {
+                    $("#courseContent").html(data);
                 },
                 error: function (err) {
                     alert(err);

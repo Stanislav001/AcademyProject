@@ -29,5 +29,10 @@ namespace Services.ViewModels
         public string TeacherLastName { get; set; }
         public string TeacherPhoneNumber { get; set; }
         public string TeacherEmail { get; set; }
+
+        // Course Info
+        public string CourseName { get; set; }
+        public decimal CoursePrice { get; set; }
+        public string CourseDuration { get; set; }
     }
 }
