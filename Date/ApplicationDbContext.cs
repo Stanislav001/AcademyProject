@@ -7,8 +7,12 @@ using Models.Models;
 
 namespace Date
 {
-    public class ApplicationDbContext :  IdentityDbContext<User, IdentityRole, string>
+    public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string>
     {
+        public ApplicationDbContext()
+        {
+        }
+
         public DbSet<Manager> Managers { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Post> Posts { get; set; }

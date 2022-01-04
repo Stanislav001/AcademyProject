@@ -18,12 +18,15 @@ namespace AcademyProject.Controllers
             _userManager = userManager;
             _userService = userService;
         }
+
+        [ValidateAntiForgeryToken]
         public IActionResult Index()
         {
             UserViewModel user = _userService.GetDetailsById(ViewBag.userId = _userManager.GetUserId(HttpContext.User));
             return View(user);
         }
 
+        [ValidateAntiForgeryToken]
         public IActionResult Students()
         {
             IEnumerable<UserViewModel> user = _userService.GetAllStudents();
@@ -31,6 +34,7 @@ namespace AcademyProject.Controllers
             return PartialView("_StudentDashboardPartial", user);
         }
 
+        [ValidateAntiForgeryToken]
         public IActionResult Teachers()
         {
             IEnumerable<UserViewModel> teachers = _userService.GetAllTeachers();
@@ -38,6 +42,7 @@ namespace AcademyProject.Controllers
             return PartialView("_TeacherDashboardPartial", teachers);
         }
 
+        [ValidateAntiForgeryToken]
         public IActionResult Courses()
         {
             IEnumerable<UserViewModel> courses = _userService.GetAllCourses();

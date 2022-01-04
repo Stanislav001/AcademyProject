@@ -3,19 +3,15 @@ using AutoMapper;
 using Date;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Models.Models;
 using Services.Implementation;
 using Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AcademyProject
 {
@@ -33,6 +29,8 @@ namespace AcademyProject
         {
             services.AddControllersWithViews();
 
+            services.TryAddScoped<SignInManager<User>>();
+
             services.AddTransient<ApplicationDbContext>();
 
             services.AddRazorPages();
@@ -41,7 +39,8 @@ namespace AcademyProject
 
             RegisterDatabaseServices(services);
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false).AddRoles<IdentityRole>()
-              .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders(); 
+              .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
