@@ -11,11 +11,13 @@ namespace AcademyProject.Controllers
 {
     public class StudentController : Controller
     {
-        public StudentController(IStudentService studentService)
+        public StudentController(IStudentService studentService, IGradeService gradeService)
         {
             this.studentService = studentService;
+            this.gradeService = gradeService;
         }
         public IStudentService studentService { get; set; }
+        public IGradeService gradeService { get; set; }
 
         [HttpGet]
         public IActionResult Index()

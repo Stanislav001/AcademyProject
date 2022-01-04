@@ -13,11 +13,13 @@ namespace Services.Implementation
 {
     public class GradeService : BaseService, IGradeService
     {
+        private readonly IStudentService studentService;
+
         public GradeService(ApplicationDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 
-        public async Task<bool> CreateGradeAsync(string courseId, string studentId, string senderId)
+        public async Task<bool> CreateGradeAsync(string courseId, string studentId)
         {
             Grade garde = new Grade
             {

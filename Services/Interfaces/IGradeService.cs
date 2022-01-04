@@ -9,7 +9,7 @@ namespace Services.Interfaces
 {
     public interface IGradeService
     {
-        public Task<bool> CreateGradeAsync(string courseId, string studentId, string senderId);
+        public Task<bool> CreateGradeAsync(string courseId, string studentId);
 
         public Task<bool> DeletGradeAsync(string gradeId);
 
