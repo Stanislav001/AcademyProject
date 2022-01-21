@@ -10,6 +10,7 @@ using Date;
 using Models.Models;
 using Services.Interfaces;
 using Services.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace Services.Implementation
 {
@@ -201,6 +202,5 @@ namespace Services.Implementation
                 await course.ImageFile.CopyToAsync(fileStream);
             }
         }
-
     }
 }

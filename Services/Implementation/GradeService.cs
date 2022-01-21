@@ -73,5 +73,23 @@ namespace Services.Implementation
 
             return item;
         }
+
+        // TODO: Refactoring
+        public async Task<bool> CreateGradeAsync(string courseId, string studentId, int gradeContext)
+        {
+            Grade grade = new Grade
+            {
+                Id = new Guid().ToString(),
+                CourseId = courseId,
+                StudentId = studentId,
+                StudentGrade = gradeContext
+            };
+
+            await this.DbContext.Grades.AddAsync(grade);
+
+            await this.DbContext.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

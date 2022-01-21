@@ -17,5 +17,8 @@ namespace Services.Interfaces
 
         public Grade GetGradeById(string gradeId);
 
+        // TODO: Refactoring
+        public Task<bool> CreateGradeAsync(string courseId, string studentId, int gradeContext);
+
     }
 }
