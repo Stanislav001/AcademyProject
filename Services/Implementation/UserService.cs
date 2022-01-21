@@ -34,7 +34,6 @@ namespace Services.Implementation
                     Email = user.Email,
                     UserName = user.UserName,
                     ImageFile = user.ImageFile,
-                    ImageName = user.ImageName,
                     Profession = user.Profession,
                 }).SingleOrDefault(user => user.Id == id);
 
@@ -76,7 +75,7 @@ namespace Services.Implementation
             user.ImageFile = model.ImageFile;
             user.Profession = model.Profession;
 
-            if (user.ImageName != null)
+            if (user.ImageName == null)
             {
                 model.ImageName = user.ImageName;
             }

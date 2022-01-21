@@ -1,7 +1,7 @@
 ﻿@model UserViewModel
 <html>
 <head>
-    <title></title>
+    <title>Update @Model.UserName</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="~/css/UserCss/userStyle.css" rel="stylesheet" />
 </head>
@@ -14,7 +14,6 @@
                         <div class="side-bar">
                             <div class="user-info">
                                 <img class="cardPhoto" src="@("~/ImageForUser/" + Model.ImageName)" asp-append-version="true" style="width:30%;" />
-              
                                 <ul class="meta list list-unstyled">
                                     <li class="name">
                                         @Model.UserName
