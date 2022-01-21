@@ -26,7 +26,8 @@ namespace AcademyProject.Controllers
             this.ViewData["Users"] = gradeService.CreateGradeAsync(courseId, studentId, gradeContext);
             return this.View();
         }
-        
+
+        // TODO: Refactoring
         [HttpPost]
         public async Task<IActionResult> Create(GradeViewModel gradeViewModel)
         {

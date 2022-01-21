@@ -1,17 +1,27 @@
 ﻿@model UserViewModel
+
 @inject SignInManager<Models.Models.User> singInManager;
 
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 <link href="~/css/DashCss/dashStyle.css" rel="stylesheet" />
-<script src="https://use.fontawesome.com/07b0ce5d10.js"></script>
 
 <div class="page-topbar">
     <div class="quick-area">
         <ul class="pull-right info-menu user-info">
-            <partial name="_MenuPartial" />
+                        <li class="nav-item active">
+                            <a class="my-nav-link nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="my-nav-link nav-link" asp-controller="Home" asp-action="About">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="my-nav-link nav-link" asp-controller="Course" asp-action="Index">Courses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="blog.html">Blog</a>
+                        </li>
             <li class="profile">
                 <a href="#" data-toggle="dropdown" class="toggle" aria-expanded="false">
                     <img class="cardPhoto" src="@("~/ImageForUser/" + Model.ImageName)" asp-append-version="true" />
@@ -28,22 +38,14 @@
                         <a class="my-nav-link nav-link" asp-controller="Home" asp-action="Index">Back</a>
                     </li>
                 </ul>
-
-
             </li>
         </ul>
-
     </div>
 </div>
 
-<div class="page-sidebar expandit">
+<div class="page-sidebar">
     <div class="sidebar-inner" id="main-menu-wrapper">
         <div class="profile-info row ">
-            <div class="profile-image ">
-                <a href="ui-profile.html">
-
-                </a>
-            </div>
             <div class="profile-details">
                 <h3>
                     <a href="ui-profile.html">@Model.UserName</a>

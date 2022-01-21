@@ -1,36 +1,39 @@
 ﻿@model IEnumerable<CourseViewModel>
+@inject SignInManager<Models.Models.User> singInManager;
+
 <html>
 <head>
     @{ ViewData["Title"] = "Courses"; }
-   
-<style>
-    .container{
-        display:inline-block;
-    }
-    .movieCard {
-        display: inline-block;
-        text-align: center;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        max-width: 600px;
-        max-height: 800px;
-        margin-left: 2%;
-        margin-top: 3%;
-        font-family: arial;
-    }
 
-    .movieCard:hover {
-        transform: translateY(-30px);
-    }
+    <style>
+        .container {
+            display: inline-block;
+        }
 
-    .cardPhoto {
-        width: 300px;
-        height: 300px;
-    }
+        .movieCard {
+            display: inline-block;
+            text-align: center;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            max-height: 800px;
+            margin-left: 2%;
+            margin-top: 3%;
+            font-family: arial;
+        }
 
-    .movieCard h1, p {
-        color: black;
-    }
- </style>
+            .movieCard:hover {
+                transform: translateY(-30px);
+            }
+
+        .cardPhoto {
+            width: 300px;
+            height: 300px;
+        }
+
+        .movieCard h1, p {
+            color: black;
+        }
+    </style>
 </head>
 
 
@@ -51,10 +54,14 @@
             <p>Price: @item.Price</p>
             <p>Duration: @item.Duration months</p>
             <a asp-controller="Course" asp-action="GetCourseById" asp-route-id="@item.Id" class="btn btn-primary mx-1">Read More</a>
-            <a class="btn btn-outline-dangerr" asp-controller="Course" asp-action="Details" asp-route-id="@item.Id">Details</a>
-            <a class="btn btn-primary" asp-controller="Course" asp-action="Update" asp-route-id="@item.Id">Update</a>
+
+            @if (singInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+            {
+                <a class="btn btn-outline-dangerr" asp-controller="Course" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                <a class="btn btn-primary" asp-controller="Course" asp-action="Update" asp-route-id="@item.Id">Update</a>
+            }
         </div>
-         }
+        }
     </div>
 
 </body>
