@@ -73,48 +73,50 @@
             {
                 <li><a class="my-nav-link" asp-controller="Student" asp-action="Index"><span class="sidebar-icon"><i class="fa fa-users"></i></span> <span class="menu-title">Teacher Dashboard</span></a></li>
             }
-            <li> <a class="my-nav-link nav-link"><span class="sidebar-icon"><i class="fa fa-lock"></i></span> <span class="menu-title">My Courses</span></a></li>
+            <li><a class="my-nav-link nav-link" ><span class="sidebar-icon"><i class="fa fa-lock"></i></span> <span class="menu-title">My Courses</span></a></li>
             <li> <a class="my-nav-link nav-link"><span class="sidebar-icon"><i class="fa fa-lock"></i></span> <span class="menu-title">My Grades</span></a></li>
             <li> <a class="my-nav-link nav-link" asp-controller="Home" asp-action="Index"><span class="sidebar-icon"><i class="fa fa-lock"></i></span> <span class="menu-title">Sign Out</span></a></li>
         </ul>
     </div>
 </div>
 
-
 <section id="main-content">
     <section class="wrapper main-wrapper row">
-        <div class="col-md-6">
-            <section class="box">
-                <h5>Student List</h5>
-                <button id="students" class="btn btn-danger">Show me Students</button>
-                <div id="content">
+        @if (singInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+        {
+            <div class="col-md-6">
+                <section class="box">
+                    <h5>Student List</h5>
+                    <button id="students" class="btn btn-danger">Show me Students</button>
+                    <div id="content">
 
-                </div>
-            </section>
-        </div>
-        <div class="col-md-6">
-            <section class="box">
-                <h5>Course List</h5>
-                <button id="courses" class="btn btn-danger">Show me courses</button>
-                <div id="courseContent">
+                    </div>
+                </section>
+            </div>
+        }
+            <div class="col-md-6">
+                <section class="box">
+                    <h5>Course List</h5>
+                    <button id="courses" class="btn btn-danger">Show me courses</button>
+                    <div id="courseContent">
 
-                </div>
-            </section>
-        </div>
+                    </div>
+                </section>
+            </div>
 
-        <div class="clearfix"></div>
+            <div class="clearfix"></div>
 
-        <div class="col-md-12">
-            <section class="box">
-                <h5>Teacher List</h5>
-                <button id="teachers" class="btn btn-danger">Show me teachers</button>
-                <div id="teacherContent">
+            <div class="col-md-12">
+                <section class="box">
+                    <h5>Teacher List</h5>
+                    <button id="teachers" class="btn btn-danger">Show me teachers</button>
+                    <div id="teacherContent">
 
-                </div>
-            </section>
-        </div>
+                    </div>
+                </section>
+            </div>
 
-    </section>
+        </section>
 </section>
 
 @section Scripts{

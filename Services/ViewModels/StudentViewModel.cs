@@ -19,6 +19,10 @@ namespace Services.ViewModels
         public string ImageName { get; set; }
         public List<double> Grades;
 
+        // Courses prop
+        public string CourseId { get; set; }
+        public string CourseName { get; set; }
+
         [NotMapped]
         public IFormFile ImageFile { get; set; }
         public List<TeacherViewModel> Teachers { get; set; }

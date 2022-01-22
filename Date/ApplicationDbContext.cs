@@ -70,6 +70,8 @@ namespace Date
             modelBuilder.Entity<Student>().HasData(student);
             modelBuilder.Entity<IdentityRole>().HasData(AdminRole, UserRole);
 
+
+
             base.OnModelCreating(modelBuilder);
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
