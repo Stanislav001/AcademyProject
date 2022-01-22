@@ -67,15 +67,16 @@ namespace Services.Implementation
                 return;
             }
 
-            user.UserName = model.UserName;
-            user.Country = user.Country;
-            user.Email = user.Email;
             user.Id = model.Id;
-            user.ImageName = model.ImageName;
-            user.ImageFile = model.ImageFile;
+            user.Email = model.Email;
             user.Profession = model.Profession;
+            user.Country = model.Country;
+            user.UserName = model.UserName;
+            user.ImageFile = model.ImageFile;
+            user.ImageName = model.ImageName;
+            
 
-            if (user.ImageName == null)
+            if (user.ImageName != null)
             {
                 model.ImageName = user.ImageName;
             }

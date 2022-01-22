@@ -105,7 +105,7 @@ namespace AcademyProject.Controllers
 
             await this.courseService.UpdateAsync(model);
 
-            return this.RedirectToAction("index");
+            return this.RedirectToAction("_UpdateUserPartial");
         }
 
         [HttpGet]
