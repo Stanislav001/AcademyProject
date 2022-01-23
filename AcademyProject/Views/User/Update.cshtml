@@ -1,1 +1,78 @@
-﻿<h1>You update your profile</h1>
+﻿@model UserViewModel
+<html>
+<head>
+    <title>Update @Model.UserName</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/css/UserCss/userStyle.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="view-account">
+            <section class="module">
+                <div class="module-inner">
+                    <div class="side-bar">
+                        <div class="user-info">
+                            <img class="cardPhoto" src="@("~/ImageForUser/" + Model.ImageName)" asp-append-version="true" style="width:30%;" />
+                            <ul class="meta list list-unstyled">
+                                <li class="name">
+                                    @Model.UserName
+                                    <br />
+                                    <label class="label label-info">@Model.Profession</label>
+                                </li>
+                                <li class="email">@Model.Email</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="content-panel">
+                        <form asp-action="Update" enctype="multipart/form-data" class="form-horizontal">
+                            <fieldset class="fieldset">
+                                <h3 class="fieldset-title">Personal Info</h3>
+                                <div class="form-group avatar">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.ImageFile" class="control-label"></label>
+                                        <br />
+                                        <input class="font-weight-bold" asp-for="@Model.ImageFile" accept="image/*" />
+                                        <span asp-validation-for="@Model.ImageFile" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 col-sm-3 col-xs-12 control-label" asp-for="UserName">User Name</label>
+                                    <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <input class="form-control" asp-for="UserName" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 col-sm-3 col-xs-12 control-label" asp-for="Country">Country</label>
+                                    <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <input class="form-control" asp-for="Country" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 col-sm-3 col-xs-12 control-label" asp-for="Profession">Profession</label>
+                                    <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" asp-for="Profession" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 col-sm-3 col-xs-12 control-label" asp-for="Email">Profession</label>
+                                    <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" asp-for="Email" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <hr>
+                            <div class="form-group">
+                                <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+                                    <input class="btn btn-danger w-50 mt-2" type="submit" value="Save" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

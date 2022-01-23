@@ -7,7 +7,6 @@
 </head>
 
 <body>
-    <form asp-action="Update" enctype="multipart/form-data">
         <div class="container">
             <div class="view-account">
                 <section class="module">
@@ -26,55 +25,55 @@
                             </div>
                         </div>
                         <div class="content-panel">
-                            <form class="form-horizontal">
-                                <fieldset class="fieldset">
-                                    <h3 class="fieldset-title">Personal Info</h3>
-                                    <div class="form-group avatar">
+                            <form asp-action="Update" enctype="multipart/form-data" class="form-horizontal">
+                                    <fieldset class="fieldset">
+                                        <h3 class="fieldset-title">Personal Info</h3>
+                                        <div class="form-group avatar">
+                                            <div class="form-group">
+                                                <label asp-for="@Model.ImageFile" class="control-label"></label>
+                                                <br />
+                                                <input class="font-weight-bold" asp-for="@Model.ImageFile" accept="image/*" />
+                                                <span asp-validation-for="@Model.ImageFile" class="text-danger"></span>
+                                            </div>
+                                        </div>
                                         <div class="form-group">
-                                            <label asp-for="@Model.ImageFile" class="control-label"></label>
-                                            <br />
-                                            <input class="font-weight-bold" asp-for="@Model.ImageFile" accept="image/*" />
-                                            <span asp-validation-for="@Model.ImageFile" class="text-danger"></span>
+                                            <label class="col-md-2 col-sm-3 col-xs-12 control-label" asp-for="UserName">User Name</label>
+                                            <div class="col-md-10 col-sm-9 col-xs-12">
+                                                <input class="form-control" asp-for="UserName" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 col-sm-3 col-xs-12 control-label" asp-for="UserName">User Name</label>
-                                        <div class="col-md-10 col-sm-9 col-xs-12">
-                                            <input class="form-control" asp-for="UserName" />
-                                        </div>
-                                    </div>
 
+                                        <div class="form-group">
+                                            <label class="col-md-2 col-sm-3 col-xs-12 control-label" asp-for="Country">Country</label>
+                                            <div class="col-md-10 col-sm-9 col-xs-12">
+                                                <input class="form-control" asp-for="Country" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 col-sm-3 col-xs-12 control-label" asp-for="Profession">Profession</label>
+                                            <div class="col-md-10 col-sm-9 col-xs-12">
+                                                <input type="text" class="form-control" asp-for="Profession" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 col-sm-3 col-xs-12 control-label" asp-for="Email">Profession</label>
+                                            <div class="col-md-10 col-sm-9 col-xs-12">
+                                                <input type="text" class="form-control" asp-for="Email" />
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <hr>
                                     <div class="form-group">
-                                        <label class="col-md-2 col-sm-3 col-xs-12 control-label" asp-for="Country">Country</label>
-                                        <div class="col-md-10 col-sm-9 col-xs-12">
-                                            <input class="form-control" asp-for="Country" />
+                                        <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+                                            <input class="btn btn-danger w-50 mt-2" type="submit" value="Save" />
+                                            <a class="btn btn-info" asp-controller="User" asp-action="Index" asp-route-id="@Model.Id">Update my profile</a>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 col-sm-3 col-xs-12 control-label" asp-for="Profession">Profession</label>
-                                        <div class="col-md-10 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" asp-for="Profession" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 col-sm-3 col-xs-12 control-label" asp-for="Email">Profession</label>
-                                        <div class="col-md-10 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" asp-for="Email" />
-                                        </div>
-                                    </div>
-                                </fieldset>
-                                <hr>
-                                <div class="form-group">
-                                    <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
-                                        <input class="btn btn-primary" type="submit" value="Update Profile">
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
                         </div>
                     </div>
                 </section>
             </div>
         </div>
-        </form>
 </body>
 </html>

@@ -34,6 +34,7 @@ namespace Services.Implementation
                     Email = user.Email,
                     UserName = user.UserName,
                     ImageFile = user.ImageFile,
+                    ImageName = user.ImageName,
                     Profession = user.Profession,
                 }).SingleOrDefault(user => user.Id == id);
 
@@ -46,12 +47,12 @@ namespace Services.Implementation
                 .Select(user => new UserViewModel
                 {
                     Id = user.Id,
-                    Country = user.Country,
                     Email = user.Email,
+                    Profession = user.Profession,
+                    Country = user.Country,
+                    UserName = user.UserName,
                     ImageFile = user.ImageFile,
                     ImageName = user.ImageName,
-                    UserName = user.UserName,
-                    Profession = user.Profession,
                 }).SingleOrDefault(user => user.Id == id);
 
             return user;

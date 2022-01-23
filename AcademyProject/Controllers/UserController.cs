@@ -35,22 +35,17 @@ namespace AcademyProject.Controllers
             return this.View("index" , user);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetUserById(string id)
-        {
-            UserViewModel result = userService.GetDetailsById(id);
-            return View("/Dashboard/Index", result); 
-        }
 
         [HttpGet]
         public IActionResult Update(string id)
         {
             UserViewModel user = this.userService.UpdateById(id);
 
-            return PartialView("UserPartials/_UpdateUserPartial", user);
+            return this.View(user);
         }
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Update(UserViewModel model)
         {
             if (this.ModelState.IsValid == false)
@@ -60,7 +55,7 @@ namespace AcademyProject.Controllers
 
             await this.userService.UpdateAsync(model);
 
-            return RedirectToAction("index");
+            return View(@"UserPartials\_UpdateUserAlert");
         }
     }
 }
