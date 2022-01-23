@@ -1,5 +1,9 @@
 ﻿@model GradeViewModel
 
+@{
+    ViewData["Title"] = "Index";
+}
+
 <h4>Add new grade</h4>
 <hr />
 <div class="row">
@@ -11,14 +15,15 @@
                 <input asp-for="StudentGrade" class="form-control" />
                 <span asp-validation-for="StudentGrade" class="text-danger"></span>
             </div>
-            <label asp-for="StudentId" class="control-label required"></label>
-            <select asp-for="StudentId" class="form-control">
-                @foreach (var user in this.ViewBag.Users)
+            <label asp-for="CourseId" class="control-label required"></label>
+            <select asp-for="CourseId" class="form-control">
+
+                @foreach (var user in this.ViewBag.Courses)
                 {
                     <option value="@user.Id">@user.UserName</option>
                 }
             </select>
-            <span asp-validation-for="StudentId" class="text-danger"></span>
+            <span asp-validation-for="CourseId" class="text-danger"></span>
             <br />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
