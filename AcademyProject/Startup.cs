@@ -1,17 +1,17 @@
-using AcademyProject.Models;
 using AutoMapper;
-using Date;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+
+using Date;
 using Models.Models;
 using Services.Implementation;
 using Services.Interfaces;
+using AcademyProject.Models;
 
 namespace AcademyProject
 {

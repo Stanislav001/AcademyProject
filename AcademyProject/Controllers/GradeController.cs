@@ -8,11 +8,30 @@ namespace AcademyProject.Controllers
     public class GradeController : Controller
     {
         public IGradeService gradeService { get; set; }
+        public IUserService userService { get; set; }
 
         public GradeController(IGradeService service)
         {
             gradeService = service;
         }
+
+       
+        /*
+        [HttpPost]
+        public async Task<IActionResult> Create(GradeViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            await gradeService.CreateGradeAsync(
+                model.CourseId,
+                model.StudentId);
+
+            return RedirectToAction("GetAllReceivedMessages");
+        }
+        */
 
         // TODO: Refactoring
         public IActionResult Create()

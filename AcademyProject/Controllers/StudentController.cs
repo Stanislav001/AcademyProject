@@ -13,7 +13,6 @@ namespace AcademyProject.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly ApplicationDbContext dbContext;
 
         public StudentController(IStudentService studentService, IGradeService gradeService)
         {

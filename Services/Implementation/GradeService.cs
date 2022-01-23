@@ -19,12 +19,14 @@ namespace Services.Implementation
         {
         }
 
-        public async Task<bool> CreateGradeAsync(string courseId, string studentId)
+        public async Task<bool> CreateGradeAsync(string courseId, string studentId, int studentGrade)
         {
             Grade garde = new Grade
             {
+                Id = Guid.NewGuid().ToString(),
                 CourseId = courseId,
-                StudentId = studentId
+                StudentId = studentId,
+                StudentGrade = studentGrade
             };
 
             await this.DbContext.Grades.AddAsync(garde);
@@ -75,14 +77,13 @@ namespace Services.Implementation
         }
 
         // TODO: Refactoring
-        public async Task<bool> CreateGradeAsync(string courseId, string studentId, int gradeContext)
+        public async Task<bool> CreateGradeAsync(string courseId, string studentId)
         {
             Grade grade = new Grade
             {
                 Id = new Guid().ToString(),
                 CourseId = courseId,
                 StudentId = studentId,
-                StudentGrade = gradeContext
             };
 
             await this.DbContext.Grades.AddAsync(grade);
