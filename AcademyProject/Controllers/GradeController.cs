@@ -9,13 +9,15 @@ namespace AcademyProject.Controllers
     {
         public IGradeService gradeService { get; set; }
         public IUserService userService { get; set; }
+        public ICourseService courseService { get; set; }
 
-        public GradeController(IGradeService service)
+        public GradeController(IGradeService service, IUserService userService, ICourseService courseService)
         {
-            gradeService = service;
+            this.gradeService = service;
+            this.courseService = courseService;
+            this.userService = userService;
         }
 
-       
         /*
         [HttpPost]
         public async Task<IActionResult> Create(GradeViewModel model)

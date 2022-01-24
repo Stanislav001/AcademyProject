@@ -17,10 +17,10 @@
             </div>
             <label asp-for="CourseId" class="control-label required"></label>
             <select asp-for="CourseId" class="form-control">
-
-                @foreach (var user in this.ViewBag.Courses)
+                
+                @foreach (var course in this.ViewBag.Courses)
                 {
-                    <option value="@user.Id">@user.UserName</option>
+                    <option value="@course.Id">@course.Title</option>
                 }
             </select>
             <span asp-validation-for="CourseId" class="text-danger"></span>

@@ -1,16 +1,12 @@
 ﻿using System.Collections.Generic;
 
-using Models.Base;
-
-namespace Models.Models
+namespace Services.ViewModels
 {
-   public class Post: BaseModel
+    public class PostViewModel
     {
         public string Title { get; set; }
         public string Context { get; set; }
-        public List<Comment> Coments { get; set; }
         public string UserId { get; set; }
-        public List<User> Users { get; set; }
-
+        public List<UserViewModel> Users { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace Services.Implementation
 
         public GradeService(ApplicationDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
+
         }
 
         public async Task<bool> CreateGradeAsync(string courseId, string studentId, int studentGrade)
