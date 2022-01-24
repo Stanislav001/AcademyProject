@@ -104,13 +104,11 @@ namespace Services.Implementation
             }
         }
 
-        public IEnumerable<UserViewModel> GetAllUsernames(string userId)
+        public IEnumerable<User> GetAllUsernames(string userId)
         {
-            var users = this.DbContext.Users.Where(u => u.Id != userId).ToList();
+            IEnumerable<User> user = this.DbContext.Users.Where(u => u.Id != userId).ToList();
 
-            var mappedUsers = this.Mapper.Map<IEnumerable<UserViewModel>>(users);
-
-            return mappedUsers;
+            return user;
         }
 
         // Return all Students

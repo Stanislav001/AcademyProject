@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using Models.Models;
 using Services.ViewModels;
 
 namespace Services.Interfaces
@@ -13,6 +14,6 @@ namespace Services.Interfaces
         UserViewModel GetDetailsById(string id);
         UserViewModel UpdateById(string id);
         Task UpdateAsync(UserViewModel model);
-        public IEnumerable<UserViewModel> GetAllUsernames(string userId);
+        public IEnumerable<User> GetAllUsernames(string userId);
     }
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Date;
 using Models.Models;
 using Services.Interfaces;
+using Services.ViewModels;
 
 namespace Services.Implementation
 {
@@ -33,8 +34,7 @@ namespace Services.Implementation
             Post model = new Post
             {
                 Title = title,
-                Context = context,
-                UserId = userId
+                Context = context
             };
 
             await this.DbContext.Posts.AddAsync(model);

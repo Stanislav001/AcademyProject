@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PostViewModel>
+﻿@model IEnumerable<Post>
 @inject SignInManager<Models.Models.User> singInManager;
 
 <html>
@@ -42,11 +42,13 @@
         @foreach (var item in Model)
         {
             <div class="movieCard">
-                
+
                 <h1>@item.Title</h1>
                 <p>Price: @item.Context</p>
             </div>
         }
     </div>
+
+    <a class="btn btn-outline-danger" asp-action="Create">Create Teacher</a>
 </body>
 </html>

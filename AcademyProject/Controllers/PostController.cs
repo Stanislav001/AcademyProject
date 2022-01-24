@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using Models.Models;
 using Services.Interfaces;
+using Services.ViewModels;
 
 namespace AcademyProject.Controllers
 {
