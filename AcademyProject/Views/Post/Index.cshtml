@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PostViewModel>
+@inject SignInManager<Models.Models.User> singInManager;
+
+<html>
+<head>
+    @{ ViewData["Title"] = "Posts"; }
+
+    <style>
+        .container {
+            display: inline-block;
+        }
+
+        .movieCard {
+            display: inline-block;
+            text-align: center;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            max-height: 800px;
+            margin-left: 2%;
+            margin-top: 3%;
+            font-family: arial;
+        }
+
+            .movieCard:hover {
+                transform: translateY(-30px);
+            }
+
+        .cardPhoto {
+            width: 300px;
+            height: 300px;
+        }
+
+        .movieCard h1, p {
+            color: black;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="container">
+        @foreach (var item in Model)
+        {
+            <div class="movieCard">
+                
+                <h1>@item.Title</h1>
+                <p>Price: @item.Context</p>
+            </div>
+        }
+    </div>
+</body>
+</html>
