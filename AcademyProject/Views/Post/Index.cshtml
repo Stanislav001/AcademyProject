@@ -41,14 +41,13 @@
     <div class="container">
         @foreach (var item in Model)
         {
-            <div class="movieCard">
-
-                <h1>@item.Title</h1>
-                <p>Price: @item.Context</p>
-            </div>
+        <div class="movieCard">
+            <h1>@item.Title</h1>
+            <p>@item.Context</p>
+        </div>
         }
     </div>
 
-    <a class="btn btn-outline-danger" asp-action="Create">Create Teacher</a>
+    <a class="btn btn-outline-danger" asp-action="Create">Add new post</a>
 </body>
 </html>

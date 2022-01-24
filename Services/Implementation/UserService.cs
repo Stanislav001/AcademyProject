@@ -111,6 +111,23 @@ namespace Services.Implementation
             return user;
         }
 
+        public User GetUserByUserName(string userName)
+        {
+            User user = this.DbContext.Users
+              .Select(user => new User
+              {
+                  Id = user.Id,
+                  Country = user.Country,
+                  Email = user.Email,
+                  UserName = user.UserName,
+                  ImageFile = user.ImageFile,
+                  ImageName = user.ImageName,
+                  Profession = user.Profession,
+              }).SingleOrDefault(user => user.UserName == userName);
+
+            return user;
+        }
+
         // Return all Students
         public IEnumerable<UserViewModel> GetAllStudents()
         {

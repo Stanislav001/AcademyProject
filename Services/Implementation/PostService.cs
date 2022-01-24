@@ -22,19 +22,21 @@ namespace Services.Implementation
             IEnumerable<Post> posts = this.DbContext.Posts
                 .Select(posts => new Post
                 {
-                    Id = posts.Id,
                     Title = posts.Title,
-                    Context = posts.Context
+                    Context = posts.Context,
+                    UserId = posts.UserId,
                 }).ToList();
 
             return posts;
         }
+
         public async Task<bool> CreatePostAsync(string title, string context, string userId)
         {
             Post model = new Post
             {
                 Title = title,
-                Context = context
+                Context = context,
+                UserId = userId,
             };
 
             await this.DbContext.Posts.AddAsync(model);
@@ -60,6 +62,7 @@ namespace Services.Implementation
             return true;
         }
 
+        // TODO: need this?
         public Post GetPostById(string postId)
         {
             var post = this.DbContext.Posts.FirstOrDefault(p => p.Id == postId);
