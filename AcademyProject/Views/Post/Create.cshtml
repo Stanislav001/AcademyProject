@@ -16,13 +16,16 @@
                 <input asp-for="Context" class="form-control" />
                 <span asp-validation-for="Context" class="text-danger"></span>
             </div>
-            <label asp-for="UserId" class="control-label required">UserName</label>
-            <select asp-for="UserId" class="form-control">
+            <label asp-for="UserName" class="control-label required">UserName</label>
+
+            <label asp-for="UserName" class="control-label required">UserName</label>
+            <select asp-for="UserName" class="form-control">
                 @foreach (var user in this.ViewBag.Users)
                 {
-                    <option value="@user.Id">@user.UserName</option>
+                    <option value="@user.UserName">@user.UserName</option>
                 }
             </select>
+
             <span asp-validation-for="UserId" class="text-danger"></span>
             <br />
             <div class="form-group">

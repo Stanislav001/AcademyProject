@@ -80,19 +80,6 @@ namespace Date.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Posts",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Context = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Posts", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -196,6 +183,27 @@ namespace Date.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Posts",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Context = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Posts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Posts_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -334,30 +342,6 @@ namespace Date.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PostUser",
-                columns: table => new
-                {
-                    PostsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UsersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PostUser", x => new { x.PostsId, x.UsersId });
-                    table.ForeignKey(
-                        name: "FK_PostUser_AspNetUsers_UsersId",
-                        column: x => x.UsersId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PostUser_Posts_PostsId",
-                        column: x => x.PostsId,
-                        principalTable: "Posts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CourseStudent",
                 columns: table => new
                 {
@@ -460,24 +444,24 @@ namespace Date.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "fdb7f7d6-202f-4048-8f42-9bb26cf1d4a1", "4d3e39f0-cf7a-4d4a-acdd-336eac086628", "Admin", null },
-                    { "653b5c37-db40-466f-bb2c-a4729208aef8", "e67855f4-884d-4f90-88ac-bbf9da55fcf4", "User", null }
+                    { "5ac1c62f-3eee-4b1b-a8f5-f45358635ce0", "5b843075-87d8-4749-a9ee-d24b01064bb7", "Admin", null },
+                    { "d70c19e9-2409-454b-86ab-9a8dab8bf1aa", "b7c03fba-fa23-40f7-a102-4c4a3608d8ed", "User", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Courses",
                 columns: new[] { "Id", "CourseName", "Description", "Duration", "ImageName", "ManagerId", "Price", "UserId" },
-                values: new object[] { "39139e09-3ce1-4eca-89ac-46ed9dffaa98", "JavaScript", "", "6", null, null, 800m, null });
+                values: new object[] { "2e0ac4e9-271b-4389-878d-8caf6315b9da", "JavaScript", "", "6", null, null, 800m, null });
 
             migrationBuilder.InsertData(
                 table: "Students",
                 columns: new[] { "Id", "City", "CoursesNumber", "Email", "FirstName", "ImageName", "LastName", "ManagerId", "PhoneNumber", "SecondName", "StudentNumber", "Year" },
-                values: new object[] { "d610d074-8359-478e-9c69-8b096705a3b0", "Sofia", 0, "petrov@gmail.com", "Ivan", null, "Petrov", null, "302-444-1234", "Hristov", null, 19 });
+                values: new object[] { "24f363b0-23e5-420c-b16e-237f3da78990", "Sofia", 0, "petrov@gmail.com", "Ivan", null, "Petrov", null, "302-444-1234", "Hristov", null, 19 });
 
             migrationBuilder.InsertData(
                 table: "Teachers",
                 columns: new[] { "Id", "Education", "Email", "Experience", "FirstName", "ImageName", "LastName", "ManagerId", "PhoneNumber", "Position", "Salary", "SecondName", "Year" },
-                values: new object[] { "077a03b7-4f6e-4e5f-a221-b5f8eee68b94", "Higher", "georgiev@gmail.com", 6, "Petar", null, "Georgiev", null, "202-555-0108", "Teacher", 2000m, "Petrov", 21 });
+                values: new object[] { "116519a0-fba1-488f-b58d-7f1bd621d46a", "Higher", "georgiev@gmail.com", 6, "Petar", null, "Georgiev", null, "202-555-0108", "Teacher", 2000m, "Petrov", 21 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -559,9 +543,9 @@ namespace Date.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PostUser_UsersId",
-                table: "PostUser",
-                column: "UsersId");
+                name: "IX_Posts_UserId",
+                table: "Posts",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Students_ManagerId",
@@ -612,22 +596,19 @@ namespace Date.Migrations
                 name: "Grades");
 
             migrationBuilder.DropTable(
-                name: "PostUser");
-
-            migrationBuilder.DropTable(
                 name: "StudentTeacher");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Posts");
+
+            migrationBuilder.DropTable(
                 name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "Courses");
-
-            migrationBuilder.DropTable(
-                name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "Students");

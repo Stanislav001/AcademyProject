@@ -108,14 +108,14 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3f53db88-cde0-4218-9714-43a92fb83ee2",
-                            ConcurrencyStamp = "43577666-0b10-4e02-9506-3504806353de",
+                            Id = "5ac1c62f-3eee-4b1b-a8f5-f45358635ce0",
+                            ConcurrencyStamp = "5b843075-87d8-4749-a9ee-d24b01064bb7",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "69c48557-9fe8-483a-8e4b-b3ec6a3560bd",
-                            ConcurrencyStamp = "b9176625-5a00-4095-a38e-f3d00615a315",
+                            Id = "d70c19e9-2409-454b-86ab-9a8dab8bf1aa",
+                            ConcurrencyStamp = "b7c03fba-fa23-40f7-a102-4c4a3608d8ed",
                             Name = "User"
                         });
                 });
@@ -274,7 +274,7 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7bf739d6-7710-41dd-a208-d79dff5ba776",
+                            Id = "2e0ac4e9-271b-4389-878d-8caf6315b9da",
                             CourseName = "JavaScript",
                             Description = "",
                             Duration = "6",
@@ -348,9 +348,14 @@ namespace Date.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Posts");
                 });
@@ -402,7 +407,7 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "54fc5e64-d22f-4c81-b8c0-01f1f918d9d8",
+                            Id = "24f363b0-23e5-420c-b16e-237f3da78990",
                             City = "Sofia",
                             CoursesNumber = 0,
                             Email = "petrov@gmail.com",
@@ -464,7 +469,7 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e435d9dd-3ae2-401e-924d-02e64cac70cc",
+                            Id = "116519a0-fba1-488f-b58d-7f1bd621d46a",
                             Education = "Higher",
                             Email = "georgiev@gmail.com",
                             Experience = 6,
@@ -550,21 +555,6 @@ namespace Date.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("PostUser", b =>
-                {
-                    b.Property<string>("PostsId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UsersId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("PostsId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("PostUser");
                 });
 
             modelBuilder.Entity("StudentTeacher", b =>
@@ -721,6 +711,15 @@ namespace Date.Migrations
                     b.Navigation("Student");
                 });
 
+            modelBuilder.Entity("Models.Models.Post", b =>
+                {
+                    b.HasOne("Models.Models.User", "User")
+                        .WithMany("Posts")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Models.Models.Student", b =>
                 {
                     b.HasOne("Models.Models.Manager", "Manager")
@@ -737,21 +736,6 @@ namespace Date.Migrations
                         .HasForeignKey("ManagerId");
 
                     b.Navigation("Manager");
-                });
-
-            modelBuilder.Entity("PostUser", b =>
-                {
-                    b.HasOne("Models.Models.Post", null)
-                        .WithMany()
-                        .HasForeignKey("PostsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("StudentTeacher", b =>
@@ -791,6 +775,8 @@ namespace Date.Migrations
             modelBuilder.Entity("Models.Models.User", b =>
                 {
                     b.Navigation("Courses");
+
+                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }

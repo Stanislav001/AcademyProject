@@ -10,6 +10,7 @@ namespace Models.Models
         public string Context { get; set; }
         public List<Comment> Coments { get; set; }
         public string UserId { get; set; }
+        public string UserName { get; set; }
         public User User { get; set; }
 
     }

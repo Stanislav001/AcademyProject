@@ -43,6 +43,7 @@ namespace AcademyProject.Controllers
             await postService.CreatePostAsync(
                 model.Title,
                 model.Context,
+                userManager.GetUserName(this.User),
                 userManager.GetUserId(this.User));
 
             return RedirectToAction("Index");

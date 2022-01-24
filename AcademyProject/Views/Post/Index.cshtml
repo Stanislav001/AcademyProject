@@ -10,44 +10,43 @@
             display: inline-block;
         }
 
-        .movieCard {
+        .postCard {
             display: inline-block;
             text-align: center;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            max-width: 600px;
             max-height: 800px;
-            margin-left: 2%;
+            max-width: 800px;
+            margin-left: 25%;
             margin-top: 3%;
             font-family: arial;
         }
 
-            .movieCard:hover {
+            .postCard:hover {
                 transform: translateY(-30px);
             }
 
-        .cardPhoto {
-            width: 300px;
+        .postCard {
+            width: 600px;
             height: 300px;
         }
 
-        .movieCard h1, p {
-            color: black;
-        }
+            .postCard h1, p {
+                color: black;
+            }
     </style>
 </head>
 
-
 <body>
+    <a class="btn btn-outline-danger" asp-action="Create">Add new post</a>
     <div class="container">
         @foreach (var item in Model)
         {
-        <div class="movieCard">
+        <div class="postCard">
             <h1>@item.Title</h1>
-            <p>@item.Context</p>
+            <p>By:@item.Context</p>
+            <p>Desc:@item.UserName</p>
         </div>
         }
     </div>
-
-    <a class="btn btn-outline-danger" asp-action="Create">Add new post</a>
 </body>
 </html>
