@@ -48,16 +48,14 @@ namespace AcademyProject.Controllers
             return RedirectToAction("Index");
         }
 
-
         // Comments section
 
-        //TODO
         [HttpGet]
-        public IActionResult GetComments()
+        public IActionResult GetAllComments()
         {
             IEnumerable<PostViewModel> comments = this.postService.GetAllComment();
 
-            return this.View(comments);
+            return PartialView("PostPartials/_GetCommentsPartial", comments);
         }
 
         [HttpGet]
