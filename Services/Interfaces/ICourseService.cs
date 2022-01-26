@@ -16,6 +16,5 @@ namespace Services.Interfaces
         CourseViewModel UpdateById(string id);
         Task UpdateAsync(CourseViewModel model);
         Task DeleteAsync(string id);
-
     }
 }

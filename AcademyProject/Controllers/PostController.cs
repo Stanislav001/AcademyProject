@@ -48,10 +48,34 @@ namespace AcademyProject.Controllers
             return RedirectToAction("Index");
         }
 
+
+        // Comments section
+
         //TODO
-        public IActionResult LeaveComment()
+        [HttpGet]
+        public IActionResult GetComments()
         {
-            return Ok();
+            IEnumerable<Comment> comments = this.postService.GetAllComment();
+
+            return this.View(comments);
+        }
+
+        public IActionResult CreateComment()
+        {
+            this.ViewData["Users"] = userService.GetAllUsernames(userManager.GetUserId(this.User));
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateComment(Comment model)
+        {
+
+            await postService.LeaveComment(
+                model.Context,
+                userManager.GetUserName(this.User),
+                userManager.GetUserId(this.User));
+
+            return RedirectToAction("Index");
         }
     }
 }
