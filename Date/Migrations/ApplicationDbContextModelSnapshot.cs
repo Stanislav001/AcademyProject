@@ -19,21 +19,6 @@ namespace Date.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("CommentPost", b =>
-                {
-                    b.Property<string>("ComentsId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("PostsId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("ComentsId", "PostsId");
-
-                    b.HasIndex("PostsId");
-
-                    b.ToTable("CommentPost");
-                });
-
             modelBuilder.Entity("CommentUser", b =>
                 {
                     b.Property<string>("ComentsId")
@@ -108,14 +93,14 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5ac1c62f-3eee-4b1b-a8f5-f45358635ce0",
-                            ConcurrencyStamp = "5b843075-87d8-4749-a9ee-d24b01064bb7",
+                            Id = "b35f41ab-8913-4500-bf37-93bc1620eb95",
+                            ConcurrencyStamp = "6a47144b-ad7f-4750-b288-dd6c3df56f91",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "d70c19e9-2409-454b-86ab-9a8dab8bf1aa",
-                            ConcurrencyStamp = "b7c03fba-fa23-40f7-a102-4c4a3608d8ed",
+                            Id = "dbdad705-a707-4bcd-9f4c-48f1d0227238",
+                            ConcurrencyStamp = "6707e606-b48b-4b6b-ba2e-685a0d56dcfd",
                             Name = "User"
                         });
                 });
@@ -232,7 +217,15 @@ namespace Date.Migrations
                     b.Property<string>("Context")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PostId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PostId");
 
                     b.ToTable("Comments");
                 });
@@ -274,7 +267,7 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2e0ac4e9-271b-4389-878d-8caf6315b9da",
+                            Id = "567628b5-44f3-486a-be4c-6a855dc473e4",
                             CourseName = "JavaScript",
                             Description = "",
                             Duration = "6",
@@ -407,7 +400,7 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "24f363b0-23e5-420c-b16e-237f3da78990",
+                            Id = "e3320e43-aec7-4ad9-bbeb-f58c771fd34e",
                             City = "Sofia",
                             CoursesNumber = 0,
                             Email = "petrov@gmail.com",
@@ -469,7 +462,7 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "116519a0-fba1-488f-b58d-7f1bd621d46a",
+                            Id = "581c96e4-40d6-4827-a495-f61fd249a778",
                             Education = "Higher",
                             Email = "georgiev@gmail.com",
                             Experience = 6,
@@ -572,21 +565,6 @@ namespace Date.Migrations
                     b.ToTable("StudentTeacher");
                 });
 
-            modelBuilder.Entity("CommentPost", b =>
-                {
-                    b.HasOne("Models.Models.Comment", null)
-                        .WithMany()
-                        .HasForeignKey("ComentsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.Models.Post", null)
-                        .WithMany()
-                        .HasForeignKey("PostsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("CommentUser", b =>
                 {
                     b.HasOne("Models.Models.Comment", null)
@@ -683,6 +661,15 @@ namespace Date.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Models.Models.Comment", b =>
+                {
+                    b.HasOne("Models.Models.Post", "Post")
+                        .WithMany("Coments")
+                        .HasForeignKey("PostId");
+
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("Models.Models.Course", b =>
                 {
                     b.HasOne("Models.Models.Manager", "Manager")
@@ -765,6 +752,11 @@ namespace Date.Migrations
                     b.Navigation("Students");
 
                     b.Navigation("Teachers");
+                });
+
+            modelBuilder.Entity("Models.Models.Post", b =>
+                {
+                    b.Navigation("Coments");
                 });
 
             modelBuilder.Entity("Models.Models.Student", b =>

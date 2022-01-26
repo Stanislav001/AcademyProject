@@ -45,8 +45,36 @@
             <h1>@item.Title</h1>
             <p>By:@item.Context</p>
             <p>Desc:@item.UserName</p>
+            <a class="btn btn-outline-danger" asp-action="LeaveComment">Leave comment</a>
         </div>
+
+            <div class="col-md-12">
+                <section class="box">
+                    <h5>Comments:</h5>
+                    <button id="comments" class="btn btn-danger">Show me comments</button>
+                    <div id="commentContent">
+
+                    </div>
+                </section>
+            </div>
         }
     </div>
 </body>
 </html>
+
+@section Scripts{
+    <script>
+        $("#comments").on("click", function () {
+            $.ajax({
+                method: "GET",
+                url: "Post/GetComments",
+                success: function (data) {
+                    $("#commentContent").html(data);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        })
+    </script>
+}

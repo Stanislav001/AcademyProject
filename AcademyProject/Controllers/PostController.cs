@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using Models.Models;
 using Services.Interfaces;
+using Services.ViewModels;
 
 namespace AcademyProject.Controllers
 {
@@ -38,7 +39,6 @@ namespace AcademyProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Post model)
         {
-            
             await postService.CreatePostAsync(
                 model.Title,
                 model.Context,
@@ -55,19 +55,20 @@ namespace AcademyProject.Controllers
         [HttpGet]
         public IActionResult GetComments()
         {
-            IEnumerable<Comment> comments = this.postService.GetAllComment();
+            IEnumerable<PostViewModel> comments = this.postService.GetAllComment();
 
             return this.View(comments);
         }
 
-        public IActionResult CreateComment()
+        [HttpGet]
+        public IActionResult LeaveComment()
         {
             this.ViewData["Users"] = userService.GetAllUsernames(userManager.GetUserId(this.User));
             return this.View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateComment(Comment model)
+        public async Task<IActionResult> LeaveComment(Comment model)
         {
 
             await postService.LeaveComment(

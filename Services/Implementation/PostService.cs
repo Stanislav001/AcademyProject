@@ -74,7 +74,6 @@ namespace Services.Implementation
             return post;
         }
 
-
         // Comment 
         public async Task<bool> LeaveComment(string context, string userId, string postId)
         {
@@ -91,14 +90,13 @@ namespace Services.Implementation
             return true;
         }
 
-        public IEnumerable<Comment> GetAllComment()
+        public IEnumerable<PostViewModel> GetAllComment()
         {
-            IEnumerable<Comment> comments = this.DbContext.Comments
-                .Select(comments => new Comment
+            IEnumerable<PostViewModel> comments = this.DbContext.Comments
+                .Select(comments => new PostViewModel
                 {
-                    PostId = comments.PostId,
                     UserId = comments.UserId,
-                    Context = comments.Context,
+                    CommentContext = comments.Context,
                 }).ToList();
 
             return comments;

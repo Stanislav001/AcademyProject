@@ -50,18 +50,6 @@ namespace Date.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comments",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Context = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Comments", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Managers",
                 columns: table => new
                 {
@@ -207,30 +195,6 @@ namespace Date.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CommentUser",
-                columns: table => new
-                {
-                    ComentsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UsersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CommentUser", x => new { x.ComentsId, x.UsersId });
-                    table.ForeignKey(
-                        name: "FK_CommentUser_AspNetUsers_UsersId",
-                        column: x => x.UsersId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CommentUser_Comments_ComentsId",
-                        column: x => x.ComentsId,
-                        principalTable: "Comments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Courses",
                 columns: table => new
                 {
@@ -318,27 +282,23 @@ namespace Date.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CommentPost",
+                name: "Comments",
                 columns: table => new
                 {
-                    ComentsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PostsId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Context = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CommentPost", x => new { x.ComentsId, x.PostsId });
+                    table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CommentPost_Comments_ComentsId",
-                        column: x => x.ComentsId,
-                        principalTable: "Comments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CommentPost_Posts_PostsId",
-                        column: x => x.PostsId,
+                        name: "FK_Comments_Posts_PostId",
+                        column: x => x.PostId,
                         principalTable: "Posts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -439,29 +399,53 @@ namespace Date.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "CommentUser",
+                columns: table => new
+                {
+                    ComentsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UsersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CommentUser", x => new { x.ComentsId, x.UsersId });
+                    table.ForeignKey(
+                        name: "FK_CommentUser_AspNetUsers_UsersId",
+                        column: x => x.UsersId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CommentUser_Comments_ComentsId",
+                        column: x => x.ComentsId,
+                        principalTable: "Comments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "5ac1c62f-3eee-4b1b-a8f5-f45358635ce0", "5b843075-87d8-4749-a9ee-d24b01064bb7", "Admin", null },
-                    { "d70c19e9-2409-454b-86ab-9a8dab8bf1aa", "b7c03fba-fa23-40f7-a102-4c4a3608d8ed", "User", null }
+                    { "b35f41ab-8913-4500-bf37-93bc1620eb95", "6a47144b-ad7f-4750-b288-dd6c3df56f91", "Admin", null },
+                    { "dbdad705-a707-4bcd-9f4c-48f1d0227238", "6707e606-b48b-4b6b-ba2e-685a0d56dcfd", "User", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Courses",
                 columns: new[] { "Id", "CourseName", "Description", "Duration", "ImageName", "ManagerId", "Price", "UserId" },
-                values: new object[] { "2e0ac4e9-271b-4389-878d-8caf6315b9da", "JavaScript", "", "6", null, null, 800m, null });
+                values: new object[] { "567628b5-44f3-486a-be4c-6a855dc473e4", "JavaScript", "", "6", null, null, 800m, null });
 
             migrationBuilder.InsertData(
                 table: "Students",
                 columns: new[] { "Id", "City", "CoursesNumber", "Email", "FirstName", "ImageName", "LastName", "ManagerId", "PhoneNumber", "SecondName", "StudentNumber", "Year" },
-                values: new object[] { "24f363b0-23e5-420c-b16e-237f3da78990", "Sofia", 0, "petrov@gmail.com", "Ivan", null, "Petrov", null, "302-444-1234", "Hristov", null, 19 });
+                values: new object[] { "e3320e43-aec7-4ad9-bbeb-f58c771fd34e", "Sofia", 0, "petrov@gmail.com", "Ivan", null, "Petrov", null, "302-444-1234", "Hristov", null, 19 });
 
             migrationBuilder.InsertData(
                 table: "Teachers",
                 columns: new[] { "Id", "Education", "Email", "Experience", "FirstName", "ImageName", "LastName", "ManagerId", "PhoneNumber", "Position", "Salary", "SecondName", "Year" },
-                values: new object[] { "116519a0-fba1-488f-b58d-7f1bd621d46a", "Higher", "georgiev@gmail.com", 6, "Petar", null, "Georgiev", null, "202-555-0108", "Teacher", 2000m, "Petrov", 21 });
+                values: new object[] { "581c96e4-40d6-4827-a495-f61fd249a778", "Higher", "georgiev@gmail.com", 6, "Petar", null, "Georgiev", null, "202-555-0108", "Teacher", 2000m, "Petrov", 21 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -503,9 +487,9 @@ namespace Date.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CommentPost_PostsId",
-                table: "CommentPost",
-                column: "PostsId");
+                name: "IX_Comments_PostId",
+                table: "Comments",
+                column: "PostId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CommentUser_UsersId",
@@ -581,9 +565,6 @@ namespace Date.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CommentPost");
-
-            migrationBuilder.DropTable(
                 name: "CommentUser");
 
             migrationBuilder.DropTable(
@@ -602,9 +583,6 @@ namespace Date.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Posts");
-
-            migrationBuilder.DropTable(
                 name: "Comments");
 
             migrationBuilder.DropTable(
@@ -617,10 +595,13 @@ namespace Date.Migrations
                 name: "Teachers");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "Managers");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }
