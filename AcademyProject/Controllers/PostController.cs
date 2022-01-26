@@ -47,5 +47,11 @@ namespace AcademyProject.Controllers
 
             return RedirectToAction("Index");
         }
+
+        //TODO
+        public IActionResult LeaveComment()
+        {
+            return Ok();
+        }
     }
 }
