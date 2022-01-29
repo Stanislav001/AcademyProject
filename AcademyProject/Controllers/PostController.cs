@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using Models.Models;
 using Services.Interfaces;
 using Services.ViewModels;
+using Date;
+using System.Linq;
 
 namespace AcademyProject.Controllers
 {
     public class PostController : Controller
     {
+        private readonly ApplicationDbContext dbContext;
         private readonly IPostService postService;
         private readonly IUserService userService;
         private readonly UserManager<User> userManager;
@@ -25,7 +28,7 @@ namespace AcademyProject.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            IEnumerable<Post> posts = this.postService.GetAll();
+            IEnumerable<PostViewModel> posts = this.postService.GetAll();
 
             return this.View(posts);
         }
@@ -48,33 +51,30 @@ namespace AcademyProject.Controllers
             return RedirectToAction("Index");
         }
 
-        // Comments section
-
-        [HttpGet]
-        public IActionResult GetAllComments()
-        {
-            IEnumerable<PostViewModel> comments = this.postService.GetAllComment();
-
-            return PartialView("PostPartials/_GetCommentsPartial", comments);
-        }
-
         [HttpGet]
         public IActionResult LeaveComment()
         {
             this.ViewData["Users"] = userService.GetAllUsernames(userManager.GetUserId(this.User));
             return this.View();
         }
-
+      
         [HttpPost]
         public async Task<IActionResult> LeaveComment(Comment model)
         {
-
             await postService.LeaveComment(
                 model.Context,
-                userManager.GetUserName(this.User),
+                model.Id,
                 userManager.GetUserId(this.User));
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult GetAllCommentsByPostId(string postId)
+        {
+            Comment comment = this.postService.GetAllCommentByPostId(postId);
+
+            return View("GetComments", comment);
         }
     }
 }

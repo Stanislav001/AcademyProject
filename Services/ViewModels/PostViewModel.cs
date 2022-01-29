@@ -1,4 +1,5 @@
 ﻿using Models.Models;
+using System;
 using System.Collections.Generic;
 
 namespace Services.ViewModels
@@ -11,9 +12,9 @@ namespace Services.ViewModels
         public string UserId { get; set; }
         public string UserName { get; set; }
         public UserViewModel User { get; set; }
-
-        public string CommentId { get; set; }
         public string CommentContext { get; set; }
-        public Post Post { get; set; }
+        public List<CommentViewModel> Comments { get; set; }
+       // public Post Post { get; set; }
+
     }
 }

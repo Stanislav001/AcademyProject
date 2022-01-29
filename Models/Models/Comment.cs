@@ -8,7 +8,7 @@ namespace Models.Models
     {
         public string Context { get; set; }
         public string PostId { get; set; }
-        public Post Post { get; set; }
+        public List<Post> Post { get; set; }
         public string UserId { get; set; }
         public List<User> Users { get; set; }
 

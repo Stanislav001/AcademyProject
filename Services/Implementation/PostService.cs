@@ -8,6 +8,7 @@ using Date;
 using Models.Models;
 using Services.Interfaces;
 using Services.ViewModels;
+using System;
 
 namespace Services.Implementation
 {
@@ -20,15 +21,17 @@ namespace Services.Implementation
             this.userService = userService;
         }
 
-        public IEnumerable<Post> GetAll()
+        public IEnumerable<PostViewModel> GetAll()
         {
-            IEnumerable<Post> posts = this.DbContext.Posts
-                .Select(posts => new Post
+            IEnumerable<PostViewModel> posts = this.DbContext.Posts
+                .Select(posts => new PostViewModel
                 {
                     Title = posts.Title,
                     UserId = posts.UserId,
                     UserName = posts.UserName,
-                    Context = posts.Context
+                    Context = posts.Context,
+                    CommentContext = posts.CommentContext,
+                    PostId = posts.Id,
                 }).ToList();
 
             return posts;
@@ -66,6 +69,21 @@ namespace Services.Implementation
 
             return true;
         }
+        public PostViewModel GetDetailsById(string id)
+        {
+            PostViewModel post = this.DbContext.Posts
+                .Select(post => new PostViewModel
+                {
+                    Title = post.Title,
+                    PostId = post.Id,
+                    Context = post.Context,
+                    CommentContext = post.CommentContext,
+                    UserId = post.UserId,
+                    UserName = post.UserName
+                }).SingleOrDefault(post => post.PostId == id);
+
+            return post;
+        }
 
         public Post GetPostById(string postId)
         {
@@ -74,14 +92,14 @@ namespace Services.Implementation
             return post;
         }
 
-        // Comment 
-        public async Task<bool> LeaveComment(string context, string userId, string postId)
+        public async Task<bool> LeaveComment(string context, string postId,string userId)
         {
+
             Comment comment = new Comment
             {
+                PostId = postId,
                 Context = context,
-                UserId = userId,
-                PostId = postId
+                UserId = userId
             };
 
             await this.DbContext.Comments.AddAsync(comment);
@@ -90,16 +108,15 @@ namespace Services.Implementation
             return true;
         }
 
-        public IEnumerable<PostViewModel> GetAllComment()
+        public Comment GetAllCommentByPostId(string postId)
         {
-            IEnumerable<PostViewModel> comments = this.DbContext.Comments
-                .Select(comments => new PostViewModel
-                {
-                    UserId = comments.UserId,
-                    CommentContext = comments.Context,
-                }).ToList();
+            Comment comment = this.DbContext.Comments
+               .Select(comment => new Comment
+               {
+                   Context = comment.Context
+               }).SingleOrDefault(comment => comment.PostId == postId);
 
-            return comments;
+            return comment;
         }
     }
 }

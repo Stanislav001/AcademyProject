@@ -93,7 +93,6 @@ namespace AcademyProject.Controllers
             return this.View(course);
         }
 
-
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Update(CourseViewModel model)

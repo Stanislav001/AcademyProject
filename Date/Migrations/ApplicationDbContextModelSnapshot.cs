@@ -19,6 +19,21 @@ namespace Date.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("CommentPost", b =>
+                {
+                    b.Property<string>("ComentsId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PostId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ComentsId", "PostId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("CommentPost");
+                });
+
             modelBuilder.Entity("CommentUser", b =>
                 {
                     b.Property<string>("ComentsId")
@@ -93,14 +108,14 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b35f41ab-8913-4500-bf37-93bc1620eb95",
-                            ConcurrencyStamp = "6a47144b-ad7f-4750-b288-dd6c3df56f91",
+                            Id = "4a691fef-55c1-4336-baa1-7a94d71431c2",
+                            ConcurrencyStamp = "de8e3e9b-c7b7-4eeb-8e61-6a877ac609a7",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "dbdad705-a707-4bcd-9f4c-48f1d0227238",
-                            ConcurrencyStamp = "6707e606-b48b-4b6b-ba2e-685a0d56dcfd",
+                            Id = "bc2ceeba-5a73-4285-8693-59ac492bcd3d",
+                            ConcurrencyStamp = "26d31a7b-9adb-487b-8904-3fbd4516e251",
                             Name = "User"
                         });
                 });
@@ -214,18 +229,19 @@ namespace Date.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("CommentId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Context")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PostId");
 
                     b.ToTable("Comments");
                 });
@@ -267,7 +283,7 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "567628b5-44f3-486a-be4c-6a855dc473e4",
+                            Id = "55c3b2b4-6b77-4102-a2f8-cc0a402dac35",
                             CourseName = "JavaScript",
                             Description = "",
                             Duration = "6",
@@ -333,6 +349,9 @@ namespace Date.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CommentContext")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Context")
                         .HasColumnType("nvarchar(max)");
@@ -400,7 +419,7 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e3320e43-aec7-4ad9-bbeb-f58c771fd34e",
+                            Id = "eae846b4-fac9-4ebb-91ff-1ec49c77a754",
                             City = "Sofia",
                             CoursesNumber = 0,
                             Email = "petrov@gmail.com",
@@ -462,7 +481,7 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "581c96e4-40d6-4827-a495-f61fd249a778",
+                            Id = "80036cae-01d3-4d82-a72a-a7e5b792da8a",
                             Education = "Higher",
                             Email = "georgiev@gmail.com",
                             Experience = 6,
@@ -565,6 +584,21 @@ namespace Date.Migrations
                     b.ToTable("StudentTeacher");
                 });
 
+            modelBuilder.Entity("CommentPost", b =>
+                {
+                    b.HasOne("Models.Models.Comment", null)
+                        .WithMany()
+                        .HasForeignKey("ComentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.Models.Post", null)
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CommentUser", b =>
                 {
                     b.HasOne("Models.Models.Comment", null)
@@ -661,15 +695,6 @@ namespace Date.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Models.Models.Comment", b =>
-                {
-                    b.HasOne("Models.Models.Post", "Post")
-                        .WithMany("Coments")
-                        .HasForeignKey("PostId");
-
-                    b.Navigation("Post");
-                });
-
             modelBuilder.Entity("Models.Models.Course", b =>
                 {
                     b.HasOne("Models.Models.Manager", "Manager")
@@ -752,11 +777,6 @@ namespace Date.Migrations
                     b.Navigation("Students");
 
                     b.Navigation("Teachers");
-                });
-
-            modelBuilder.Entity("Models.Models.Post", b =>
-                {
-                    b.Navigation("Coments");
                 });
 
             modelBuilder.Entity("Models.Models.Student", b =>

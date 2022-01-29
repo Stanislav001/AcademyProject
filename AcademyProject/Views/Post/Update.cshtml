@@ -1,0 +1,26 @@
+﻿@model PostViewModel
+
+<div class="d-flex justify-content-between align-items-center" style="border-bottom: 1px solid white">
+    <div>
+        <a class="btn btn-outline-secondary" asp-action="Index">Back to Posts</a>
+    </div>
+    <div>
+        <h1><b>Add new post comment:</b></h1>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="mx-auto" style="width: 40%">
+        <form asp-action="Update" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PostId" />
+            <div class="form-group">
+                <label asp-for="CommentContext" class="control-label">Enter your comment</label>
+                <input asp-for="CommentContext" class="form-control" />
+                <span asp-validation-for="CommentContext" class="text-danger"></span>
+            </div>
+            <div class="form-group text-center">
+                <input class="btn btn-danger w-50 mt-2" type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>

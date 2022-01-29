@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Post>
+﻿@model IEnumerable<PostViewModel>
 @inject SignInManager<Models.Models.User> singInManager;
 
 <html>
@@ -44,29 +44,11 @@
         <div class="postCard">
             <h1>@item.Title</h1>
             <p>By:@item.Context</p>
-            <p>Desc:@item.UserName</p>
-            <a class="btn btn-outline-danger" asp-action="LeaveComment">Leave comment</a>
-            <div class="col-md-6">
-                <h5>test</h5>
-                <partial name="_GetCommentsPartial" />
-            </div>
+
+            <a class="btn btn-primary" asp-controller="Post" asp-action="LeaveComment" asp-route-id="@item.PostId">Leave comment</a>
+            <a class="btn btn-primary" asp-controller="Post" asp-action="GetAllCommentsByPostId" asp-route-id="@item.PostId">Show me comments</a>
         </div>
         }
     </div>
 </body>
 </html>
-
-@section Scripts{
-    <script>
-        $("#comments").on("click", function () {
-            $.ajax({
-                method: "GET",
-                url: "Post/GetAllComments",
-                success: function (data) {
-                    $("#content").html(data);
-                },
-               
-            });
-        })
-    </script>
-}
