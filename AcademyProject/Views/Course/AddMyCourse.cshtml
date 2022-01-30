@@ -1,0 +1,22 @@
+﻿@model CourseStudent
+
+<h4>Set this course</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddMyCourse">
+
+            <span asp-validation-for="CourseId" class="text-danger"></span>
+            <span asp-validation-for="CourseName" class="text-danger"></span>
+            <span asp-validation-for="StudentId" class="text-danger"></span>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

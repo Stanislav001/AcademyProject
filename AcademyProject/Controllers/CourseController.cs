@@ -12,7 +12,7 @@ namespace AcademyProject.Controllers
     public class CourseController : Controller
     {
         public ICourseService courseService { get; set; }
-
+        public IStudentService studentService { get; set; }
         public CourseController(ICourseService service)
         {
             courseService = service;
@@ -114,5 +114,25 @@ namespace AcademyProject.Controllers
 
             return this.RedirectToAction("index");
         }
+
+        //TODO:
+        // Course-Student 
+        [HttpGet]
+        public IActionResult AddMyCourse(string id)
+        {
+            this.ViewData["Courses"] = courseService.GetDetailsById(id);
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddMyCourse(CourseStudent model)
+        {
+            await studentService.AddCourseByStudentAsync(
+              model.CourseId,
+              model.StudentId);
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

@@ -16,5 +16,6 @@ namespace Services.Interfaces
         Task UpdateAsync(StudentViewModel model);
         Task CreateAsync(StudentViewModel model);
         Task DeleteAsync(string id);
+        public Task<bool> AddCourseByStudentAsync(string courseID, string studentId);
     }
 }

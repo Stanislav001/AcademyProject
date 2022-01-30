@@ -202,5 +202,22 @@ namespace Services.Implementation
                 await course.ImageFile.CopyToAsync(fileStream);
             }
         }
+
+        ////TODO:
+        // Course by Student
+        public async Task<bool> AddCourseByStudentAsync(string courseID, string studentId)
+        {
+            CourseStudent model = new CourseStudent
+            {
+                CourseId = courseID,
+                StudentId = studentId
+            };
+
+            await this.DbContext.CourseStudent.AddAsync(model);
+            await this.DbContext.SaveChangesAsync();
+
+            return true;
+        }
+        
     }
 }

@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 using Models.Models;
 using Services.Interfaces;
 using Services.ViewModels;
-using Date;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace AcademyProject.Controllers
 {
     public class StudentController : Controller
     {
-
-        public StudentController(IStudentService studentService, IGradeService gradeService)
+        private IStudentService studentService { get; set; }
+        private IUserService userService;
+        private readonly UserManager<User> userManager;
+        public StudentController(IStudentService studentService, IUserService userService, UserManager<User> userManager)
         {
             this.studentService = studentService;
-            this.gradeService = gradeService;
+            this.userService = userService;
+            this.userManager = userManager;
         }
-        public IStudentService studentService { get; set; }
-        public IGradeService gradeService { get; set; }
 
         [HttpGet]
         public IActionResult Index()

@@ -94,7 +94,7 @@ namespace Services.Implementation
 
         public async Task<bool> LeaveComment(string context, string postId,string userName,string userId)
         {
-            Comment comment = new Comment
+            var comment = new Comment
             {
                 PostId = postId,
                 Context = context,

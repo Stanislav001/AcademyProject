@@ -244,6 +244,8 @@ namespace Date.Migrations
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Duration = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CourseId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ManagerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
@@ -279,6 +281,8 @@ namespace Date.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CoursesNumber = table.Column<int>(type: "int", nullable: false),
                     ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CourseId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CourseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ManagerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -349,21 +353,23 @@ namespace Date.Migrations
                 name: "CourseStudent",
                 columns: table => new
                 {
-                    CoursesId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    StudentsId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    CourseId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CourseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CourseStudent", x => new { x.CoursesId, x.StudentsId });
+                    table.PrimaryKey("PK_CourseStudent", x => new { x.CourseId, x.StudentId });
                     table.ForeignKey(
-                        name: "FK_CourseStudent_Courses_CoursesId",
-                        column: x => x.CoursesId,
+                        name: "FK_CourseStudent_Courses_CourseId",
+                        column: x => x.CourseId,
                         principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CourseStudent_Students_StudentsId",
-                        column: x => x.StudentsId,
+                        name: "FK_CourseStudent_Students_StudentId",
+                        column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -448,24 +454,24 @@ namespace Date.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "3dad3e6c-e791-4e93-89e5-8b94fb7a5553", "90d554cf-bf6c-480e-b659-9e00e354e551", "Admin", null },
-                    { "5a81f6c1-e91d-4953-aab9-c56cfbb391b1", "8935cf57-d7cf-4fa8-9585-493610af1fb8", "User", null }
+                    { "389890ad-6af3-4d69-90e6-fad2e327f22e", "df085d2a-0480-459e-a8db-74b0681fa4d3", "Admin", null },
+                    { "e83081ba-f329-4f60-a60f-780325145d5c", "1411f9d1-cba7-4587-b26d-9449d395dd30", "User", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Courses",
-                columns: new[] { "Id", "CourseName", "Description", "Duration", "ImageName", "ManagerId", "Price", "UserId" },
-                values: new object[] { "f8ccfcf6-9035-476d-9712-ca91da3321e1", "JavaScript", "", "6", null, null, 800m, null });
+                columns: new[] { "Id", "CourseId", "CourseName", "Description", "Duration", "ImageName", "ManagerId", "Price", "StudentId", "UserId" },
+                values: new object[] { "d901d780-5000-4022-b6d3-91033b8bb17e", null, "JavaScript", "", "6", null, null, 800m, null, null });
 
             migrationBuilder.InsertData(
                 table: "Students",
-                columns: new[] { "Id", "City", "CoursesNumber", "Email", "FirstName", "ImageName", "LastName", "ManagerId", "PhoneNumber", "SecondName", "StudentNumber", "Year" },
-                values: new object[] { "d1332545-991e-4d13-b73f-24dbbd53bb0a", "Sofia", 0, "petrov@gmail.com", "Ivan", null, "Petrov", null, "302-444-1234", "Hristov", null, 19 });
+                columns: new[] { "Id", "City", "CourseId", "CourseName", "CoursesNumber", "Email", "FirstName", "ImageName", "LastName", "ManagerId", "PhoneNumber", "SecondName", "StudentNumber", "Year" },
+                values: new object[] { "458c4b17-5923-4467-b465-6dec2c775570", "Sofia", null, null, 0, "petrov@gmail.com", "Ivan", null, "Petrov", null, "302-444-1234", "Hristov", null, 19 });
 
             migrationBuilder.InsertData(
                 table: "Teachers",
                 columns: new[] { "Id", "Education", "Email", "Experience", "FirstName", "ImageName", "LastName", "ManagerId", "PhoneNumber", "Position", "Salary", "SecondName", "Year" },
-                values: new object[] { "63283e28-8790-4e2f-9970-bd30837b9bd9", "Higher", "georgiev@gmail.com", 6, "Petar", null, "Georgiev", null, "202-555-0108", "Teacher", 2000m, "Petrov", 21 });
+                values: new object[] { "9a86891a-d3aa-4a79-8fbd-33fb4ad8dee8", "Higher", "georgiev@gmail.com", 6, "Petar", null, "Georgiev", null, "202-555-0108", "Teacher", 2000m, "Petrov", 21 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -527,9 +533,9 @@ namespace Date.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseStudent_StudentsId",
+                name: "IX_CourseStudent_StudentId",
                 table: "CourseStudent",
-                column: "StudentsId");
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CourseTeacher_TeachersId",
