@@ -1,0 +1,94 @@
+﻿@model List<Comment>
+
+<style>
+
+body {
+    background-color: antiquewhite;
+    font-family: 'Calibri', sans-serif !important
+}
+
+.card-no-border .card {
+    border: 0px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05)
+}
+
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+.comment-widgets .comment-row:hover {
+    background: rgba(0, 0, 0, 0.02);
+    cursor: pointer;
+    background-color:white;
+
+}
+
+    .comment-widgets .comment-row {
+        border-bottom: 1px solid rgba(120, 130, 140, 0.13);
+        padding: 15px;
+        background-color: white;
+    }
+
+.comment-text:hover {
+    visibility: hidden
+}
+
+.comment-text:hover {
+    visibility: visible
+}
+
+.label {
+    padding: 3px 10px;
+    line-height: 13px;
+    color: #ffffff;
+    font-weight: 400;
+    border-radius: 4px;
+    font-size: 75%
+}
+
+.label-info {
+    background-color: #1976d2
+}
+
+.label-success {
+    background-color: green
+}
+
+.label-danger {
+    background-color: #ef5350
+}
+
+.mt-100 {
+    margin-top: 20px
+}
+
+    .mb-100 {
+        margin-bottom: 20px
+    }
+    
+</style>
+@foreach (var item in Model)
+{
+    <div class="container d-flex justify-content-center mt-100 mb-100">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="comment-widgets m-b-20">
+                        <div class="d-flex flex-row comment-row">
+                            <div class="comment-text w-100">
+                                <h5>By: @item.UserName</h5>
+                                <p class="m-b-5 m-t-10">
+                                    @item.Context
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

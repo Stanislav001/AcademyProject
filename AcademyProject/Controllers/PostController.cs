@@ -76,7 +76,7 @@ namespace AcademyProject.Controllers
             this.ViewData["Users"] = userService.GetAllUsernames(userManager.GetUserId(this.User));
             IEnumerable<Comment> comment = this.postService.GetAllCommentByPostId(id);
 
-            return View("GetComments", comment);
+            return PartialView("PostPartials/_GetComments", comment);
         }
     }
 }
