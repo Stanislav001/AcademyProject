@@ -123,18 +123,5 @@ namespace Services.Implementation
 
             return comemnts;
         }
-
-        public User GetUserNameById(string id)
-        {
-            User user = this.DbContext.Users
-                .Where(x => x.Id == id)
-                .Select(user => new User
-                {
-                    Id = user.Id,
-                    UserName = user.UserName
-                }).FirstOrDefault(x => x.Id == id);
-
-            return user;
-        }
     }
 }

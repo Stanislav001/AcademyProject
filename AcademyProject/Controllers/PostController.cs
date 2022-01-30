@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 using Models.Models;
 using Services.Interfaces;
 using Services.ViewModels;
-using Date;
-using System.Linq;
 
 namespace AcademyProject.Controllers
 {
     public class PostController : Controller
     {
-        private readonly ApplicationDbContext dbContext;
         private readonly IPostService postService;
         private readonly IUserService userService;
         private readonly UserManager<User> userManager;
