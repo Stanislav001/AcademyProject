@@ -54,10 +54,10 @@ namespace Date.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CommentId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Context = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PostId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -448,24 +448,24 @@ namespace Date.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "4a691fef-55c1-4336-baa1-7a94d71431c2", "de8e3e9b-c7b7-4eeb-8e61-6a877ac609a7", "Admin", null },
-                    { "bc2ceeba-5a73-4285-8693-59ac492bcd3d", "26d31a7b-9adb-487b-8904-3fbd4516e251", "User", null }
+                    { "3dad3e6c-e791-4e93-89e5-8b94fb7a5553", "90d554cf-bf6c-480e-b659-9e00e354e551", "Admin", null },
+                    { "5a81f6c1-e91d-4953-aab9-c56cfbb391b1", "8935cf57-d7cf-4fa8-9585-493610af1fb8", "User", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Courses",
                 columns: new[] { "Id", "CourseName", "Description", "Duration", "ImageName", "ManagerId", "Price", "UserId" },
-                values: new object[] { "55c3b2b4-6b77-4102-a2f8-cc0a402dac35", "JavaScript", "", "6", null, null, 800m, null });
+                values: new object[] { "f8ccfcf6-9035-476d-9712-ca91da3321e1", "JavaScript", "", "6", null, null, 800m, null });
 
             migrationBuilder.InsertData(
                 table: "Students",
                 columns: new[] { "Id", "City", "CoursesNumber", "Email", "FirstName", "ImageName", "LastName", "ManagerId", "PhoneNumber", "SecondName", "StudentNumber", "Year" },
-                values: new object[] { "eae846b4-fac9-4ebb-91ff-1ec49c77a754", "Sofia", 0, "petrov@gmail.com", "Ivan", null, "Petrov", null, "302-444-1234", "Hristov", null, 19 });
+                values: new object[] { "d1332545-991e-4d13-b73f-24dbbd53bb0a", "Sofia", 0, "petrov@gmail.com", "Ivan", null, "Petrov", null, "302-444-1234", "Hristov", null, 19 });
 
             migrationBuilder.InsertData(
                 table: "Teachers",
                 columns: new[] { "Id", "Education", "Email", "Experience", "FirstName", "ImageName", "LastName", "ManagerId", "PhoneNumber", "Position", "Salary", "SecondName", "Year" },
-                values: new object[] { "80036cae-01d3-4d82-a72a-a7e5b792da8a", "Higher", "georgiev@gmail.com", 6, "Petar", null, "Georgiev", null, "202-555-0108", "Teacher", 2000m, "Petrov", 21 });
+                values: new object[] { "63283e28-8790-4e2f-9970-bd30837b9bd9", "Higher", "georgiev@gmail.com", 6, "Petar", null, "Georgiev", null, "202-555-0108", "Teacher", 2000m, "Petrov", 21 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

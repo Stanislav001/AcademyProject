@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Date.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220129125921_Initial")]
+    [Migration("20220130074603_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,14 +110,14 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4a691fef-55c1-4336-baa1-7a94d71431c2",
-                            ConcurrencyStamp = "de8e3e9b-c7b7-4eeb-8e61-6a877ac609a7",
+                            Id = "3dad3e6c-e791-4e93-89e5-8b94fb7a5553",
+                            ConcurrencyStamp = "90d554cf-bf6c-480e-b659-9e00e354e551",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "bc2ceeba-5a73-4285-8693-59ac492bcd3d",
-                            ConcurrencyStamp = "26d31a7b-9adb-487b-8904-3fbd4516e251",
+                            Id = "5a81f6c1-e91d-4953-aab9-c56cfbb391b1",
+                            ConcurrencyStamp = "8935cf57-d7cf-4fa8-9585-493610af1fb8",
                             Name = "User"
                         });
                 });
@@ -231,9 +231,6 @@ namespace Date.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("CommentId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Context")
                         .HasColumnType("nvarchar(max)");
 
@@ -241,6 +238,9 @@ namespace Date.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -285,7 +285,7 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "55c3b2b4-6b77-4102-a2f8-cc0a402dac35",
+                            Id = "f8ccfcf6-9035-476d-9712-ca91da3321e1",
                             CourseName = "JavaScript",
                             Description = "",
                             Duration = "6",
@@ -421,7 +421,7 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "eae846b4-fac9-4ebb-91ff-1ec49c77a754",
+                            Id = "d1332545-991e-4d13-b73f-24dbbd53bb0a",
                             City = "Sofia",
                             CoursesNumber = 0,
                             Email = "petrov@gmail.com",
@@ -483,7 +483,7 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "80036cae-01d3-4d82-a72a-a7e5b792da8a",
+                            Id = "63283e28-8790-4e2f-9970-bd30837b9bd9",
                             Education = "Higher",
                             Email = "georgiev@gmail.com",
                             Experience = 6,

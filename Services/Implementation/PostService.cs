@@ -92,14 +92,14 @@ namespace Services.Implementation
             return post;
         }
 
-        public async Task<bool> LeaveComment(string context, string postId,string userId)
+        public async Task<bool> LeaveComment(string context, string postId,string userName,string userId)
         {
-
             Comment comment = new Comment
             {
                 PostId = postId,
                 Context = context,
-                UserId = userId
+                UserId = userId,
+                UserName = userName,
             };
 
             await this.DbContext.Comments.AddAsync(comment);
@@ -108,15 +108,33 @@ namespace Services.Implementation
             return true;
         }
 
-        public Comment GetAllCommentByPostId(string postId)
+        public IEnumerable<Comment> GetAllCommentByPostId(string id)
         {
-            Comment comment = this.DbContext.Comments
-               .Select(comment => new Comment
-               {
-                   Context = comment.Context
-               }).SingleOrDefault(comment => comment.PostId == postId);
+            IEnumerable<Comment> comemnts = this.DbContext.Comments
+                .Where(x=> x.PostId == id)
+                .Select(comemnt => new Comment
+                {
+                    PostId = comemnt.PostId,
+                    Context = comemnt.Context,
+                    UserId = comemnt.UserId,
+                    Id = comemnt.Id,
+                    UserName = comemnt.UserName
+                }).ToList();
 
-            return comment;
+            return comemnts;
+        }
+
+        public User GetUserNameById(string id)
+        {
+            User user = this.DbContext.Users
+                .Where(x => x.Id == id)
+                .Select(user => new User
+                {
+                    Id = user.Id,
+                    UserName = user.UserName
+                }).FirstOrDefault(x => x.Id == id);
+
+            return user;
         }
     }
 }

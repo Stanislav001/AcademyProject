@@ -64,15 +64,17 @@ namespace AcademyProject.Controllers
             await postService.LeaveComment(
                 model.Context,
                 model.Id,
+                model.UserName,
                 userManager.GetUserId(this.User));
 
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult GetAllCommentsByPostId(string postId)
+        public IActionResult GetCommentsAsync(string id)
         {
-            Comment comment = this.postService.GetAllCommentByPostId(postId);
+            this.ViewData["Users"] = userService.GetAllUsernames(userManager.GetUserId(this.User));
+            IEnumerable<Comment> comment = this.postService.GetAllCommentByPostId(id);
 
             return View("GetComments", comment);
         }

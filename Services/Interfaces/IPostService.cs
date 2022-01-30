@@ -13,7 +13,7 @@ namespace Services.Interfaces
         public Task<bool> DeletePostAsync(string postId);
         public Post GetPostById(string postId);
         PostViewModel GetDetailsById(string id);
-        public Comment GetAllCommentByPostId(string postId);
-        public Task<bool> LeaveComment(string context, string userId, string postId);
+        public IEnumerable<Comment> GetAllCommentByPostId(string postId);
+        public Task<bool> LeaveComment(string context, string userId, string postId, string userName);
     }
 }

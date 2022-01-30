@@ -106,7 +106,7 @@ namespace Services.Implementation
 
         public IEnumerable<User> GetAllUsernames(string userId)
         {
-            IEnumerable<User> user = this.DbContext.Users.Where(u => u.Id != userId).ToList();
+            IEnumerable<User> user = this.DbContext.Users.Where(u => u.Id == userId).ToList();
 
             return user;
         }

@@ -10,6 +10,7 @@ namespace Models.Models
         public string PostId { get; set; }
         public List<Post> Post { get; set; }
         public string UserId { get; set; }
+        public string UserName { get; set; }
         public List<User> Users { get; set; }
 
     }

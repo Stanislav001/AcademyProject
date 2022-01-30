@@ -46,7 +46,7 @@
             <p>By:@item.Context</p>
 
             <a class="btn btn-primary" asp-controller="Post" asp-action="LeaveComment" asp-route-id="@item.PostId">Leave comment</a>
-            <a class="btn btn-primary" asp-controller="Post" asp-action="GetAllCommentsByPostId" asp-route-id="@item.PostId">Show me comments</a>
+            <a class="btn btn-outline-dangerr" asp-controller="Post" asp-action="GetComments" asp-route-id="@item.PostId">Show me comments</a>
         </div>
         }
     </div>
