@@ -11,7 +11,7 @@ namespace AcademyProject.Controllers
 {
     public class CourseController : Controller
     {
-       public ICourseService courseService { get; set; }
+        public ICourseService courseService { get; set; }
 
         public CourseController(ICourseService service)
         {

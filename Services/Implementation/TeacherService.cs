@@ -115,6 +115,7 @@ namespace Services.Implementation
             teacher.Experience = model.Experience;
             teacher.ImageName = model.ImageName;
             teacher.ImageFile = model.ImageFile;
+            teacher.PhoneNumber = model.PhoneNumber;
 
             if (model.ImageFile != null)
             {
