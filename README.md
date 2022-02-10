@@ -8,8 +8,16 @@
  * Administrator -> Може да добавя, редактира и изтрива нови курсове, учители и ученици. Има право да трие коментари и постове.
 
   ## Models <br />
-  * BaseModel -> Базов клас, който се наследевя от всички класове <br />
+  * BaseModel -> Базов клас, който се наследевя от всички класове
+     - Id <br />
   * User <br />
+     - Id
+     - Email 
+     - Profession 
+     - Country 
+     - ImageName 
+     - ImageFile 
+     
   * Manager <br />
   * Teacher <br />
   * Student <br />
