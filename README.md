@@ -20,11 +20,53 @@
      
   * Manager <br />
   * Teacher <br />
+     - Id
+     - FirstName
+     - SecondName
+     - LastName
+     - Education
+     - Year
+     - Experience 
+     - Position
+     - Salary
+     - PhoneNumber
+     - Email
+     - ImageName 
+     - ImageFile 
+     
   * Student <br />
+     - Id
+     - FirstName
+     - SecondName
+     - LastName
+     - Year
+     - City
+     - PhoneNumber
+     - Email
+     - ImageName
+     - ImageFile
+     
   * Course <br />
+     - Id
+     - Name
+     - Description 
+     - Duration
+     - Price
+     - ImageName
+     - ImageFile
+     
   * Grade <br />
+     - Id
+     - StudentGrade
+     
   * Post <br />
+     - Id
+     - Title
+     - Content
+     
   * Comment <br />
+     - Id
+     - Content
   <br />
    
   ## Services
