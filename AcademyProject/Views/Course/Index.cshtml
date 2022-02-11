@@ -37,52 +37,62 @@
 </head>
 
 
-<body>
-    @if (singInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-    {
-        <a class="btn btn-outline-danger" asp-action="Create">Add New Course</a>
-    }
+<body style="width:100%">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <a class="btn btn-outline-secondary mb-2" asp-controller="TopCourses" asp-action="Index">Show Top Courses</a>
+        </div>
+        <div>
+            <h1>All Seasons</h1>
+        </div>
+
+        @if (singInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+        {
+            <div>
+                <a class="btn btn-outline-danger" asp-action="Create">Add New Course</a>
+            </div>
+        }
+    </div>
     <div class="container">
         @foreach (var item in Model.Courses)
         {
-        <div class="movieCard">
-            @if (item.ImageName == null)
-            {
-                <img class="cardPhoto" src="~/images/default-image.png" />
-            }
-            else
-            {
-                <img class="cardPhoto" src="@("~/ImageForCourse/" + item.ImageName)" asp-append-version="true" />
-            }
-            <h1>@item.CourseName</h1>
-            <p>Price: @item.Price</p>
-            <p>Duration: @item.Duration months</p>
-            @if (item.CurrentUserIsVoted)
-            {
-                <a asp-controller="Course"
-                   asp-action="Disenroll"
-                   asp-route-id="@item.Id"
-                   class="btn btn-outline-danger w-25">
-                    Unvote
-                </a> }
-                                else
-                                {
-                <a asp-controller="Course"
-                   asp-action="Enroll"
-                   asp-route-id="@item.Id"
-                   class="btn btn-outline-danger w-25">
-                    Vote
-                </a>}
-            <a asp-controller="Course" asp-action="GetCourseById" asp-route-id="@item.Id" class="btn btn-primary mx-1">Read More</a>
+            <div class="movieCard">
+                @if (item.ImageName == null)
+                {
+                    <img class="cardPhoto" src="~/images/default-image.png" />
+                }
+                else
+                {
+                    <img class="cardPhoto" src="@("~/ImageForCourse/" + item.ImageName)" asp-append-version="true" />
+                }
+                <h1>@item.CourseName</h1>
+                <p>Price: @item.Price</p>
+                <p>Duration: @item.Duration months</p>
+                @if (item.CurrentUserIsVoted)
+                {
+                    <a asp-controller="Course"
+                       asp-action="Disenroll"
+                       asp-route-id="@item.Id"
+                       class="btn btn-outline-danger w-25">
+                        Unvote
+                    </a> }
+                else
+                {
+                    <a asp-controller="Course"
+                       asp-action="Enroll"
+                       asp-route-id="@item.Id"
+                       class="btn btn-outline-danger w-25">
+                        Vote
+                    </a>}
+                <a asp-controller="Course" asp-action="GetCourseById" asp-route-id="@item.Id" class="btn btn-primary mx-1">Read More</a>
 
-            @if (singInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-            {
-                <a class="btn btn-outline-dangerr" asp-controller="Course" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                <a class="btn btn-primary" asp-controller="Course" asp-action="Update" asp-route-id="@item.Id">Update</a>
-            }
-        </div>
+                @if (singInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                {
+                    <a class="btn btn-outline-dangerr" asp-controller="Course" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a class="btn btn-primary" asp-controller="Course" asp-action="Update" asp-route-id="@item.Id">Update</a>
+                }
+            </div>
         }
     </div>
-
 </body>
 </html>
