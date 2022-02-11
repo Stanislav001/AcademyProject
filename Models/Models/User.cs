@@ -16,6 +16,6 @@ namespace Models.Models
         public List<Course> Courses { get; set; }
         public List<Post> Posts { get; set; }
         public List<Comment> Coments { get; set; }
-
+        public List<CourseUser> UserCourse { get; set; }
     }
 }

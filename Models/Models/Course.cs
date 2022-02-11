@@ -12,6 +12,7 @@ namespace Models.Models
         public string Description { get; set; }
         public decimal Price { get; set; }
         public string Duration { get; set; }
+        public int Votes { get; set; }
         public string ImageName { get; set; }
 
         [NotMapped]
@@ -20,5 +21,6 @@ namespace Models.Models
         public string CourseId { get; set; }
         public string StudentId { get; set; }
         public List<CourseStudent> CourseStudents { get; set; }
+        public List<CourseUser> CourseUser { get; set; }
     }
 }

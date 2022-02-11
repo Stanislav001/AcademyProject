@@ -19,6 +19,7 @@ namespace Date
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<CourseStudent> CourseStudent { get; set; }
+        public DbSet<CourseUser> CourseUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,6 +35,16 @@ namespace Date
                         .HasOne(bc => bc.Student)
                         .WithMany(c => c.CourseStudents)
                         .HasForeignKey(bc => bc.StudentId);
+
+            modelBuilder.Entity<CourseUser>()
+                        .HasOne(x => x.Course)
+                        .WithMany(u => u.CourseUser)
+                        .HasForeignKey(k => k.CourseId);
+
+            modelBuilder.Entity<CourseUser>()
+                        .HasOne(x => x.User)
+                        .WithMany(c => c.UserCourse)
+                        .HasForeignKey(k => k.UserId);
 
             // SEED
             var course = new Course()
