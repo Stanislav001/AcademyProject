@@ -65,21 +65,48 @@ namespace Date.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Managers",
+                name: "Students",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    StudentNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecondName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Year = table.Column<int>(type: "int", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CoursesNumber = table.Column<int>(type: "int", nullable: false),
+                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CourseId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CourseName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Students", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Teachers",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SecondName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Education = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Year = table.Column<int>(type: "int", nullable: false),
+                    Experience = table.Column<int>(type: "int", nullable: false),
+                    Position = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Managers", x => x.Id);
+                    table.PrimaryKey("PK_Teachers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -189,6 +216,31 @@ namespace Date.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Courses",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CourseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Duration = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CourseId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Courses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Courses_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Posts",
                 columns: table => new
                 {
@@ -235,116 +287,25 @@ namespace Date.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Courses",
+                name: "StudentTeacher",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CourseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Duration = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CourseId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StudentId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ManagerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    StudentsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TeachersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Courses", x => x.Id);
+                    table.PrimaryKey("PK_StudentTeacher", x => new { x.StudentsId, x.TeachersId });
                     table.ForeignKey(
-                        name: "FK_Courses_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Courses_Managers_ManagerId",
-                        column: x => x.ManagerId,
-                        principalTable: "Managers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Students",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    StudentNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecondName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Year = table.Column<int>(type: "int", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CoursesNumber = table.Column<int>(type: "int", nullable: false),
-                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CourseId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CourseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ManagerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Students", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Students_Managers_ManagerId",
-                        column: x => x.ManagerId,
-                        principalTable: "Managers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Teachers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecondName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Education = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Year = table.Column<int>(type: "int", nullable: false),
-                    Experience = table.Column<int>(type: "int", nullable: false),
-                    Position = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ManagerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Teachers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Teachers_Managers_ManagerId",
-                        column: x => x.ManagerId,
-                        principalTable: "Managers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CommentPost",
-                columns: table => new
-                {
-                    ComentsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PostId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CommentPost", x => new { x.ComentsId, x.PostId });
-                    table.ForeignKey(
-                        name: "FK_CommentPost_Comments_ComentsId",
-                        column: x => x.ComentsId,
-                        principalTable: "Comments",
+                        name: "FK_StudentTeacher_Students_StudentsId",
+                        column: x => x.StudentsId,
+                        principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CommentPost_Posts_PostId",
-                        column: x => x.PostId,
-                        principalTable: "Posts",
+                        name: "FK_StudentTeacher_Teachers_TeachersId",
+                        column: x => x.TeachersId,
+                        principalTable: "Teachers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -376,6 +337,30 @@ namespace Date.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CourseTeacher",
+                columns: table => new
+                {
+                    CoursesId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TeachersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseTeacher", x => new { x.CoursesId, x.TeachersId });
+                    table.ForeignKey(
+                        name: "FK_CourseTeacher_Courses_CoursesId",
+                        column: x => x.CoursesId,
+                        principalTable: "Courses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CourseTeacher_Teachers_TeachersId",
+                        column: x => x.TeachersId,
+                        principalTable: "Teachers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Grades",
                 columns: table => new
                 {
@@ -402,49 +387,25 @@ namespace Date.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CourseTeacher",
+                name: "CommentPost",
                 columns: table => new
                 {
-                    CoursesId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TeachersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    ComentsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PostId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CourseTeacher", x => new { x.CoursesId, x.TeachersId });
+                    table.PrimaryKey("PK_CommentPost", x => new { x.ComentsId, x.PostId });
                     table.ForeignKey(
-                        name: "FK_CourseTeacher_Courses_CoursesId",
-                        column: x => x.CoursesId,
-                        principalTable: "Courses",
+                        name: "FK_CommentPost_Comments_ComentsId",
+                        column: x => x.ComentsId,
+                        principalTable: "Comments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CourseTeacher_Teachers_TeachersId",
-                        column: x => x.TeachersId,
-                        principalTable: "Teachers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "StudentTeacher",
-                columns: table => new
-                {
-                    StudentsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TeachersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StudentTeacher", x => new { x.StudentsId, x.TeachersId });
-                    table.ForeignKey(
-                        name: "FK_StudentTeacher_Students_StudentsId",
-                        column: x => x.StudentsId,
-                        principalTable: "Students",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_StudentTeacher_Teachers_TeachersId",
-                        column: x => x.TeachersId,
-                        principalTable: "Teachers",
+                        name: "FK_CommentPost_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -454,24 +415,36 @@ namespace Date.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "389890ad-6af3-4d69-90e6-fad2e327f22e", "df085d2a-0480-459e-a8db-74b0681fa4d3", "Admin", null },
-                    { "e83081ba-f329-4f60-a60f-780325145d5c", "1411f9d1-cba7-4587-b26d-9449d395dd30", "User", null }
+                    { "a2fdab1b-169d-47fb-89f9-543860f14121", "be53f6a2-2be8-4619-b647-1d7b1f3706c2", "Admin", null },
+                    { "0a76c3bc-37c8-431a-ac86-230889a18f9e", "2a3db493-23e2-4d0d-9b84-899f2b543c1d", "User", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Courses",
-                columns: new[] { "Id", "CourseId", "CourseName", "Description", "Duration", "ImageName", "ManagerId", "Price", "StudentId", "UserId" },
-                values: new object[] { "d901d780-5000-4022-b6d3-91033b8bb17e", null, "JavaScript", "", "6", null, null, 800m, null, null });
+                columns: new[] { "Id", "CourseId", "CourseName", "Description", "Duration", "ImageName", "Price", "StudentId", "UserId" },
+                values: new object[] { "2006206e-601a-486d-8a72-478674a7c6a0", null, "JavaScript", "", "6", null, 800m, null, null });
+
+            migrationBuilder.InsertData(
+                table: "Grades",
+                columns: new[] { "Id", "CourseId", "StudentGrade", "StudentId" },
+                values: new object[,]
+                {
+                    { "b687695e-6a4e-4536-a9b6-62875f257be9", null, 2, null },
+                    { "4a0321ee-2a72-4753-872c-18e6ca5b4dec", null, 3, null },
+                    { "98e0c93b-fc8a-48bc-88f6-2af85437b875", null, 4, null },
+                    { "52627de7-8d78-404d-8ea7-21e523779e21", null, 5, null },
+                    { "33792242-6a48-4230-b642-a38f8be81ddc", null, 6, null }
+                });
 
             migrationBuilder.InsertData(
                 table: "Students",
-                columns: new[] { "Id", "City", "CourseId", "CourseName", "CoursesNumber", "Email", "FirstName", "ImageName", "LastName", "ManagerId", "PhoneNumber", "SecondName", "StudentNumber", "Year" },
-                values: new object[] { "458c4b17-5923-4467-b465-6dec2c775570", "Sofia", null, null, 0, "petrov@gmail.com", "Ivan", null, "Petrov", null, "302-444-1234", "Hristov", null, 19 });
+                columns: new[] { "Id", "City", "CourseId", "CourseName", "CoursesNumber", "Email", "FirstName", "ImageName", "LastName", "PhoneNumber", "SecondName", "StudentNumber", "Year" },
+                values: new object[] { "9c52a347-4081-4910-a71e-8dc309c908bc", "Sofia", null, null, 0, "petrov@gmail.com", "Ivan", null, "Petrov", "302-444-1234", "Hristov", null, 19 });
 
             migrationBuilder.InsertData(
                 table: "Teachers",
-                columns: new[] { "Id", "Education", "Email", "Experience", "FirstName", "ImageName", "LastName", "ManagerId", "PhoneNumber", "Position", "Salary", "SecondName", "Year" },
-                values: new object[] { "9a86891a-d3aa-4a79-8fbd-33fb4ad8dee8", "Higher", "georgiev@gmail.com", 6, "Petar", null, "Georgiev", null, "202-555-0108", "Teacher", 2000m, "Petrov", 21 });
+                columns: new[] { "Id", "Education", "Email", "Experience", "FirstName", "ImageName", "LastName", "PhoneNumber", "Position", "Salary", "SecondName", "Year" },
+                values: new object[] { "3e03b4cd-6ca8-422a-b93a-45c4a5492349", "Higher", "georgiev@gmail.com", 6, "Petar", null, "Georgiev", "202-555-0108", "Teacher", 2000m, "Petrov", 21 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -523,11 +496,6 @@ namespace Date.Migrations
                 column: "UsersId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Courses_ManagerId",
-                table: "Courses",
-                column: "ManagerId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Courses_UserId",
                 table: "Courses",
                 column: "UserId");
@@ -558,19 +526,9 @@ namespace Date.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Students_ManagerId",
-                table: "Students",
-                column: "ManagerId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_StudentTeacher_TeachersId",
                 table: "StudentTeacher",
                 column: "TeachersId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Teachers_ManagerId",
-                table: "Teachers",
-                column: "ManagerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -628,9 +586,6 @@ namespace Date.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Managers");
         }
     }
 }

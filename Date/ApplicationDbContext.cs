@@ -13,7 +13,6 @@ namespace Date
         {
         }
 
-        public DbSet<Manager> Managers { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
@@ -75,6 +74,36 @@ namespace Date
                 Year = 19
             };
 
+            var fail = new Grade()
+            {
+                Id = Guid.NewGuid().ToString(),
+                StudentGrade =2
+            };
+
+            var average = new Grade()
+            {
+                Id = Guid.NewGuid().ToString(),
+                StudentGrade = 3
+            };
+
+            var good = new Grade()
+            {
+                Id = Guid.NewGuid().ToString(),
+                StudentGrade = 4
+            };
+
+            var veryGood = new Grade()
+            {
+                Id = Guid.NewGuid().ToString(),
+                StudentGrade = 5
+            };
+
+            var excellent = new Grade()
+            {
+                Id = Guid.NewGuid().ToString(),
+                StudentGrade = 6
+            };
+
             var AdminRole = new IdentityRole() { Id = Guid.NewGuid().ToString(), Name = "Admin" };
             var UserRole = new IdentityRole() { Id = Guid.NewGuid().ToString(), Name = "User" };
 
@@ -82,7 +111,7 @@ namespace Date
             modelBuilder.Entity<Teacher>().HasData(teacher);
             modelBuilder.Entity<Student>().HasData(student);
             modelBuilder.Entity<IdentityRole>().HasData(AdminRole, UserRole);
-
+            modelBuilder.Entity<Grade>().HasData(fail, average, good, veryGood, excellent);
 
 
             base.OnModelCreating(modelBuilder);

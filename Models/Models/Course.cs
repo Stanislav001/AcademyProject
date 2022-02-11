@@ -20,7 +20,6 @@ namespace Models.Models
         public string CourseId { get; set; }
         public string StudentId { get; set; }
         public List<CourseStudent> CourseStudents { get; set; }
-        public Manager Manager { get; set; }
         public List<Grade> Grades { get; set; }
     }
 }

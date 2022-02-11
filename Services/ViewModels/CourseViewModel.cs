@@ -17,6 +17,5 @@ namespace Services.ViewModels
         public IFormFile ImageFile { get; set; }
         public List<TeacherViewModel> Teachers { get; set; }
         public List<StudentViewModel> Students { get; set; }
-        public ManagerViewModel Manager { get; set; }
     }
 }

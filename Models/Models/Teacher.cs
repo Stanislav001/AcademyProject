@@ -35,6 +35,5 @@ namespace Models.Models
         public IFormFile ImageFile { get; set; }
         public List<Course> Courses { get; set; }
         public List<Student> Students { get; set; }
-        public Manager Manager { get; set; }
     }
 }

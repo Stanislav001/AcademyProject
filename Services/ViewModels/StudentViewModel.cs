@@ -24,6 +24,5 @@ namespace Services.ViewModels
         public string CourseId { get; set; }
         public string CourseName { get; set; }
         public List<CourseViewModel> Courses { get; set; }
-        public ManagerViewModel Manager { get; set; }
     }
 }
