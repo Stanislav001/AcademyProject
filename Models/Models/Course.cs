@@ -20,6 +20,5 @@ namespace Models.Models
         public string CourseId { get; set; }
         public string StudentId { get; set; }
         public List<CourseStudent> CourseStudents { get; set; }
-        public List<Grade> Grades { get; set; }
     }
 }

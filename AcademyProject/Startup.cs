@@ -80,7 +80,6 @@ namespace AcademyProject
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ITeacherService, TeacherService>();
             services.AddTransient<IStudentService, StudentService>();
-            services.AddTransient<IGradeService, GradeService>();
             services.AddTransient<IPostService, PostService>();
         }
     }
