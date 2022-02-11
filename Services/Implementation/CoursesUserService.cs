@@ -1,21 +1,23 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
-using AutoMapper;
 using System.Linq;
 
 using Date;
+using System;
 using Models.Models;
 using Services.Interfaces;
+using Models.Constants.ExeptionConstants;
 
 namespace Services.Implementation
 {
-    public class CoursesUserService : BaseService , ICoursesUserService
+    public class CoursesUserService : ICoursesUserService
     {
         private readonly UserManager<User> userManager;
-
-        public CoursesUserService(ApplicationDbContext dbContext, UserManager<User> userManager, IMapper mapper) : base(dbContext, mapper)
+        private readonly ApplicationDbContext dbContext;
+        public CoursesUserService(ApplicationDbContext dbContext, UserManager<User> userManager) 
         {
             this.userManager = userManager;
+            this.dbContext = dbContext;
         }
 
         public async Task<bool> EnrollUserToVoteAsync(string userId, string courseId)
@@ -30,13 +32,13 @@ namespace Services.Implementation
             CourseUser courseUser = new CourseUser()
             {
                 UserId = userId,
-                CourseId = courseId
+                CourseId = courseId,
             };
 
             await AddVote(courseId);
 
-            await this.DbContext.CourseUsers.AddAsync(courseUser);
-            await this.DbContext.SaveChangesAsync();
+            await this.dbContext.CourseUsers.AddAsync(courseUser);
+            await this.dbContext.SaveChangesAsync();
 
             return true;
         }
@@ -51,11 +53,10 @@ namespace Services.Implementation
             }
 
             CourseUser courseUser = GetVoted(userId, courseId);
-
             await RemoveVote(courseId);
 
-            this.DbContext.CourseUsers.Remove(courseUser);
-            await this.DbContext.SaveChangesAsync();
+            this.dbContext.CourseUsers.Remove(courseUser);
+            await this.dbContext.SaveChangesAsync();
 
             return true;
         }
@@ -71,58 +72,58 @@ namespace Services.Implementation
 
         public async Task AddVote(string courseId)
         {
-            Course course = this.DbContext.Courses
-                            .Where(x => x.Id == courseId)
-                            .FirstOrDefault();
+            Course course = this.dbContext.Courses
+                .Where(m => m.Id == courseId)
+                .SingleOrDefault();
 
             course.Votes += 1;
 
-            this.DbContext.Update(course);
-            await this.DbContext.SaveChangesAsync();
+            this.dbContext.Update(course);
+            await this.dbContext.SaveChangesAsync();
         }
 
         public async Task RemoveVote(string courseId)
         {
-            Course course = this.DbContext.Courses
-                            .Where(x => x.Id == courseId)
-                            .FirstOrDefault();
+            Course course = this.dbContext.Courses
+                .Where(x => x.Id == courseId)
+                .SingleOrDefault();
 
             if (course.Votes <= 0)
             {
-                System.Console.WriteLine("Invalid operation");
+                throw new Exception("Invalid operation");
             }
 
             course.Votes -= 1;
 
-            this.DbContext.Update(course);
-            await this.DbContext.SaveChangesAsync();
+            this.dbContext.Update(course);
+            await this.dbContext.SaveChangesAsync();
         }
 
-        public CourseUser GetVoted(string userId, string courseId)
+        private CourseUser GetVoted(string userId, string courseId)
         {
-            CourseUser courseUser = this.DbContext.CourseUsers
-                                    .Where(x => x.UserId == userId && x.CourseId == courseId)
-                                    .FirstOrDefault();
+            CourseUser courseUser = this.dbContext.CourseUsers
+                .Where(x => x.UserId == userId && x.CourseId == courseId)
+                .FirstOrDefault();
 
             return courseUser;
         }
 
-        public async Task CheckIfUserAndCourseExistAsync(string userId, string courseId)
+        private async Task CheckIfUserAndCourseExistAsync(string userId, string courseId)
         {
-            Course course = this.DbContext.Courses
-                            .Where(c => c.Id == courseId)
-                            .SingleOrDefault();
+            Course course = this.dbContext.Courses
+                .Where(x => x.Id == courseId)
+                .SingleOrDefault();
 
-            bool IsCourseNotExist = course == null;
+            bool isCourseNotExists = course == null;
 
-            if (IsCourseNotExist)
+            if (isCourseNotExists)
             {
-                System.Console.WriteLine("This course is not exist");
+                throw new ArgumentException(ExeptionConstants.NOT_EXISTING_COURSE_ERROR_MESSAGE);
             }
 
             if (await this.userManager.FindByIdAsync(userId) == null)
             {
-                System.Console.WriteLine("This user is not exist");
+                throw new ArgumentException(ExeptionConstants.NOT_EXISTING_USER_ERROR_MESSAGE);
             }
         }
     }

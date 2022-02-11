@@ -39,7 +39,7 @@ namespace Services.Implementation
                     Price = courses.Price,
                     StartDate = courses.StartDate,
                     EndDate = courses.EndDate,
-                    CurrentUserIsVoted = this.coursesUserService.IsAlreadyVoted(id, courses.CourseId)
+                    CurrentUserIsVoted = this.coursesUserService.IsAlreadyVoted(id, courses.Id)
                 }).ToList();
 
             return courses;

@@ -57,8 +57,23 @@
             <h1>@item.CourseName</h1>
             <p>Price: @item.Price</p>
             <p>Duration: @item.Duration months</p>
+            @if (item.CurrentUserIsVoted)
+            {
+                <a asp-controller="Course"
+                   asp-action="Disenroll"
+                   asp-route-id="@item.Id"
+                   class="btn btn-outline-danger w-25">
+                    Unvote
+                </a> }
+                                else
+                                {
+                <a asp-controller="Course"
+                   asp-action="Enroll"
+                   asp-route-id="@item.Id"
+                   class="btn btn-outline-danger w-25">
+                    Vote
+                </a>}
             <a asp-controller="Course" asp-action="GetCourseById" asp-route-id="@item.Id" class="btn btn-primary mx-1">Read More</a>
-            <a class="btn btn-primary" asp-controller="Course" asp-action="AddMyCourse" asp-route-id="@item.Id">Save</a>
 
             @if (singInManager.IsSignedIn(User) && User.IsInRole("Admin"))
             {

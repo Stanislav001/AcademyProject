@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Models.Models;
 using Services.Interfaces;
 using Services.ViewModels;
+using Models.Constants.NotificationsConstants;
 
 namespace AcademyProject.Controllers
 {
@@ -25,19 +26,19 @@ namespace AcademyProject.Controllers
         }
 
         // Show all courses
-        [HttpGet]
         [Authorize]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var currentUser = await this.userManager.GetUserAsync(this.User);
 
             IEnumerable<CourseViewModel> course = this.courseService.GetAll(currentUser.Id);
 
-            CoursesViewModel courseViewModel = new CoursesViewModel();
+            CoursesViewModel coursesViewModel = new CoursesViewModel();
 
-            courseViewModel.Courses = course;
+            coursesViewModel.Courses = course;
 
-            return this.View(courseViewModel);
+            return this.View(coursesViewModel);
         }
 
         [HttpGet]
@@ -137,6 +138,7 @@ namespace AcademyProject.Controllers
             return this.View();
         }
 
+        // TODO: Refactoring
         [HttpPost]
         public async Task<IActionResult> AddMyCourse(CourseStudent model)
         {
@@ -147,5 +149,42 @@ namespace AcademyProject.Controllers
             return RedirectToAction("Index");
         }
 
+
+        [Authorize]
+        public async Task<IActionResult> Enroll(string id)
+        {
+            User currentUser = await this.userManager.GetUserAsync(this.User);
+
+            bool isSuccessfullyVoted = await this.coursesUserService.EnrollUserToVoteAsync(currentUser.Id, id);
+
+            if (isSuccessfullyVoted)
+            {
+                this.TempData[NotificationsConstants.SUCCESS_NOTIFICATION] = NotificationsConstants.SUCCESSFUL_VOTING;
+            }
+            else
+            {
+                this.TempData[NotificationsConstants.WARNING_NOTIFICATION] = NotificationsConstants.ALREADY_VOTED;
+            }
+
+            return this.RedirectToAction("index");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Disenroll(string id)
+        {
+            User currentUser = await this.userManager.GetUserAsync(this.User);
+
+            bool isSuccessfullyVoted = await this.coursesUserService.RemoveTheUserVoteAsync(currentUser.Id, id);
+            if (isSuccessfullyVoted)
+            {
+                this.TempData[NotificationsConstants.SUCCESS_NOTIFICATION] = NotificationsConstants.SUCCESSFUL_UNVOTED;
+            }
+            else
+            {
+                this.TempData[NotificationsConstants.WARNING_NOTIFICATION] = NotificationsConstants.ALREADY_UNVOTED;
+            }
+
+            return this.RedirectToAction("index");
+        }
     }
 }
