@@ -145,22 +145,6 @@ namespace Services.Implementation
             return students;
         }
 
-        // Return all Teachers
-        public IEnumerable<UserViewModel> GetAllTeachers()
-        {
-            IEnumerable<UserViewModel> teachers = this.DbContext.Teachers
-                .Select(t => new UserViewModel
-                {
-                    TeacherFirstName = t.FirstName,
-                    TeacherSecondName = t.SecondName,
-                    TeacherLastName = t.LastName,
-                    TeacherEmail = t.Email,
-                    TeacherPhoneNumber = t.PhoneNumber
-                }).ToList();
-
-            return teachers;
-        }
-
         // Return all courses
         public IEnumerable<UserViewModel> GetAllCourses()
         {

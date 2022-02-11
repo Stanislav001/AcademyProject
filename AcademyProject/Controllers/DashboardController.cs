@@ -31,13 +31,6 @@ namespace AcademyProject.Controllers
             return PartialView("_StudentDashboardPartial", user);
         }
 
-        public IActionResult Teachers()
-        {
-            IEnumerable<UserViewModel> teachers = _userService.GetAllTeachers();
-
-            return PartialView("_TeacherDashboardPartial", teachers);
-        }
-
         public IActionResult Courses()
         {
             IEnumerable<UserViewModel> courses = _userService.GetAllCourses();

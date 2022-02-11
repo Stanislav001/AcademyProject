@@ -73,8 +73,6 @@
             {
                 <li><a class="my-nav-link" asp-controller="Student" asp-action="Index"><span class="sidebar-icon"><i class="fa fa-users"></i></span> <span class="menu-title">Teacher Dashboard</span></a></li>
             }
-            <li><a class="my-nav-link nav-link" ><span class="sidebar-icon"><i class="fa fa-lock"></i></span> <span class="menu-title">Show All Courses</span></a></li>
-            <li> <a class="my-nav-link nav-link"><span class="sidebar-icon"><i class="fa fa-lock"></i></span> <span class="menu-title">Show Me Courses</span></a></li>
             <li> <a class="my-nav-link nav-link" asp-controller="Home" asp-action="Index"><span class="sidebar-icon"><i class="fa fa-lock"></i></span> <span class="menu-title">Sign Out</span></a></li>
         </ul>
     </div>
@@ -82,15 +80,7 @@
 
 <section id="main-content">
     <section class="wrapper main-wrapper row">
-            <div class="col-md-6">
-                <section class="box">
-                    <h5>Student List</h5>
-                    <button id="students" class="btn btn-danger">Show me Students</button>
-                    <div id="content">
-
-                    </div>
-                </section>
-            </div>
+            
             <div class="col-md-6">
                 <section class="box">
                     <h5>Course List</h5>
@@ -105,9 +95,9 @@
 
             <div class="col-md-12">
                 <section class="box">
-                    <h5>Teacher List</h5>
-                    <button id="teachers" class="btn btn-danger">Show me teachers</button>
-                    <div id="teacherContent">
+                    <h5>Show my courses</h5>
+                    <button id="students" class="btn btn-danger">Show my Courses</button>
+                    <div id="content">
 
                     </div>
                 </section>
@@ -124,21 +114,6 @@
                 url: "Dashboard/Students",
                 success: function (data) {
                     $("#content").html(data);
-                },
-                error: function (err) {
-                    alert(err);
-                }
-            });
-        })
-    </script>
-
-    <script>
-        $("#teachers").on("click", function () {
-            $.ajax({
-                method: "GET",
-                url: "Dashboard/Teachers",
-                success: function (data) {
-                    $("#teacherContent").html(data);
                 },
                 error: function (err) {
                     alert(err);

@@ -9,7 +9,6 @@ namespace Services.Interfaces
     public interface IUserService
     {
         IEnumerable<UserViewModel> GetAllCourses();
-        IEnumerable<UserViewModel> GetAllTeachers();
         IEnumerable<UserViewModel> GetAllStudents();
         UserViewModel GetDetailsById(string id);
         UserViewModel UpdateById(string id);
