@@ -35,34 +35,36 @@ else
             </tr>
             @foreach (var season in Model.Courses)
             {
-        <tr class="topcourse-tr">
-            <td class="text-center" style="font-size: 28px">
-                @{ rank++; }
-                @rank
-            </td>
-            <td>
-                <div class="d-flex">
-                    <div>
-                        @if (season.ImageName == null)
-                        {
-        <img src="~/Img/default-image.png" style="width: 70px; height: 90px" /> }
-        else
-        {
-        <img alt="Image not found" src="@("~/ImageForCourse/"+season.ImageName)" asp-append-version="true" style="width: 70px; height: 90px" />}
-                    </div>
-                    <div class="pl-3">
-                        <span style="font-size: large">@season.CourseName</span>
-                        <br />
-                        <br />
-                        @season.StartDate
-                    </div>
-                </div>
-            </td>
-            <td class="text-center">
-                @season.Votes
-            </td>
-        </tr>
-                   }
+                <tr class="topcourse-tr">
+                    <td class="text-center" style="font-size: 28px">
+                        @{ rank++; }
+                        @rank
+                    </td>
+                    <td>
+                        <div class="d-flex">
+                            <div>
+                                @if (season.ImageName == null)
+                                {
+                                    <img src="~/Img/default-image.png" style="width: 70px; height: 90px" /> }
+                                else
+                                {
+                                    <img alt="Image not found" src="@("~/ImageForCourse/" + season.ImageName)" asp-append-version="true" style="width: 70px; height: 90px" />
+                                }
+                            </div>
+                            <div class="pl-3">
+                                <span style="font-size: large">@season.CourseName</span>
+                                <br />
+                                <br />
+                                @season.StartDate
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        @season.Votes
+                    </td>
+                </tr>
+            }
                 </tbody>
             </table>
-        </div>}
+        </div>
+}
