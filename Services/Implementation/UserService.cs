@@ -1,15 +1,15 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Hosting;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
+using AutoMapper;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Hosting;
 
+using Date;
 using Models.Models;
 using Services.Interfaces;
 using Services.ViewModels;
-using Date;
 
 namespace Services.Implementation
 {

@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
+using AutoMapper;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Hosting;
 
 using Date;
 using Models.Models;

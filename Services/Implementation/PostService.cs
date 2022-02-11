@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 using Date;
 using Models.Models;
 using Services.Interfaces;
 using Services.ViewModels;
-using System;
 
 namespace Services.Implementation
 {

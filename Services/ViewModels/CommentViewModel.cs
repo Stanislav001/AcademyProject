@@ -1,5 +1,6 @@
-﻿using Models.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
+using Models.Models;
 
 namespace Services.ViewModels
 {

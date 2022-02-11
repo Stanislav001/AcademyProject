@@ -1,7 +1,5 @@
 ﻿using System.Threading.Tasks;
 
-using Models.Models;
-
 namespace Services.Interfaces
 {
     public interface ICoursesUserService

@@ -1,7 +1,7 @@
-﻿using AcademyProject.Models;
+﻿using System.Diagnostics;
+using AcademyProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics;
 
 namespace AcademyProject.Controllers
 {
