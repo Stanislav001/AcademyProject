@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CourseViewModel>
+﻿@model CoursesViewModel
 @inject SignInManager<Models.Models.User> singInManager;
 
 <html>
@@ -43,7 +43,7 @@
         <a class="btn btn-outline-danger" asp-action="Create">Add New Course</a>
     }
     <div class="container">
-        @foreach (var item in Model)
+        @foreach (var item in Model.Courses)
         {
         <div class="movieCard">
             @if (item.ImageName == null)

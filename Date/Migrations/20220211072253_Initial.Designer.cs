@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Date.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220211063619_Initial")]
+    [Migration("20220211072253_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -95,14 +95,14 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4623277e-628e-45ec-81a4-013012a9dad5",
-                            ConcurrencyStamp = "ceabd398-cd39-4249-82b4-3de3eda87cbb",
+                            Id = "565b6af0-b39a-48e8-b36f-db8ed93d0caf",
+                            ConcurrencyStamp = "9ee12ed1-adc7-4c15-a714-d067ee3524c2",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "3d22dd26-6d7c-4d95-9fe5-a22f76c2ab4e",
-                            ConcurrencyStamp = "28669ef1-35f2-40bb-9783-1d6692db501a",
+                            Id = "657f1254-d090-4756-b46e-cf65a21ff90d",
+                            ConcurrencyStamp = "9c32e674-3a19-4f5d-98c7-2ea4cc3a28ec",
                             Name = "User"
                         });
                 });
@@ -250,11 +250,17 @@ namespace Date.Migrations
                     b.Property<string>("Duration")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("StudentId")
                         .HasColumnType("nvarchar(max)");
@@ -274,11 +280,12 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a85a5d4e-6d63-4146-955c-ed0f63784626",
+                            Id = "1a39d943-d6b8-44f9-8053-755f390bb9b3",
                             CourseName = "JavaScript",
                             Description = "",
                             Duration = "6",
                             Price = 800m,
+                            StartDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Votes = 0
                         });
                 });
@@ -401,7 +408,7 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "303f236f-1430-41bc-85cd-50f547fd1ac1",
+                            Id = "7c02ce7f-866a-4c5b-b532-27d7606a3660",
                             City = "Sofia",
                             CoursesNumber = 0,
                             Email = "petrov@gmail.com",
@@ -458,7 +465,7 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8fe770b3-27c1-4e75-ae2d-572f0dbef7e4",
+                            Id = "e0f152d9-8480-4721-a81f-0f2098db15f3",
                             Education = "Higher",
                             Email = "georgiev@gmail.com",
                             Experience = 6,

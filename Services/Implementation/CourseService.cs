@@ -17,13 +17,15 @@ namespace Services.Implementation
     {
         private const string IMAGE_FOLDER_NAME = "/ImageForCourse";
         private readonly IWebHostEnvironment hostEnvironment;
+        private readonly ICoursesUserService coursesUserService;
 
-        public CourseService(ApplicationDbContext dbContext, IMapper mapper, IWebHostEnvironment hostEnvironment) : base(dbContext, mapper)
+        public CourseService(ApplicationDbContext dbContext, IMapper mapper, IWebHostEnvironment hostEnvironment, ICoursesUserService coursesUserService) : base(dbContext, mapper)
         {
             this.hostEnvironment = hostEnvironment;
+            this.coursesUserService = coursesUserService;
         }
 
-        public IEnumerable<CourseViewModel> GetAll()
+        public IEnumerable<CourseViewModel> GetAll(string id)
         {
             IEnumerable<CourseViewModel> courses = this.DbContext.Courses
                 .Select(courses => new CourseViewModel
@@ -34,11 +36,14 @@ namespace Services.Implementation
                     Description = courses.Description,
                     Duration = courses.Duration,
                     ImageFile = courses.ImageFile,
-                    Price = courses.Price
+                    Price = courses.Price,
+                    StartDate = courses.StartDate,
+                    EndDate = courses.EndDate,
+                    CurrentUserIsVoted = this.coursesUserService.IsAlreadyVoted(id, courses.CourseId)
                 }).ToList();
 
             return courses;
-        }                                          
+        }
 
         public CourseViewModel GetDetailsById(string id)
         {
@@ -51,7 +56,9 @@ namespace Services.Implementation
                     Price = course.Price,
                     Duration = course.Duration,
                     ImageFile = course.ImageFile,
-                    ImageName = course.ImageName
+                    ImageName = course.ImageName,
+                    StartDate = course.StartDate,
+                    EndDate = course.EndDate
                 }).SingleOrDefault(course => course.Id == id);
 
             return course;
@@ -68,7 +75,9 @@ namespace Services.Implementation
                     Duration = course.Duration,
                     Price = course.Price,
                     ImageFile = course.ImageFile,
-                    ImageName = course.ImageName
+                    ImageName = course.ImageName,
+                    StartDate = course.StartDate,
+                    EndDate = course.EndDate
                 }).OrderBy(course => course.CourseName).ToList();
 
             return course;
@@ -93,6 +102,8 @@ namespace Services.Implementation
             course.Duration = model.Duration;
             course.ImageName = model.ImageName;
             course.ImageFile = model.ImageFile;
+            course.StartDate = model.StartDate;
+            course.EndDate = model.EndDate;
 
             if (model.ImageFile !=null)
             {
@@ -114,7 +125,9 @@ namespace Services.Implementation
                    Price = course.Price,
                    Duration = course.Duration,
                    ImageFile = course.ImageFile,
-                   ImageName = course.ImageName
+                   ImageName = course.ImageName,
+                   StartDate = course.StartDate,
+                   EndDate = course.EndDate
                 }).SingleOrDefault(course => course.Id == id);
             
             return course;
@@ -136,6 +149,8 @@ namespace Services.Implementation
             course.Price = model.Price;
             course.ImageName = model.ImageName;
             course.ImageFile = model.ImageFile;
+            course.StartDate = model.StartDate;
+            course.EndDate = model.EndDate;
 
             if (course.ImageName != null)
             {

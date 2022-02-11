@@ -8,7 +8,7 @@ namespace Services.Interfaces
 {
     public interface ICourseService
     {
-        IEnumerable<CourseViewModel> GetAll();
+        IEnumerable<CourseViewModel> GetAll(string id);
         CourseViewModel GetDetailsById(string id);
         IEnumerable<CourseViewModel> GetByName();
         Course GetByModelName(string modelName);

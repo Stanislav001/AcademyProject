@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 using Models.Models;
 using Services.Interfaces;
@@ -11,20 +13,31 @@ namespace AcademyProject.Controllers
 {
     public class CourseController : Controller
     {
-        public ICourseService courseService { get; set; }
+        private ICoursesUserService coursesUserService;
+        private UserManager<User> userManager;
+        private ICourseService courseService { get; set; }
         public IStudentService studentService { get; set; }
-        public CourseController(ICourseService service)
+        public CourseController(ICourseService service, UserManager<User> userManager, ICoursesUserService coursesUserService)
         {
-            courseService = service;
+            this.courseService = service;
+            this.userManager = userManager;
+            this.coursesUserService = coursesUserService;
         }
 
         // Show all courses
         [HttpGet]
-        public IActionResult Index()
+        [Authorize]
+        public async Task<IActionResult> Index()
         {
-            IEnumerable<CourseViewModel> courses = this.courseService.GetAll();
+            var currentUser = await this.userManager.GetUserAsync(this.User);
 
-            return this.View(courses);
+            IEnumerable<CourseViewModel> course = this.courseService.GetAll(currentUser.Id);
+
+            CoursesViewModel courseViewModel = new CoursesViewModel();
+
+            courseViewModel.Courses = course;
+
+            return this.View(courseViewModel);
         }
 
         [HttpGet]
