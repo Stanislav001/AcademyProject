@@ -21,7 +21,6 @@ namespace Models.Models
 
         [NotMapped]
         public IFormFile ImageFile { get; set; }
-        public List<Teacher> Teachers { get; set; }
         public string CourseId { get; set; }
         public string CourseName { get; set; }
         public List<CourseStudent> CourseStudents { get; set; }

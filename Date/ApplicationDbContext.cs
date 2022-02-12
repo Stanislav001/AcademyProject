@@ -16,7 +16,6 @@ namespace Date
         public DbSet<Course> Courses { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<CourseStudent> CourseStudent { get; set; }
         public DbSet<CourseUser> CourseUsers { get; set; }
@@ -57,21 +56,6 @@ namespace Date
 
             };
 
-            var teacher = new Teacher()
-            {
-                Id = Guid.NewGuid().ToString(),
-                FirstName = "Petar",
-                SecondName = "Petrov",
-                LastName = "Georgiev",
-                Education = "Higher",
-                Email = "georgiev@gmail.com",
-                Experience = 6,
-                Position = "Teacher",
-                Salary = 2000,
-                Year = 21,
-                PhoneNumber = "202-555-0108"
-            };
-
             var student = new Student()
             {
                 Id = Guid.NewGuid().ToString(),
@@ -88,7 +72,6 @@ namespace Date
             var UserRole = new IdentityRole() { Id = Guid.NewGuid().ToString(), Name = "User" };
 
             modelBuilder.Entity<Course>().HasData(course);
-            modelBuilder.Entity<Teacher>().HasData(teacher);
             modelBuilder.Entity<Student>().HasData(student);
             modelBuilder.Entity<IdentityRole>().HasData(AdminRole, UserRole);
 

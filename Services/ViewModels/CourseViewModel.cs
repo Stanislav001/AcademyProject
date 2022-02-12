@@ -18,8 +18,6 @@ namespace Services.ViewModels
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public bool CurrentUserIsVoted { get; set; }
-
-        public List<TeacherViewModel> Teachers { get; set; }
         public List<StudentViewModel> Students { get; set; }
     }
 }

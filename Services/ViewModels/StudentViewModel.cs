@@ -17,10 +17,8 @@ namespace Services.ViewModels
         public string Email { get; set; }
         public int CoursesNumber { get; set; }
         public string ImageName { get; set; }
-        public List<double> Grades;
         [NotMapped]
         public IFormFile ImageFile { get; set; }
-        public List<TeacherViewModel> Teachers { get; set; }
         public string CourseId { get; set; }
         public string CourseName { get; set; }
         public List<CourseViewModel> Courses { get; set; }
