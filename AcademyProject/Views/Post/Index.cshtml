@@ -42,7 +42,8 @@
         @foreach (var item in Model)
         {
         <div class="postCard">
-            <h1>@item.Title</h1>
+            <h1>Title: @item.UserName</h1>
+            <h4>@item.Title</h4>
             <p>By:@item.Context</p>
 
             <a class="btn btn-primary" asp-controller="Post" asp-action="LeaveComment" asp-route-id="@item.PostId">Leave comment</a>

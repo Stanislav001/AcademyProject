@@ -54,27 +54,14 @@ namespace Date
                 CourseName = "JavaScript",
                 Duration = "6",
                 Description = "",
-                Price = 800
+                Price = 0
 
-            };
-
-            var student = new Student()
-            {
-                Id = Guid.NewGuid().ToString(),
-                FirstName = "Ivan",
-                SecondName = "Hristov",
-                LastName = "Petrov",
-                City = "Sofia",
-                Email = "petrov@gmail.com",
-                PhoneNumber = "302-444-1234",
-                Year = 19
             };
 
             var AdminRole = new IdentityRole() { Id = Guid.NewGuid().ToString(), Name = "Admin" };
             var UserRole = new IdentityRole() { Id = Guid.NewGuid().ToString(), Name = "User" };
 
             modelBuilder.Entity<Course>().HasData(course);
-            modelBuilder.Entity<Student>().HasData(student);
             modelBuilder.Entity<IdentityRole>().HasData(AdminRole, UserRole);
 
             base.OnModelCreating(modelBuilder);
