@@ -11,6 +11,7 @@ namespace Date
     {
         public ApplicationDbContext()
         {
+
         }
 
         public DbSet<Course> Courses { get; set; }
@@ -19,6 +20,7 @@ namespace Date
         public DbSet<Student> Students { get; set; }
         public DbSet<CourseStudent> CourseStudent { get; set; }
         public DbSet<CourseUser> CourseUsers { get; set; }
+        public DbSet<SaveCourseUser> SaveCourseUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

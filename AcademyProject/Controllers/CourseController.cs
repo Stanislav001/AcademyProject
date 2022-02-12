@@ -15,14 +15,16 @@ namespace AcademyProject.Controllers
     public class CourseController : Controller
     {
         private ICoursesUserService coursesUserService;
+        private ISaveCourseUserService saveCourseUserService;
         private UserManager<User> userManager;
         private ICourseService courseService { get; set; }
         public IStudentService studentService { get; set; }
-        public CourseController(ICourseService service, UserManager<User> userManager, ICoursesUserService coursesUserService)
+        public CourseController(ICourseService service, UserManager<User> userManager, ICoursesUserService coursesUserService, ISaveCourseUserService saveCourseUserService)
         {
             this.courseService = service;
             this.userManager = userManager;
             this.coursesUserService = coursesUserService;
+            this.saveCourseUserService = saveCourseUserService;
         }
 
         // Show all courses
@@ -138,18 +140,6 @@ namespace AcademyProject.Controllers
             return this.View();
         }
 
-        // TODO: Refactoring
-        [HttpPost]
-        public async Task<IActionResult> AddMyCourse(CourseStudent model)
-        {
-            await studentService.AddCourseByStudentAsync(
-              model.CourseId,
-              model.StudentId);
-
-            return RedirectToAction("Index");
-        }
-
-
         [Authorize]
         public async Task<IActionResult> Enroll(string id)
         {
@@ -187,16 +177,14 @@ namespace AcademyProject.Controllers
             return this.RedirectToAction("index");
         }
 
-        // ====================
-
         [Authorize]
         public async Task<IActionResult> StartCourse(string id)
         {
             User currentUser = await this.userManager.GetUserAsync(this.User);
 
-            bool isSuccessStartedCourse = await this.coursesUserService.SaveStartedCourse(currentUser.Id, id);
+            bool isSuccessfullyStartedd = await this.saveCourseUserService.SaveStartedCourse(currentUser.Id, id);
 
-            if (isSuccessStartedCourse)
+            if (isSuccessfullyStartedd)
             {
                 this.TempData[NotificationsConstants.SUCCESS_NOTIFICATION] = NotificationsConstants.SUCCESSFUL_START_COURSE;
             }
@@ -213,9 +201,8 @@ namespace AcademyProject.Controllers
         {
             User currentUser = await this.userManager.GetUserAsync(this.User);
 
-            bool isSuccessStartedCourse = await this.coursesUserService.RemoveTheCourseAsync(currentUser.Id, id);
-
-            if (isSuccessStartedCourse)
+            bool isSuccessfullyStarted = await this.saveCourseUserService.RemoveTheCourseAsync(currentUser.Id, id);
+            if (isSuccessfullyStarted)
             {
                 this.TempData[NotificationsConstants.SUCCESS_NOTIFICATION] = NotificationsConstants.SUCCESSFUL_START_COURSE;
             }

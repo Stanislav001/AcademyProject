@@ -78,14 +78,14 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b9d4befa-d5ab-40af-b892-2795b999e06f",
-                            ConcurrencyStamp = "5dafbfc3-cf5a-41da-b719-a89b9385b3b3",
+                            Id = "191df151-392d-40fa-8b9b-829f141d009d",
+                            ConcurrencyStamp = "9bf04640-8c06-4c1e-94d9-d427779ca40a",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "bf7ea7b9-db91-439e-904a-93d9291737ec",
-                            ConcurrencyStamp = "3a2cff9c-65c7-4386-bdfd-89c620da91ba",
+                            Id = "54a6d5d7-be08-4f97-a4de-67cda3c80edb",
+                            ConcurrencyStamp = "8ee255de-5471-4742-a8a0-63ecd8df0b96",
                             Name = "User"
                         });
                 });
@@ -269,7 +269,7 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "dff5807b-21e0-4c01-a814-89c9bffb798b",
+                            Id = "44d3adc0-94cf-464d-921a-e54d37493fdb",
                             CourseName = "JavaScript",
                             Description = "",
                             Duration = "6",
@@ -351,6 +351,28 @@ namespace Date.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("Models.Models.SaveCourseUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CourseId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SaveCourseUsers");
+                });
+
             modelBuilder.Entity("Models.Models.Student", b =>
                 {
                     b.Property<string>("Id")
@@ -399,7 +421,7 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "531b4da0-d5a5-4fd0-971f-9380fe60731f",
+                            Id = "576a9ed1-7ceb-4a7c-9a26-657d843de5fb",
                             City = "Sofia",
                             CoursesNumber = 0,
                             Email = "petrov@gmail.com",
@@ -616,6 +638,25 @@ namespace Date.Migrations
                     b.HasOne("Models.Models.User", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Models.Models.SaveCourseUser", b =>
+                {
+                    b.HasOne("Models.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
 
                     b.Navigation("User");
                 });

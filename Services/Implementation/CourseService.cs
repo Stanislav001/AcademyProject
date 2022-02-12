@@ -18,11 +18,12 @@ namespace Services.Implementation
         private const string IMAGE_FOLDER_NAME = "/ImageForCourse";
         private readonly IWebHostEnvironment hostEnvironment;
         private readonly ICoursesUserService coursesUserService;
-
-        public CourseService(ApplicationDbContext dbContext, IMapper mapper, IWebHostEnvironment hostEnvironment, ICoursesUserService coursesUserService) : base(dbContext, mapper)
+        private readonly ISaveCourseUserService saveCourseUserService;
+        public CourseService(ApplicationDbContext dbContext, IMapper mapper, IWebHostEnvironment hostEnvironment, ICoursesUserService coursesUserService, ISaveCourseUserService saveCourseUserService) : base(dbContext, mapper)
         {
             this.hostEnvironment = hostEnvironment;
             this.coursesUserService = coursesUserService;
+            this.saveCourseUserService = saveCourseUserService;
         }
 
         public IEnumerable<CourseViewModel> GetAll(string id)
@@ -40,7 +41,7 @@ namespace Services.Implementation
                     StartDate = courses.StartDate,
                     EndDate = courses.EndDate,
                     CurrentUserIsVoted = this.coursesUserService.IsAlreadyVoted(id, courses.Id),
-                    isStarted = this.coursesUserService.IsAlreadyVoted(id, courses.Id)
+                    isStarted = saveCourseUserService.IsAlreadyStarted(id, courses.Id)
                 }).ToList();
 
             return courses;

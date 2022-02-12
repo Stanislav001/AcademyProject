@@ -321,6 +321,31 @@ namespace Date.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SaveCourseUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CourseId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SaveCourseUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SaveCourseUsers_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SaveCourseUsers_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CommentPost",
                 columns: table => new
                 {
@@ -349,19 +374,19 @@ namespace Date.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "b9d4befa-d5ab-40af-b892-2795b999e06f", "5dafbfc3-cf5a-41da-b719-a89b9385b3b3", "Admin", null },
-                    { "bf7ea7b9-db91-439e-904a-93d9291737ec", "3a2cff9c-65c7-4386-bdfd-89c620da91ba", "User", null }
+                    { "191df151-392d-40fa-8b9b-829f141d009d", "9bf04640-8c06-4c1e-94d9-d427779ca40a", "Admin", null },
+                    { "54a6d5d7-be08-4f97-a4de-67cda3c80edb", "8ee255de-5471-4742-a8a0-63ecd8df0b96", "User", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Courses",
                 columns: new[] { "Id", "CourseId", "CourseName", "Description", "Duration", "EndDate", "ImageName", "Price", "StartDate", "StudentId", "UserId", "Votes", "isCompleted", "isStarted" },
-                values: new object[] { "dff5807b-21e0-4c01-a814-89c9bffb798b", null, "JavaScript", "", "6", null, null, 800m, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 0, false, false });
+                values: new object[] { "44d3adc0-94cf-464d-921a-e54d37493fdb", null, "JavaScript", "", "6", null, null, 800m, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 0, false, false });
 
             migrationBuilder.InsertData(
                 table: "Students",
                 columns: new[] { "Id", "City", "CourseId", "CourseName", "CoursesNumber", "Email", "FirstName", "ImageName", "LastName", "PhoneNumber", "SecondName", "StudentNumber", "Year" },
-                values: new object[] { "531b4da0-d5a5-4fd0-971f-9380fe60731f", "Sofia", null, null, 0, "petrov@gmail.com", "Ivan", null, "Petrov", "302-444-1234", "Hristov", null, 19 });
+                values: new object[] { "576a9ed1-7ceb-4a7c-9a26-657d843de5fb", "Sofia", null, null, 0, "petrov@gmail.com", "Ivan", null, "Petrov", "302-444-1234", "Hristov", null, 19 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -436,6 +461,16 @@ namespace Date.Migrations
                 name: "IX_Posts_UserId",
                 table: "Posts",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SaveCourseUsers_CourseId",
+                table: "SaveCourseUsers",
+                column: "CourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SaveCourseUsers_UserId",
+                table: "SaveCourseUsers",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -466,6 +501,9 @@ namespace Date.Migrations
 
             migrationBuilder.DropTable(
                 name: "CourseUsers");
+
+            migrationBuilder.DropTable(
+                name: "SaveCourseUsers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

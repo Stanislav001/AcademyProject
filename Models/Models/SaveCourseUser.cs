@@ -4,7 +4,7 @@ using Models.Base;
 
 namespace Models.Models
 {
-    public class CourseUser : BaseModel
+    public class SaveCourseUser : BaseModel
     {
         [Required]
         public string CourseId { get; set; }
