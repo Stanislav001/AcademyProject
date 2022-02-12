@@ -35,6 +35,11 @@
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="@Model.StartDate" class="control-label"></label>
+                <input asp-for="@Model.StartDate" class="form-control" />
+                <span asp-validation-for="@Model.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="@Model.ImageFile" class="control-label"></label>
                 <br />
                 <input class="font-weight-bold" asp-for="@Model.ImageFile" accept="image/*" />

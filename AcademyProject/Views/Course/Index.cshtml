@@ -66,7 +66,7 @@
                     <img class="cardPhoto" src="@("~/ImageForCourse/" + item.ImageName)" asp-append-version="true" />
                 }
                 <h1>@item.CourseName</h1>
-                <p>Price: @item.Price</p>
+                <p>Start Date: @item.StartDate</p>
                 <p>Duration: @item.Duration months</p>
                 @if (item.CurrentUserIsVoted)
                 {
