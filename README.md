@@ -10,6 +10,7 @@
   ## Models <br />
   * BaseModel -> Базов клас, който се наследевя от всички класове
      - Id <br />
+     
   * User <br />
      - Id
      - Email 
@@ -17,22 +18,7 @@
      - Country 
      - ImageName 
      - ImageFile 
-     
-  * Teacher <br />
-     - Id
-     - FirstName
-     - SecondName
-     - LastName
-     - Education
-     - Year
-     - Experience 
-     - Position
-     - Salary
-     - PhoneNumber
-     - Email
-     - ImageName 
-     - ImageFile 
-     
+          
   * Student <br />
      - Id
      - FirstName
@@ -68,18 +54,18 @@
  *  BaseService -> Наследява се от всеки service
   ### Implementation 
  *  CourseService -> Основните CRUD операции, свързани със Course модела
+ *  CoursesUserService -> Логика за възможността на потребителите да дават своя глас за даден курс
+ *  TopCoursesService -> Връща топ 10 курсовете, които са оценени най-добре
  *  PostService -> Основните CRUD операции, свързани с Post модела
  *  StudentService -> Основните CRUD операции, свързани с Student модела
- *  TeacherService -> Основните CRUD операции, свързани с Teacher модела
  *  UserService -> Основните CRUD операции, свързани с User модела
   
   ### Interfaces
- *  ICourseService, IManagerService, IPostService, IStudentService, ITeacherService, 
-IUserService 
+ *  ICourseService, IManagerService, IPostService, 
+    IUserService, ITopCoursesService, IStudentService
  
   ### ViewModels -> Модели, чрез които потребителите правят промени по главните модели:
- * CommentViewModel.cs, CourseViewMode, ManagerViewModel, PostViewModeL, StudentViewModel, 
-TeacherViewModel, UserViewModel
+ * CommentViewModel.cs, CourseViewMode, ManagerViewModel, PostViewModeL, StudentViewModel, UserViewModel, TopCourseViewModel, GetAllTopCoursesViewModel
 
   ## Controllers <br />
  * HomeController
@@ -87,7 +73,7 @@ TeacherViewModel, UserViewModel
  * DashboardController
  * PostController
  * StudentController
- * TeacherController
  * UserController
+ * TopCoursesController
 
    ## Views<br />
