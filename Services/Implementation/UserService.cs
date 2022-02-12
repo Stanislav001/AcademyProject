@@ -158,5 +158,17 @@ namespace Services.Implementation
 
             return courses;
         }
+
+        public IEnumerable<UserViewModel> GetAllPosts()
+        {
+            IEnumerable<UserViewModel> posts = this.DbContext.Posts
+                .Select(post => new UserViewModel
+                {
+                    PostTitle = post.UserName,
+                    UserName = post.Context
+                }).ToList();
+
+            return posts;
+        }
     }
 }

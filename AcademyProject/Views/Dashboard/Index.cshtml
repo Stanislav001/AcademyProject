@@ -66,6 +66,7 @@
                 <li><a class="my-nav-link" asp-controller="Student" asp-action="Index"><span class="sidebar-icon"><i class="fa fa-calendar"></i></span><span class="menu-title">Manage Students</span></a></li>
             }
             <li> <a class="my-nav-link" asp-controller="TopCourses" asp-action="Index"><span class="sidebar-icon"><i class="fa fa-bookmark"></i></span> <span class="menu-title">Top Courses</span></a></li>
+            <li> <a class="my-nav-link" asp-controller="Course" asp-action="ShoMyCourses" asp-route-id="@Model.Id"><span class="sidebar-icon"><i class="fa fa-bookmark"></i></span> <span class="menu-title">Show My Courses</span></a></li>
             <li> <a class="my-nav-link nav-link" asp-controller="Home" asp-action="Index"><span class="sidebar-icon"><i class="fa fa-sign-out"></i></span> <span class="menu-title">Sign Out</span></a></li>
         </ul>
     </div>
@@ -77,7 +78,7 @@
             <div class="col-md-6">
                 <section class="box">
                     <h5>Course List</h5>
-                    <button id="courses" class="btn btn-danger">Show me courses</button>
+                    <button id="courses" class="btn btn-danger">Show list of courses</button>
                     <div id="courseContent">
 
                     </div>
@@ -88,8 +89,8 @@
 
             <div class="col-md-12">
                 <section class="box">
-                    <h5>Show my courses</h5>
-                    <button id="students" class="btn btn-danger">Show my Courses</button>
+                    <h5>Show all Posts</h5>
+                    <button id="posts" class="btn btn-danger">Show all Posts</button>
                     <div id="content">
 
                     </div>
@@ -101,10 +102,10 @@
 
 @section Scripts{
     <script>
-        $("#students").on("click", function () {
+        $("#posts").on("click", function () {
             $.ajax({
                 method: "GET",
-                url: "Dashboard/Students",
+                url: "Dashboard/Posts",
                 success: function (data) {
                     $("#content").html(data);
                 },

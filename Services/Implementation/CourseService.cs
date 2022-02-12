@@ -13,7 +13,7 @@ using Services.ViewModels;
 
 namespace Services.Implementation
 {
-    public class CourseService : BaseService , ICourseService
+    public class CourseService : BaseService, ICourseService
     {
         private const string IMAGE_FOLDER_NAME = "/ImageForCourse";
         private readonly IWebHostEnvironment hostEnvironment;
@@ -107,7 +107,7 @@ namespace Services.Implementation
             course.StartDate = model.StartDate;
             course.EndDate = model.EndDate;
 
-            if (model.ImageFile !=null)
+            if (model.ImageFile != null)
             {
                 await SetImage(course);
             }
@@ -121,17 +121,17 @@ namespace Services.Implementation
             CourseViewModel course = this.DbContext.Courses
                 .Select(course => new CourseViewModel
                 {
-                   Id = course.Id,
-                   CourseName = course.CourseName,
-                   Description = course.Description,
-                   Price = course.Price,
-                   Duration = course.Duration,
-                   ImageFile = course.ImageFile,
-                   ImageName = course.ImageName,
-                   StartDate = course.StartDate,
-                   EndDate = course.EndDate
+                    Id = course.Id,
+                    CourseName = course.CourseName,
+                    Description = course.Description,
+                    Price = course.Price,
+                    Duration = course.Duration,
+                    ImageFile = course.ImageFile,
+                    ImageName = course.ImageName,
+                    StartDate = course.StartDate,
+                    EndDate = course.EndDate
                 }).SingleOrDefault(course => course.Id == id);
-            
+
             return course;
         }
 

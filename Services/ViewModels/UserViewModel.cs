@@ -22,16 +22,14 @@ namespace Services.ViewModels
         public string StudentPhoneNumber { get; set; }
         public string StudentEmail { get; set; }
 
-        // Teacher info
-        public string TeacherFirstName { get; set; }
-        public string TeacherSecondName { get; set; }
-        public string TeacherLastName { get; set; }
-        public string TeacherPhoneNumber { get; set; }
-        public string TeacherEmail { get; set; }
-
         // Course Info
         public string CourseName { get; set; }
         public decimal CoursePrice { get; set; }
         public string CourseDuration { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+
+        // Post Info
+        public string PostTitle { get; set; }
     }
 }

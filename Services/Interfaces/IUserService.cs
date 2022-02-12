@@ -14,5 +14,6 @@ namespace Services.Interfaces
         UserViewModel UpdateById(string id);
         Task UpdateAsync(UserViewModel model);
         public IEnumerable<User> GetAllUsernames(string userId);
+        public IEnumerable<UserViewModel> GetAllPosts();
     }
 }

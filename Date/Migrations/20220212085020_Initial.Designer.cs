@@ -4,14 +4,16 @@ using Date;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Date.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220212085020_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,14 +80,14 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "43475417-be0e-4773-8e6a-7f4410375b6c",
-                            ConcurrencyStamp = "dcd41b64-8880-4d70-897e-3d1157e05e2d",
+                            Id = "b9d4befa-d5ab-40af-b892-2795b999e06f",
+                            ConcurrencyStamp = "5dafbfc3-cf5a-41da-b719-a89b9385b3b3",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "d4f9d61d-8149-4d60-805b-f59e18b96164",
-                            ConcurrencyStamp = "54c26a70-a0fe-4b73-93aa-44fd8e94ccad",
+                            Id = "bf7ea7b9-db91-439e-904a-93d9291737ec",
+                            ConcurrencyStamp = "3a2cff9c-65c7-4386-bdfd-89c620da91ba",
                             Name = "User"
                         });
                 });
@@ -269,7 +271,7 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "07764004-80da-4a97-ab88-ab681671d900",
+                            Id = "dff5807b-21e0-4c01-a814-89c9bffb798b",
                             CourseName = "JavaScript",
                             Description = "",
                             Duration = "6",
@@ -351,28 +353,6 @@ namespace Date.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("Models.Models.SaveCourseUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CourseId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("SaveCourseUsers");
-                });
-
             modelBuilder.Entity("Models.Models.Student", b =>
                 {
                     b.Property<string>("Id")
@@ -421,7 +401,7 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5a262537-4aa6-48a7-b0bf-aabd5777f956",
+                            Id = "531b4da0-d5a5-4fd0-971f-9380fe60731f",
                             City = "Sofia",
                             CoursesNumber = 0,
                             Email = "petrov@gmail.com",
@@ -638,25 +618,6 @@ namespace Date.Migrations
                     b.HasOne("Models.Models.User", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Models.Models.SaveCourseUser", b =>
-                {
-                    b.HasOne("Models.Models.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
 
                     b.Navigation("User");
                 });

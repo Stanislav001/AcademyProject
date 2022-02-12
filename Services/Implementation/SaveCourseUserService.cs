@@ -20,7 +20,6 @@ namespace Services.Implementation
             this.dbContext = dbContext;
         }
 
-
         public async Task<bool> SaveStartedCourse(string userId, string courseId)
         {
             await CheckIfUserAndCourseExistAsync(userId, courseId);

@@ -1,0 +1,19 @@
+﻿@model List<UserViewModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">By:</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>@item.PostTitle</td>
+                <td>@item.UserName</td>
+            </tr>
+        </tbody>
+    }
+</table>

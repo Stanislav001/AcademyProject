@@ -37,5 +37,11 @@ namespace AcademyProject.Controllers
 
             return PartialView("_CourseDashboardPartial", courses);
         }
+        public IActionResult Posts()
+        {
+            IEnumerable<UserViewModel> posts = _userService.GetAllPosts();
+
+            return PartialView("_PostDashboardPartial", posts);
+        }
     }
 }
