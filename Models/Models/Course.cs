@@ -19,6 +19,8 @@ namespace Models.Models
         public string Duration { get; set; }
         public int Votes { get; set; }
         public string ImageName { get; set; }
+        public bool isStarted { get; set; }
+        public bool isCompleted { get; set; }
 
         [NotMapped]
         public IFormFile ImageFile { get; set; }

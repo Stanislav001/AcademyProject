@@ -186,5 +186,45 @@ namespace AcademyProject.Controllers
 
             return this.RedirectToAction("index");
         }
+
+        // ====================
+
+        [Authorize]
+        public async Task<IActionResult> StartCourse(string id)
+        {
+            User currentUser = await this.userManager.GetUserAsync(this.User);
+
+            bool isSuccessStartedCourse = await this.coursesUserService.SaveStartedCourse(currentUser.Id, id);
+
+            if (isSuccessStartedCourse)
+            {
+                this.TempData[NotificationsConstants.SUCCESS_NOTIFICATION] = NotificationsConstants.SUCCESSFUL_START_COURSE;
+            }
+            else
+            {
+                this.TempData[NotificationsConstants.WARNING_NOTIFICATION] = NotificationsConstants.ALREADY_STARTED;
+            }
+
+            return this.RedirectToAction("index");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> unStarted(string id)
+        {
+            User currentUser = await this.userManager.GetUserAsync(this.User);
+
+            bool isSuccessStartedCourse = await this.coursesUserService.RemoveTheCourseAsync(currentUser.Id, id);
+
+            if (isSuccessStartedCourse)
+            {
+                this.TempData[NotificationsConstants.SUCCESS_NOTIFICATION] = NotificationsConstants.SUCCESSFUL_START_COURSE;
+            }
+            else
+            {
+                this.TempData[NotificationsConstants.WARNING_NOTIFICATION] = NotificationsConstants.ALREADY_STARTED;
+            }
+
+            return this.RedirectToAction("index");
+        }
     }
 }

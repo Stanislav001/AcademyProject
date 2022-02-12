@@ -49,21 +49,6 @@ namespace Date.Migrations
                     b.ToTable("CommentUser");
                 });
 
-            modelBuilder.Entity("CourseTeacher", b =>
-                {
-                    b.Property<string>("CoursesId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("TeachersId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("CoursesId", "TeachersId");
-
-                    b.HasIndex("TeachersId");
-
-                    b.ToTable("CourseTeacher");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -93,14 +78,14 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "565b6af0-b39a-48e8-b36f-db8ed93d0caf",
-                            ConcurrencyStamp = "9ee12ed1-adc7-4c15-a714-d067ee3524c2",
+                            Id = "b9d4befa-d5ab-40af-b892-2795b999e06f",
+                            ConcurrencyStamp = "5dafbfc3-cf5a-41da-b719-a89b9385b3b3",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "657f1254-d090-4756-b46e-cf65a21ff90d",
-                            ConcurrencyStamp = "9c32e674-3a19-4f5d-98c7-2ea4cc3a28ec",
+                            Id = "bf7ea7b9-db91-439e-904a-93d9291737ec",
+                            ConcurrencyStamp = "3a2cff9c-65c7-4386-bdfd-89c620da91ba",
                             Name = "User"
                         });
                 });
@@ -269,6 +254,12 @@ namespace Date.Migrations
                     b.Property<int>("Votes")
                         .HasColumnType("int");
 
+                    b.Property<bool>("isCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isStarted")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
@@ -278,13 +269,15 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1a39d943-d6b8-44f9-8053-755f390bb9b3",
+                            Id = "dff5807b-21e0-4c01-a814-89c9bffb798b",
                             CourseName = "JavaScript",
                             Description = "",
                             Duration = "6",
                             Price = 800m,
                             StartDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Votes = 0
+                            Votes = 0,
+                            isCompleted = false,
+                            isStarted = false
                         });
                 });
 
@@ -406,7 +399,7 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7c02ce7f-866a-4c5b-b532-27d7606a3660",
+                            Id = "531b4da0-d5a5-4fd0-971f-9380fe60731f",
                             City = "Sofia",
                             CoursesNumber = 0,
                             Email = "petrov@gmail.com",
@@ -415,65 +408,6 @@ namespace Date.Migrations
                             PhoneNumber = "302-444-1234",
                             SecondName = "Hristov",
                             Year = 19
-                        });
-                });
-
-            modelBuilder.Entity("Models.Models.Teacher", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Education")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Experience")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Position")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("SecondName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Teachers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "e0f152d9-8480-4721-a81f-0f2098db15f3",
-                            Education = "Higher",
-                            Email = "georgiev@gmail.com",
-                            Experience = 6,
-                            FirstName = "Petar",
-                            LastName = "Georgiev",
-                            PhoneNumber = "202-555-0108",
-                            Position = "Teacher",
-                            Salary = 2000m,
-                            SecondName = "Petrov",
-                            Year = 21
                         });
                 });
 
@@ -551,21 +485,6 @@ namespace Date.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("StudentTeacher", b =>
-                {
-                    b.Property<string>("StudentsId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("TeachersId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("StudentsId", "TeachersId");
-
-                    b.HasIndex("TeachersId");
-
-                    b.ToTable("StudentTeacher");
-                });
-
             modelBuilder.Entity("CommentPost", b =>
                 {
                     b.HasOne("Models.Models.Comment", null)
@@ -592,21 +511,6 @@ namespace Date.Migrations
                     b.HasOne("Models.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CourseTeacher", b =>
-                {
-                    b.HasOne("Models.Models.Course", null)
-                        .WithMany()
-                        .HasForeignKey("CoursesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.Models.Teacher", null)
-                        .WithMany()
-                        .HasForeignKey("TeachersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -714,21 +618,6 @@ namespace Date.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("StudentTeacher", b =>
-                {
-                    b.HasOne("Models.Models.Student", null)
-                        .WithMany()
-                        .HasForeignKey("StudentsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.Models.Teacher", null)
-                        .WithMany()
-                        .HasForeignKey("TeachersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Models.Models.Course", b =>

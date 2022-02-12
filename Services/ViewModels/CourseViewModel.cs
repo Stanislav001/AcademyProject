@@ -17,6 +17,8 @@ namespace Services.ViewModels
         public IFormFile ImageFile { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
+        public bool isStarted { get; set; }
+        public bool isCompleted { get; set; }
         public bool CurrentUserIsVoted { get; set; }
         public List<StudentViewModel> Students { get; set; }
     }

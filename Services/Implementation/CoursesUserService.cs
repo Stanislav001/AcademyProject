@@ -126,5 +126,91 @@ namespace Services.Implementation
                 throw new ArgumentException(ExeptionConstants.NOT_EXISTING_USER_ERROR_MESSAGE);
             }
         }
+
+        // ==========================================
+
+        public async Task<bool> SaveStartedCourse(string userId, string courseId)
+        {
+            await CheckIfUserAndCourseExistAsync(userId, courseId);
+
+            if (this.IsAlreadyStarted(userId, courseId))
+            {
+                return false;
+            }
+
+            CourseUser courseUser = new CourseUser()
+            {
+                UserId = userId,
+                CourseId = courseId,
+            };
+
+            await AddNewCourse(courseId);
+
+            await this.dbContext.CourseUsers.AddAsync(courseUser);
+            await this.dbContext.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> RemoveTheCourseAsync(string userId, string courseId)
+        {
+            await CheckIfUserAndCourseExistAsync(userId, courseId);
+
+            if (this.IsAlreadyStarted(userId, courseId) == false)
+            {
+                return false;
+            }
+
+            CourseUser courseUser = GetVoted(userId, courseId);
+            await RemoveCourse(courseId);
+
+            this.dbContext.CourseUsers.Remove(courseUser);
+            await this.dbContext.SaveChangesAsync();
+
+            return true;
+        }
+
+        public bool IsAlreadyStarted(string userId, string courseId)
+        {
+            CourseUser courseUser = GetVoted(userId, courseId);
+
+            bool isAlreadyVoted = courseUser != null;
+
+            return isAlreadyVoted;
+        }
+
+        public async Task AddNewCourse(string courseId)
+        {
+            Course course = this.dbContext.Courses
+                .Where(m => m.Id == courseId)
+                .SingleOrDefault();
+
+            course.isStarted = true;
+
+            this.dbContext.Update(course);
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task RemoveCourse(string courseId)
+        {
+            Course course = this.dbContext.Courses
+                .Where(x => x.Id == courseId)
+                .SingleOrDefault();
+
+            course.isStarted = false;
+
+            this.dbContext.Update(course);
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        private CourseUser GetStarted(string userId, string courseId)
+        {
+            CourseUser courseUser = this.dbContext.CourseUsers
+                .Where(x => x.UserId == userId && x.CourseId == courseId)
+                .FirstOrDefault();
+
+            return courseUser;
+        }
+
     }
 }

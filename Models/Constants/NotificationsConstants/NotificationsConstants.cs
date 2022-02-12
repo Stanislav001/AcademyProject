@@ -10,10 +10,12 @@ namespace Models.Constants.NotificationsConstants
 
         // Votes notifications constants
 
-        public const string SUCCESSFUL_VOTING = "Successfully voted for this hero!";
-        public const string ALREADY_VOTED = "You have already voted for this hero!";
-        public const string SUCCESSFUL_UNVOTED = "Successfully unvoted from the hero!";
-        public const string ALREADY_UNVOTED = "Already unvoted for this hero!";
+        public const string SUCCESSFUL_VOTING = "Successfully voted for this course!";
+        public const string SUCCESSFUL_START_COURSE = "Successfully start this course!";
+        public const string ALREADY_VOTED = "You have already voted for this course!";
+        public const string ALREADY_STARTED = "You have already start this course!";
+        public const string SUCCESSFUL_UNVOTED = "Successfully unvoted from the course!";
+        public const string ALREADY_UNVOTED = "Already unvoted for this course!";
 
     }
 }
