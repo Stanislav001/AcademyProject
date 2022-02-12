@@ -78,14 +78,14 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "43475417-be0e-4773-8e6a-7f4410375b6c",
-                            ConcurrencyStamp = "dcd41b64-8880-4d70-897e-3d1157e05e2d",
+                            Id = "d445ce6c-5959-456b-8151-5e9ee2c7520d",
+                            ConcurrencyStamp = "61a5b88b-4982-409b-9bcb-2f0691289fcb",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "d4f9d61d-8149-4d60-805b-f59e18b96164",
-                            ConcurrencyStamp = "54c26a70-a0fe-4b73-93aa-44fd8e94ccad",
+                            Id = "4f303fb7-ec65-4e59-af64-0f85c6ec11f0",
+                            ConcurrencyStamp = "9756ad33-981b-43e2-abd6-1faef9ff9af1",
                             Name = "User"
                         });
                 });
@@ -269,11 +269,11 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "07764004-80da-4a97-ab88-ab681671d900",
+                            Id = "e7a3f986-af0c-49d7-9911-5eb37cfa0eb2",
                             CourseName = "JavaScript",
                             Description = "",
                             Duration = "6",
-                            Price = 800m,
+                            Price = 0m,
                             StartDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Votes = 0,
                             isCompleted = false,
@@ -417,20 +417,6 @@ namespace Date.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Students");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "5a262537-4aa6-48a7-b0bf-aabd5777f956",
-                            City = "Sofia",
-                            CoursesNumber = 0,
-                            Email = "petrov@gmail.com",
-                            FirstName = "Ivan",
-                            LastName = "Petrov",
-                            PhoneNumber = "302-444-1234",
-                            SecondName = "Hristov",
-                            Year = 19
-                        });
                 });
 
             modelBuilder.Entity("Models.Models.User", b =>

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Date.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220212115807_Initial")]
+    [Migration("20220212153624_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,14 +80,14 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "191df151-392d-40fa-8b9b-829f141d009d",
-                            ConcurrencyStamp = "9bf04640-8c06-4c1e-94d9-d427779ca40a",
+                            Id = "d445ce6c-5959-456b-8151-5e9ee2c7520d",
+                            ConcurrencyStamp = "61a5b88b-4982-409b-9bcb-2f0691289fcb",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "54a6d5d7-be08-4f97-a4de-67cda3c80edb",
-                            ConcurrencyStamp = "8ee255de-5471-4742-a8a0-63ecd8df0b96",
+                            Id = "4f303fb7-ec65-4e59-af64-0f85c6ec11f0",
+                            ConcurrencyStamp = "9756ad33-981b-43e2-abd6-1faef9ff9af1",
                             Name = "User"
                         });
                 });
@@ -271,11 +271,11 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "44d3adc0-94cf-464d-921a-e54d37493fdb",
+                            Id = "e7a3f986-af0c-49d7-9911-5eb37cfa0eb2",
                             CourseName = "JavaScript",
                             Description = "",
                             Duration = "6",
-                            Price = 800m,
+                            Price = 0m,
                             StartDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Votes = 0,
                             isCompleted = false,
@@ -419,20 +419,6 @@ namespace Date.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Students");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "576a9ed1-7ceb-4a7c-9a26-657d843de5fb",
-                            City = "Sofia",
-                            CoursesNumber = 0,
-                            Email = "petrov@gmail.com",
-                            FirstName = "Ivan",
-                            LastName = "Petrov",
-                            PhoneNumber = "302-444-1234",
-                            SecondName = "Hristov",
-                            Year = 19
-                        });
                 });
 
             modelBuilder.Entity("Models.Models.User", b =>

@@ -372,21 +372,17 @@ namespace Date.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[,]
-                {
-                    { "191df151-392d-40fa-8b9b-829f141d009d", "9bf04640-8c06-4c1e-94d9-d427779ca40a", "Admin", null },
-                    { "54a6d5d7-be08-4f97-a4de-67cda3c80edb", "8ee255de-5471-4742-a8a0-63ecd8df0b96", "User", null }
-                });
+                values: new object[] { "d445ce6c-5959-456b-8151-5e9ee2c7520d", "61a5b88b-4982-409b-9bcb-2f0691289fcb", "Admin", null });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "4f303fb7-ec65-4e59-af64-0f85c6ec11f0", "9756ad33-981b-43e2-abd6-1faef9ff9af1", "User", null });
 
             migrationBuilder.InsertData(
                 table: "Courses",
                 columns: new[] { "Id", "CourseId", "CourseName", "Description", "Duration", "EndDate", "ImageName", "Price", "StartDate", "StudentId", "UserId", "Votes", "isCompleted", "isStarted" },
-                values: new object[] { "44d3adc0-94cf-464d-921a-e54d37493fdb", null, "JavaScript", "", "6", null, null, 800m, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 0, false, false });
-
-            migrationBuilder.InsertData(
-                table: "Students",
-                columns: new[] { "Id", "City", "CourseId", "CourseName", "CoursesNumber", "Email", "FirstName", "ImageName", "LastName", "PhoneNumber", "SecondName", "StudentNumber", "Year" },
-                values: new object[] { "576a9ed1-7ceb-4a7c-9a26-657d843de5fb", "Sofia", null, null, 0, "petrov@gmail.com", "Ivan", null, "Petrov", "302-444-1234", "Hristov", null, 19 });
+                values: new object[] { "e7a3f986-af0c-49d7-9911-5eb37cfa0eb2", null, "JavaScript", "", "6", null, null, 0m, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 0, false, false });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
