@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Date.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220212153624_Initial")]
+    [Migration("20220213080632_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,14 +80,14 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d445ce6c-5959-456b-8151-5e9ee2c7520d",
-                            ConcurrencyStamp = "61a5b88b-4982-409b-9bcb-2f0691289fcb",
+                            Id = "e2081df2-f034-4a3b-be11-1b4a9089cdce",
+                            ConcurrencyStamp = "13f1e53e-6c2d-4a5d-ac2e-1fba3de4f3c0",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "4f303fb7-ec65-4e59-af64-0f85c6ec11f0",
-                            ConcurrencyStamp = "9756ad33-981b-43e2-abd6-1faef9ff9af1",
+                            Id = "e0da0030-17ca-4726-8012-d7c6adff43d4",
+                            ConcurrencyStamp = "675ca5fe-da9e-4851-84dd-9b7c59dd6220",
                             Name = "User"
                         });
                 });
@@ -271,7 +271,7 @@ namespace Date.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e7a3f986-af0c-49d7-9911-5eb37cfa0eb2",
+                            Id = "22a37386-d382-4f02-98f8-81e6f42c9c33",
                             CourseName = "JavaScript",
                             Description = "",
                             Duration = "6",
@@ -281,27 +281,6 @@ namespace Date.Migrations
                             isCompleted = false,
                             isStarted = false
                         });
-                });
-
-            modelBuilder.Entity("Models.Models.CourseStudent", b =>
-                {
-                    b.Property<string>("CourseId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("StudentId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CourseName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StudentName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CourseId", "StudentId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("CourseStudent");
                 });
 
             modelBuilder.Entity("Models.Models.CourseUser", b =>
@@ -373,52 +352,6 @@ namespace Date.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("SaveCourseUsers");
-                });
-
-            modelBuilder.Entity("Models.Models.Student", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CourseId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CourseName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CoursesNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SecondName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StudentNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("Models.Models.User", b =>
@@ -583,25 +516,6 @@ namespace Date.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("Models.Models.CourseStudent", b =>
-                {
-                    b.HasOne("Models.Models.Course", "Course")
-                        .WithMany("CourseStudents")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.Models.Student", "Student")
-                        .WithMany("CourseStudents")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-
-                    b.Navigation("Student");
-                });
-
             modelBuilder.Entity("Models.Models.CourseUser", b =>
                 {
                     b.HasOne("Models.Models.Course", "Course")
@@ -651,14 +565,7 @@ namespace Date.Migrations
 
             modelBuilder.Entity("Models.Models.Course", b =>
                 {
-                    b.Navigation("CourseStudents");
-
                     b.Navigation("CourseUser");
-                });
-
-            modelBuilder.Entity("Models.Models.Student", b =>
-                {
-                    b.Navigation("CourseStudents");
                 });
 
             modelBuilder.Entity("Models.Models.User", b =>

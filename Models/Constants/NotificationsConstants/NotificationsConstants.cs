@@ -1,5 +1,4 @@
-﻿
-namespace Models.Constants.NotificationsConstants
+﻿namespace Models.Constants.NotificationsConstants
 {
     public class NotificationsConstants
     {

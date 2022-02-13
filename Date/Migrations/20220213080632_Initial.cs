@@ -65,29 +65,6 @@ namespace Date.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Students",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    StudentNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecondName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Year = table.Column<int>(type: "int", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CoursesNumber = table.Column<int>(type: "int", nullable: false),
-                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CourseId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CourseName = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Students", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -270,32 +247,6 @@ namespace Date.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CourseStudent",
-                columns: table => new
-                {
-                    CourseId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CourseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StudentName = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CourseStudent", x => new { x.CourseId, x.StudentId });
-                    table.ForeignKey(
-                        name: "FK_CourseStudent_Courses_CourseId",
-                        column: x => x.CourseId,
-                        principalTable: "Courses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CourseStudent_Students_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "Students",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CourseUsers",
                 columns: table => new
                 {
@@ -372,17 +323,17 @@ namespace Date.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "d445ce6c-5959-456b-8151-5e9ee2c7520d", "61a5b88b-4982-409b-9bcb-2f0691289fcb", "Admin", null });
+                values: new object[] { "e2081df2-f034-4a3b-be11-1b4a9089cdce", "13f1e53e-6c2d-4a5d-ac2e-1fba3de4f3c0", "Admin", null });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "4f303fb7-ec65-4e59-af64-0f85c6ec11f0", "9756ad33-981b-43e2-abd6-1faef9ff9af1", "User", null });
+                values: new object[] { "e0da0030-17ca-4726-8012-d7c6adff43d4", "675ca5fe-da9e-4851-84dd-9b7c59dd6220", "User", null });
 
             migrationBuilder.InsertData(
                 table: "Courses",
                 columns: new[] { "Id", "CourseId", "CourseName", "Description", "Duration", "EndDate", "ImageName", "Price", "StartDate", "StudentId", "UserId", "Votes", "isCompleted", "isStarted" },
-                values: new object[] { "e7a3f986-af0c-49d7-9911-5eb37cfa0eb2", null, "JavaScript", "", "6", null, null, 0m, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 0, false, false });
+                values: new object[] { "22a37386-d382-4f02-98f8-81e6f42c9c33", null, "JavaScript", "", "6", null, null, 0m, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 0, false, false });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -439,11 +390,6 @@ namespace Date.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseStudent_StudentId",
-                table: "CourseStudent",
-                column: "StudentId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CourseUsers_CourseId",
                 table: "CourseUsers",
                 column: "CourseId");
@@ -493,9 +439,6 @@ namespace Date.Migrations
                 name: "CommentUser");
 
             migrationBuilder.DropTable(
-                name: "CourseStudent");
-
-            migrationBuilder.DropTable(
                 name: "CourseUsers");
 
             migrationBuilder.DropTable(
@@ -509,9 +452,6 @@ namespace Date.Migrations
 
             migrationBuilder.DropTable(
                 name: "Comments");
-
-            migrationBuilder.DropTable(
-                name: "Students");
 
             migrationBuilder.DropTable(
                 name: "Courses");

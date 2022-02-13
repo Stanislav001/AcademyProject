@@ -40,7 +40,6 @@ namespace Date
                 Duration = "6",
                 Description = "",
                 Price = 0
-
             };
 
             var AdminRole = new IdentityRole() { Id = Guid.NewGuid().ToString(), Name = "Admin" };
