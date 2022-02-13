@@ -18,18 +18,6 @@
      - Country 
      - ImageName 
      - ImageFile 
-          
-  * Student <br />
-     - Id
-     - FirstName
-     - SecondName
-     - LastName
-     - Year
-     - City
-     - PhoneNumber
-     - Email
-     - ImageName
-     - ImageFile
      
   * Course <br />
      - Id
@@ -57,22 +45,21 @@
  *  CoursesUserService -> Логика за възможността на потребителите да дават своя глас за даден курс
  *  TopCoursesService -> Връща топ 10 курсовете, които са оценени най-добре
  *  PostService -> Основните CRUD операции, свързани с Post модела
- *  StudentService -> Основните CRUD операции, свързани с Student модела
  *  UserService -> Основните CRUD операции, свързани с User модела
+ *  SaveCourseUserService - > Съдържа логиката, която дава възможност на потребителите да записват даден курс
   
   ### Interfaces
  *  ICourseService, IManagerService, IPostService, 
-    IUserService, ITopCoursesService, IStudentService
+    IUserService, ITopCoursesService, ISaveCourseUserService
  
   ### ViewModels -> Модели, чрез които потребителите правят промени по главните модели:
- * CommentViewModel.cs, CourseViewMode, ManagerViewModel, PostViewModeL, StudentViewModel, UserViewModel, TopCourseViewModel, GetAllTopCoursesViewModel
+ * CommentViewModel.cs, CourseViewMode, ManagerViewModel, PostViewModeL, UserViewModel, TopCourseViewModel, GetAllTopCoursesViewModel, SaveCourseUser
 
   ## Controllers <br />
  * HomeController
  * CourseController
  * DashboardController
  * PostController
- * StudentController
  * UserController
  * TopCoursesController
 
