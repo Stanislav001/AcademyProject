@@ -26,7 +26,6 @@ namespace Models.Models
         public IFormFile ImageFile { get; set; }
         public string CourseId { get; set; }
         public string StudentId { get; set; }
-        public List<CourseStudent> CourseStudents { get; set; }
         public List<CourseUser> CourseUser { get; set; }
     }
 }

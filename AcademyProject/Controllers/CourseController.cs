@@ -18,7 +18,6 @@ namespace AcademyProject.Controllers
         private ISaveCourseUserService saveCourseUserService;
         private UserManager<User> userManager;
         private ICourseService courseService { get; set; }
-        public IStudentService studentService { get; set; }
         public CourseController(ICourseService service, UserManager<User> userManager, ICoursesUserService coursesUserService, ISaveCourseUserService saveCourseUserService)
         {
             this.courseService = service;
@@ -129,15 +128,6 @@ namespace AcademyProject.Controllers
             await this.courseService.DeleteAsync(id);
 
             return this.RedirectToAction("index");
-        }
-
-        //TODO:
-        // Course-Student 
-        [HttpGet]
-        public IActionResult AddMyCourse(string id)
-        {
-            this.ViewData["Courses"] = courseService.GetDetailsById(id);
-            return this.View();
         }
 
         [Authorize]

@@ -17,26 +17,11 @@ namespace Date
         public DbSet<Course> Courses { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<Student> Students { get; set; }
-        public DbSet<CourseStudent> CourseStudent { get; set; }
         public DbSet<CourseUser> CourseUsers { get; set; }
         public DbSet<SaveCourseUser> SaveCourseUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CourseStudent>()
-                        .HasKey(bc => new { bc.CourseId, bc.StudentId });
-
-            modelBuilder.Entity<CourseStudent>()
-                        .HasOne(bc => bc.Course)
-                        .WithMany(b => b.CourseStudents)
-                        .HasForeignKey(bc => bc.CourseId); 
-
-            modelBuilder.Entity<CourseStudent>()
-                        .HasOne(bc => bc.Student)
-                        .WithMany(c => c.CourseStudents)
-                        .HasForeignKey(bc => bc.StudentId);
-
             modelBuilder.Entity<CourseUser>()
                         .HasOne(x => x.Course)
                         .WithMany(u => u.CourseUser)

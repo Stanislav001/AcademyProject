@@ -20,6 +20,5 @@ namespace Services.ViewModels
         public bool isStarted { get; set; }
         public bool isCompleted { get; set; }
         public bool CurrentUserIsVoted { get; set; }
-        public List<StudentViewModel> Students { get; set; }
     }
 }
