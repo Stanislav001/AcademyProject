@@ -62,5 +62,3 @@
  * PostController
  * UserController
  * TopCoursesController
-
-   ## Views<br />
